@@ -60,10 +60,12 @@ create table location (
         references user_info(user_id)
 );
 create table college_info(
-	`name` varchar(150) unique not null, 
+	`name` varchar(150) not null, 
     address varchar(150) not null 
 ); 
 insert into college_info(`name`, address)
 select distinct LocationName, Address from imports; 
+
+
 
 
