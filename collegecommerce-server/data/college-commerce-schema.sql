@@ -7,26 +7,29 @@ create table user_info (
     username varchar(50) not null,
     email varchar(200) not null,
     password_hash varchar(1024) not null,
-    image_url varchar(512) null
+    image_url varchar(512) null, 
+    constraint uq unique (username, email)
 );
 
 create table item (
 	item_id int primary key auto_increment,
     name varchar(100) not null,
-    price decimal not null,
+    price decimal(8,2) not null,
     description varchar(300),
     item_condition varchar(50),
     item_sold boolean,
     category varchar(100),
-    image_url varchar(512) null
+    image_url varchar(512) null, 
+    constraint uq unique (name ,price , description)
 );
 
 create table service (
 	service_id int primary key auto_increment,
     name varchar(100) not null,
     description varchar(300),
-    price_per_hour decimal not null,
-    category varchar(100)
+    price_per_hour decimal(8,2) not null,
+    category varchar(100), 
+    constraint uq unique (name, description, price_per_hour)
 );
 
 create table listing (
@@ -43,7 +46,8 @@ create table listing (
         references item(item_id),
 	constraint fk_listing_service_id
 		foreign key (service_id)
-        references service(service_id)
+        references service(service_id), 
+    constraint uq unique (user_id, item_id, service_id)
 );
 
 create table location (
@@ -61,11 +65,11 @@ create table location (
 );
 create table college_info(
 	`name` varchar(150) not null, 
-    address varchar(150) not null 
+    address varchar(150) not null, 
+    constraint uq unique (`name`, address)
 ); 
 insert into college_info(`name`, address)
 select distinct LocationName, Address from imports; 
-
 
 
 
