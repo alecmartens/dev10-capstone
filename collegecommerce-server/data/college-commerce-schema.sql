@@ -55,7 +55,15 @@ create table location (
 	region varchar(25) null,
     country_code varchar(5) not null,
     postal_code varchar(15) not null,
-    constraint fk_listing_user_id
+    constraint fk_location_user_id
 		foreign key (user_id)
         references user_info(user_id)
 );
+create table college_info(
+	`name` varchar(150) unique not null, 
+    address varchar(150) not null 
+); 
+insert into college_info(`name`, address)
+select distinct LocationName, Address from imports; 
+
+
