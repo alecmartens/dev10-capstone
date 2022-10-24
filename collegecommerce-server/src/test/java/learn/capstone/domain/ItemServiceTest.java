@@ -178,7 +178,6 @@ class ItemServiceTest {
     @Test
     void shouldDelete() {
         ItemResult result = service.deleteByItemId(1);
-
         System.out.println(result.getErrorMessages().get(0));
         assertTrue(result.isSuccess());
     }
