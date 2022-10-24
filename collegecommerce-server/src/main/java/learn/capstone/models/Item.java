@@ -21,8 +21,9 @@ public class Item {
     private String category; //Enum???
     private String imageUrl;
 
-    public Item(int itemId, BigDecimal price, String description, String itemCondition, boolean itemSold, String category, String imageUrl) {
+    public Item(int itemId, String name, BigDecimal price, String description, String itemCondition, boolean itemSold, String category, String imageUrl) {
         this.itemId = itemId;
+        this.name = name;
         this.price = price;
         this.description = description;
         this.itemCondition = itemCondition;

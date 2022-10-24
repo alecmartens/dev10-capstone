@@ -62,7 +62,7 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
 
     @Override
     public Item create(Item item) {
-        final String sql = "insert into college_commerce " +
+        final String sql = "insert into college_commerce.item " +
                 "(name, price, description, item_condition, item_sold, category, image_url) " +
                 "values (?, ?, ?, ?, ?, ?, ?);";
 
@@ -91,14 +91,14 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
 
     @Override
     public boolean update(Item item) {
-        final String sql = "update college_commerce set " +
+        final String sql = "update college_commerce.item set " +
                 "name = ?, " +
                 "price = ?, " +
                 "description = ?, " +
                 "item_condition = ?, " +
                 "item_sold = ?, " +
                 "category = ?, " +
-                "image_url = ?, " +
+                "image_url = ? " +
                 "where item_id = ?;";
 
         int rowsUpdated = jdbcTemplate.update(sql,
@@ -110,13 +110,28 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                 item.getCategory(),
                 item.getImageUrl(),
                 item.getItemId());
-
+        System.out.println(rowsUpdated);
         return rowsUpdated > 0;
     }
 
     @Override
     public boolean deleteByItemId(int itemId) {
-        final String sql = "delete from college_commerce where item_id = ?;";
+        final String sql = "delete from college_commerce.item where item_id = ?;";
         return jdbcTemplate.update(sql,itemId) > 0;
+    }
+
+    //This method takes an item and prints it's contents to sout
+    @Override
+    public void printItem(Item item) {
+        String result =
+                "itemId: " + item.getItemId() +
+                        " name: " + item.getName() +
+                        " price: " + item.getPrice() +
+                        " description: " + item.getDescription() +
+                        " itemCondition: " + item.getItemCondition() +
+                        " itemSold: " + item.isItemSold() +
+                        " category: " + item.getCategory() +
+                        " imageUrl: " + item.getImageUrl();
+        System.out.println(result);
     }
 }

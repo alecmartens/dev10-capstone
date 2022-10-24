@@ -14,4 +14,5 @@ public interface ItemRepository {
     boolean update(Item item);
 
     boolean deleteByItemId(int itemId);
+    public void printItem(Item item);
 }
