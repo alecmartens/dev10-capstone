@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/item")
-@CrossOrigin
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class ItemController {
     private final ItemService service;
     private ResponseEntity<Object> objectResponseEntity;
@@ -41,7 +41,9 @@ public class ItemController {
     }
 
     @PutMapping("/{itemId}")
-    public ResponseEntity<?> update(@PathVariable int itemId, @RequestBody Item item) {
+    public ResponseEntity<Object> update(@PathVariable int itemId, @RequestBody Item item) {
+        System.out.println(itemId);
+        System.out.println(item.getItemId());
         if (itemId != item.getItemId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT); // 409
         }

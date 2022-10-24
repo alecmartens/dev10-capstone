@@ -1,0 +1,38 @@
+GET http://localhost:8080/api/item
+
+###
+
+POST http://localhost:8080/api/item
+Content-Type: application/json
+
+{
+    "name":"basketball",
+    "price":20,
+    "description":"basketball",
+    "item_condition":"good",
+    "item_sold":true,
+    "category":"sports",
+    "image_url":"test"
+}
+
+###
+
+DELETE http://localhost:8080/api/item/3
+
+###
+PUT http://localhost:8080/api/item/6
+Content-Type: application/json
+
+{
+    "name":"baseball",
+    "price":10,
+    "description":"baseball",
+    "item_condition":"good",
+    "item_sold":true,
+    "category":"sports",
+    "image_url":"test"
+}
+
+###
+
+DELETE http://localhost:8080/api/item/6
