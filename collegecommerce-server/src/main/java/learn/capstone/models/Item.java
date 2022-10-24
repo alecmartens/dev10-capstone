@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 //    constraint uq unique (name ,price , description)
 public class Item {
     private int itemId;
+    private String name;
     private BigDecimal price;
     private String description;
     private String itemCondition;
@@ -39,6 +40,14 @@ public class Item {
 
     public void setItemId(int itemId) {
         this.itemId = itemId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public BigDecimal getPrice() {
