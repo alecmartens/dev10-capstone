@@ -1,11 +1,12 @@
 package learn.capstone.domain;
 
-import learn.capstone.Data.ItemRepository;
+import learn.capstone.data.ItemRepository;
 import learn.capstone.models.Item;
+import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
+@Service
 public class ItemService {
     private final ItemRepository repository;
     public ItemService(ItemRepository repository) {
@@ -34,7 +35,10 @@ public class ItemService {
 
     public ItemResult update(Item item) {
         ItemResult result = validate(item);
-        if (item.getItemId() <= 0) {
+        if (item == null) {
+            result.addErrorMessage("Item cannot be null.", ResultType.INVALID);
+        }
+        else if (item.getItemId() <= 0) {
             result.addErrorMessage("item_id is required for update", ResultType.INVALID);
         }
         if (result.isSuccess()) {
@@ -65,19 +69,29 @@ public class ItemService {
             result.addErrorMessage("Item cannot be null.", ResultType.INVALID);
             return result;
         }
-        if (item.getName().equals("") || item.getName().equals(null)) {
-            result.addErrorMessage("Item name cannot be blank or null.", ResultType.INVALID);
+        if (item.getName() == null) {
+            result.addErrorMessage("Item name cannot be null.", ResultType.INVALID);
         }
-        if ((item.getPrice().doubleValue() <= 0) || item.getPrice() == null) {
+        else if (item.getName().equals("")) {
+            result.addErrorMessage("Item name cannot be blank.", ResultType.INVALID);
+        }
+        if (item.getPrice() == null) {
+            result.addErrorMessage("Price cannot be null", ResultType.INVALID);
+        }
+        else if (item.getPrice().doubleValue() <= 0) {
             result.addErrorMessage("Price must be greater than 0.", ResultType.INVALID);
         }
         if(result.isSuccess()) {
-            List<Item> items = repository.findAll();//get all items
+            List<Item> items = findAll();//get all items
+            System.out.println(items.size());
             for (Item i: items) {//check for duplicate combos
-                if(i.getItemId() != item.getItemId() &&
-                    i.getName().equalsIgnoreCase(item.getName()) &&
-                    i.getPrice().equals(item.getPrice()) &&
-                    i.getDescription().equalsIgnoreCase(item.getDescription())) {
+                System.out.println(i.getName());
+                System.out.println(item.getName());
+                //if(i.getItemId() != item.getItemId() &&
+                if (i.getName().equalsIgnoreCase(item.getName())) {//&&
+                    //i.getPrice().equals(item.getPrice()) &&
+                    //i.getDescription().equalsIgnoreCase(item.getDescription())) {
+                    System.out.println("found");
                     result.addErrorMessage("Cannot have a duplicate item. (name, price and description must be unique)", ResultType.INVALID);
                 }
             }

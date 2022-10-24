@@ -1,4 +1,4 @@
-package learn.capstone.Data;
+package learn.capstone.data;
 
 import learn.capstone.models.Item;
 import org.springframework.jdbc.core.JdbcTemplate;
