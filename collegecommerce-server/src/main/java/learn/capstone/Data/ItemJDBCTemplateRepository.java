@@ -22,7 +22,7 @@ import java.util.List;
 //    constraint uq unique (name ,price , description)
 
 @Repository
-public class ItemJDBCTemplateRepository {
+public class ItemJDBCTemplateRepository implements ItemRepository {
     private final JdbcTemplate jdbcTemplate;
     public ItemJDBCTemplateRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -43,6 +43,7 @@ public class ItemJDBCTemplateRepository {
         return item;
     };
 
+    @Override
     public List<Item> findAll() {
         final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url " +
                 "from college_commerce.item ";
@@ -50,6 +51,7 @@ public class ItemJDBCTemplateRepository {
         return jdbcTemplate.query(sql, mapper);
     }
 
+    @Override
     public Item findByItemId(int itemId) {
         final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url " +
                 "from college_commerce.item " +
@@ -58,6 +60,7 @@ public class ItemJDBCTemplateRepository {
         return jdbcTemplate.query(sql, mapper, itemId).stream().findFirst().orElse(null);
     }
 
+    @Override
     public Item create(Item item) {
         final String sql = "insert into college_commerce " +
                 "(name, price, description, item_condition, item_sold, category, image_url) " +
@@ -68,8 +71,8 @@ public class ItemJDBCTemplateRepository {
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, item.getName());
             statement.setBigDecimal(2, item.getPrice());
-                    statement.setString(3,item.getDescription())
-                    statement.setString(4,item.getItemCondition())
+                    statement.setString(3,item.getDescription());
+                    statement.setString(4,item.getItemCondition());
                     statement.setBoolean(5,item.isItemSold());
                     statement.setString(6,item.getCategory());
                     statement.setString(7, item.getImageUrl());
@@ -86,6 +89,7 @@ public class ItemJDBCTemplateRepository {
         return item;
     }
 
+    @Override
     public boolean update(Item item) {
         final String sql = "update college_commerce set " +
                 "name = ?, " +
@@ -110,6 +114,7 @@ public class ItemJDBCTemplateRepository {
         return rowsUpdated > 0;
     }
 
+    @Override
     public boolean deleteByItemId(int itemId) {
         final String sql = "delete from college_commerce where item_id = ?;";
         return jdbcTemplate.update(sql,itemId) > 0;
