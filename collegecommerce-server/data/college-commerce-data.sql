@@ -14,7 +14,7 @@ values ("desk", 150.50, "wooden desk, two drawers", "like new", false, "furnitur
 --     category varchar(100)
 -- );
 insert into service(name, description, price_per_hour, category) 
-values ("moving furniture", "lift anything under 70 lbs", 50.00,"furnitue", "handyman"); 
+values ("moving furniture", "lift anything under 70 lbs", 50.00,"furnitue"); 
 
 -- create table user_info (
 -- 	user_id int primary key auto_increment,
