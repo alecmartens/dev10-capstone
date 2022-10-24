@@ -1,0 +1,58 @@
+GET http://localhost:8080/api/service
+
+###
+
+POST http://localhost:8080/api/service
+Content-Type: application/json
+
+{
+    "name":"mail delivery",
+    "description":"mail",
+    "pricePerHour":5.99,
+    "category":"mail"
+}
+
+###
+
+DELETE http://localhost:8080/api/service/4
+
+###
+PUT http://localhost:8080/api/service/4
+Content-Type: application/json
+
+{
+    "serviceId":30,
+    "name":"mail delivery2",
+    "description":"mail2",
+    "pricePerHour":5.99,
+    "category":"mail"
+}
+
+###
+
+POST http://localhost:8080/api/service
+Content-Type: application/json
+
+{
+    "name":"mail",
+    "description":"mail5",
+    "pricePerHour":5.99,
+    "category":"mail"
+}
+
+###
+PUT http://localhost:8080/api/service/5
+Content-Type: application/json
+
+{
+    "serviceId":5,
+    "name":"mail 8",
+    "description":"mail2",
+    "pricePerHour":7.00,
+    "category":"mail"
+}
+
+###
+
+DELETE http://localhost:8080/api/service/5
+
