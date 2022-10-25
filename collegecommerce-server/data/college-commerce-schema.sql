@@ -70,6 +70,22 @@ create table college_info(
 ); 
 insert into college_info(`name`, address)
 select distinct LocationName, Address from imports; 
+select * from college_info; 
+delimiter //
+create procedure set_known_good_state()
+begin
+insert into service(name, description, price_per_hour, category) 
+values ("delivering food", "pizza", 50.00,"food"),
+ ("pet service", "any pet", 50.00,"pets"),
+ ("setup fridge", "lift anything under 100 lbs", 50.00,"furniture"); 
+
+end //
+-- 4. Change the statement terminator back to the original.
+delimiter ;
+SET SQL_SAFE_UPDATES = 0;
+call set_known_good_state(); 
+-- select * from service; 
+-- delete from service; 
 
 
 
