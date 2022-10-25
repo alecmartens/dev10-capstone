@@ -83,14 +83,15 @@ public class ItemService {
         }
         if(result.isSuccess()) {
             List<Item> items = findAll();//get all items
-            System.out.println(items.size());
+            System.out.println("Size:" + items.size());
             for (Item i: items) {//check for duplicate combos
-                System.out.println(i.getName());
-                System.out.println(item.getName());
+                //System.out.println(i.getName());
+                //System.out.println(item.getName());
                 //if(i.getItemId() != item.getItemId() &&
-                if (i.getName().equalsIgnoreCase(item.getName()) &&
-                    i.getPrice().equals(item.getPrice()) &&
-                    i.getDescription().equalsIgnoreCase(item.getDescription())) {
+                if (i.getName().equalsIgnoreCase(item.getName())  &&
+                i.getDescription().equalsIgnoreCase(item.getDescription())) {
+                    //i.getPrice().equals(item.getPrice()) &&
+
                     System.out.println("found");
                     result.addErrorMessage("Cannot have a duplicate item. (name, price and description must be unique)", ResultType.INVALID);
                 }
