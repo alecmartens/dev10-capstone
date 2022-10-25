@@ -32,6 +32,27 @@ create table service (
     constraint uq unique (name, description, price_per_hour)
 );
 
+create table service_availability(
+	service_id int primary key not null, 
+	begin_time varchar(45) not null, 
+    end_time varchar(45) not null, 
+    constraint uq unique(service_id, begin_time, end_time), 
+    constraint fk foreign key (service_id) references service(service_id)
+); 
+
+insert into service_availability(service_id, begin_time, end_time) 
+values(1, '2023-06-18 01:00:00', '2023-06-18 05:00:00'); 
+select * from service_availability; 
+create table service_booked_times(
+	service_id int primary key not null, 
+	begin_time varchar(45) not null, 
+    end_time varchar(45) not null, 
+    constraint uq unique(service_id, begin_time, end_time), 
+    constraint fk_b foreign key (service_id) references service(service_id)
+); 
+insert into service_booked_times(service_id, begin_time, end_time) 
+values(1, '2023-06-20 01:00:00', '2023-06-20 05:00:00'); 
+select * from service_booked_times; 
 create table listing (
 	listing_id int primary key auto_increment,
     is_available boolean,
@@ -75,17 +96,14 @@ delimiter //
 create procedure set_known_good_state()
 begin
 insert into service(name, description, price_per_hour, category) 
-values ("delivering food", "pizza", 50.00,"food"),
- ("pet service", "any pet", 50.00,"pets"),
- ("setup fridge", "lift anything under 100 lbs", 50.00,"furniture"); 
+values ("delivering food", "pizza", 50.00,'DELIVERY'),
+ ("pet service", "any pet", 50.00,'DELIVERY'),
+ ("setup fridge", "lift anything under 100 lbs", 50.00,'DELIVERY'); 
 
 end //
 -- 4. Change the statement terminator back to the original.
 delimiter ;
 SET SQL_SAFE_UPDATES = 0;
 call set_known_good_state(); 
--- select * from service; 
+select * from service; 
 -- delete from service; 
-
-
-
