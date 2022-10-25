@@ -2,7 +2,7 @@
 -- create database college_commerce; 
 use college_commerce;
 -- import data table wizard csv file, named imports
-drop table if exists college_info; 
+-- drop table if exists college_info; 
 create table college_info(
 	`name` varchar(150) not null, 
     address varchar(150) not null 
