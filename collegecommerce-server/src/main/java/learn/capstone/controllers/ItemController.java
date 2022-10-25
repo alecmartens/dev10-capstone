@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/item")
-@CrossOrigin(origins = {"http://localhost:3000"})
 public class ItemController {
     private final ItemService service;
     private ResponseEntity<Object> objectResponseEntity;
