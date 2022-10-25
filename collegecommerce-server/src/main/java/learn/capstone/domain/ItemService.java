@@ -88,9 +88,9 @@ public class ItemService {
                 System.out.println(i.getName());
                 System.out.println(item.getName());
                 //if(i.getItemId() != item.getItemId() &&
-                if (i.getName().equalsIgnoreCase(item.getName())) {//&&
-                    //i.getPrice().equals(item.getPrice()) &&
-                    //i.getDescription().equalsIgnoreCase(item.getDescription())) {
+                if (i.getName().equalsIgnoreCase(item.getName()) &&
+                    i.getPrice().equals(item.getPrice()) &&
+                    i.getDescription().equalsIgnoreCase(item.getDescription())) {
                     System.out.println("found");
                     result.addErrorMessage("Cannot have a duplicate item. (name, price and description must be unique)", ResultType.INVALID);
                 }

@@ -24,7 +24,8 @@ PUT http://localhost:8080/api/item/6
 Content-Type: application/json
 
 {
-    "name":"baseball",
+    "itemId":6,
+    "name":"bball",
     "price":10,
     "description":"baseball",
     "item_condition":"good",
