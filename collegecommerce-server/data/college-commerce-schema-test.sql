@@ -1,6 +1,6 @@
-drop database if exists college_commerce;
-create database college_commerce;
-use college_commerce;
+drop database if exists college_commerce_test;
+create database college_commerce_test;
+use college_commerce_test;
 
 create table user_info (
 	user_id int primary key auto_increment,
@@ -38,7 +38,7 @@ create table item (
     item_sold boolean,
     category varchar(100),
     image_url varchar(512) null, 
-    constraint uq unique (name , description)
+    constraint uq unique (name ,price , description)
 );
 
 create table service (
@@ -86,29 +86,33 @@ create table college_info(
     address varchar(150) not null, 
     constraint uq unique (`name`, address)
 ); 
-insert into college_info(`name`, address)
-select distinct LocationName, Address from imports; 
-select * from college_info;
+-- insert into college_info(`name`, address)
+-- select distinct LocationName, Address from imports; 
 
 insert into app_role (app_role_id, name) values (1, "USER"), (2, "ADMIN");
 
 delimiter //
 create procedure set_known_good_state()
 begin
-insert into service(name, description, price_per_hour, category) 
-values ("delivering food", "pizza", 50.00,"food"),
- ("pet service", "any pet", 50.00,"pets"),
- ("setup fridge", "lift anything under 100 lbs", 50.00,"furniture"); 
+	SET FOREIGN_KEY_CHECKS = 0;
+	truncate table user_info;
+    truncate table service;
+
+	insert into user_info (username, email, password_hash, image_url)
+		values
+		("JohnDoe", "johndoe@gmail.com", 
+        "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidWctc2FmYXJpIiwic3ViIjoiYm9iQGpvbmVzLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjM4NzQ5NTU1fQ.mc6LUfd-80L2f5Do80-QlfYnwzn_JX3_CH3V31-yaEw",
+        ""),
+        ("JaneSmith", "janesmith24@gmail.com", 
+        "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidWctc2FmYXJpIiwic3ViIjoiYm9iQGpvbmVzLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjM4NzQ5NTU1fQ.mc6LUfd-80L2f5Do80-QlfYnwzn_JX3_CH3V31-yaEw",
+        "");
+
+    insert into service(name, description, price_per_hour, category)
+    values ("delivering food", "pizza", 50.00,"food"),
+    ("pet service", "any pet", 50.00,"pets"),
+    ("setup fridge", "lift anything under 100 lbs", 50.00,"furniture");
 
 end //
--- 4. Change the statement terminator back to the original.
 delimiter ;
 SET SQL_SAFE_UPDATES = 0;
-call set_known_good_state(); 
--- select * from service; 
--- delete from service; 
-
-
-
-
-
+SET FOREIGN_KEY_CHECKS = 1;
