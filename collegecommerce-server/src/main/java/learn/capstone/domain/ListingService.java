@@ -69,6 +69,9 @@ public class ListingService {
             result.addErrorMessage("Listing cannot be null.", ResultType.INVALID);
             return result;
         }
+        if (listing.getUserId() < 1) {
+            result.addErrorMessage("userId must be greater than 0.", ResultType.INVALID);
+        }
         if (listing.getItemId() > 0 && listing.getServiceId() > 0) {
             result.addErrorMessage("itemId and serviceId cannot both be greater than 0", ResultType.INVALID);
         }
