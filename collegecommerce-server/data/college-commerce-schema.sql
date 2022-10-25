@@ -20,7 +20,7 @@ create table item (
     item_sold boolean,
     category varchar(100),
     image_url varchar(512) null, 
-    constraint uq unique (name ,price , description)
+    constraint uq unique (name , description)
 );
 
 create table service (
