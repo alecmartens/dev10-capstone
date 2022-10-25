@@ -14,7 +14,7 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8080/api/service/4
+DELETE http://localhost:8080/api/service/1
 
 ###
 PUT http://localhost:8080/api/service/4

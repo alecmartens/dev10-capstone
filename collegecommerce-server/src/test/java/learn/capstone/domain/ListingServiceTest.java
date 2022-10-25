@@ -4,6 +4,7 @@ import learn.capstone.data.ItemRepository;
 import learn.capstone.data.ListingRepository;
 import learn.capstone.models.Item;
 import learn.capstone.models.Listing;
+import learn.capstone.models.Service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class ListingServiceTest {
@@ -153,7 +155,13 @@ class ListingServiceTest {
         listing.setUserId(1);
         listing.setItemId(1);
         listing.setServiceId(0);
-        ListingResult result = service.update(listing);
+
+        Listing mock = listing;
+        mock.setListingId(1);
+        when(repository.findByListingId(1)).thenReturn(mock);
+        when(repository.update(mock)).thenReturn(true);
+
+        ListingResult result = service.update(mock);
         assertTrue(result.isSuccess());
     }
 
@@ -166,8 +174,17 @@ class ListingServiceTest {
 
     @Test
     void shouldDelete() {
+        Listing listing = new Listing();
+        listing.setAvailable(true);
+        listing.setUserId(1);
+        listing.setItemId(1);
+        listing.setServiceId(0);
+        Listing mock = listing;
+        mock.setServiceId(1);
+
+        when(repository.deleteByListingId(1)).thenReturn(true);
+        when(repository.findByListingId(1)).thenReturn(mock);
         ListingResult result = service.deleteByListingId(1);
-        System.out.println(result.getErrorMessages().get(0));
         assertTrue(result.isSuccess());
     }
 }
