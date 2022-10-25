@@ -8,8 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class ItemServiceTest {
@@ -180,5 +182,24 @@ class ItemServiceTest {
         ItemResult result = service.deleteByItemId(1);
         System.out.println(result.getErrorMessages().get(0));
         assertTrue(result.isSuccess());
+    }
+
+    @Test
+    void shouldNotCreateDuplicateItem() {
+        Item item = new Item();
+        item.setName("desk");
+        item.setPrice(BigDecimal.valueOf(150.50));
+        item.setDescription("wooden desk, two drawers");
+        item.setItemCondition("like new");
+        item.setItemSold(false);
+        item.setCategory("furniture");
+        item.setImageUrl(null);
+
+        when(repository.findAll()).thenReturn(List.of(item));
+
+        ItemResult result = service.create(item);
+        assertFalse(result.isSuccess());
+        assertEquals(1, result.getErrorMessages().size());
+        System.out.println(result.getErrorMessages().get(0));
     }
 }

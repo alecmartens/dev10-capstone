@@ -93,7 +93,7 @@ public class ItemService {
                     //i.getPrice().equals(item.getPrice()) &&
 
                     System.out.println("found");
-                    result.addErrorMessage("Cannot have a duplicate item. (name, price and description must be unique)", ResultType.INVALID);
+                    result.addErrorMessage("Cannot have a duplicate item. (name and description must be unique)", ResultType.INVALID);
                 }
             }
         }
