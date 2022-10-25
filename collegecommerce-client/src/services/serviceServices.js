@@ -65,7 +65,6 @@ export async function save(service) {
 }
 
 export async function deleteById(serviceId) {
-    return Promise.reject();
     const init = { method: "DELETE" };
     const response = await fetch(`${SERVICE_API_URL}/${serviceId}`, init);
     if (response.ok) {
