@@ -59,45 +59,38 @@ public class ListingService {
         return result;
     }
 
-    //name and price cannot be null
-    //there cannot be the same combination of name, price and description
-    //price must be greater than 0
-    //Add an upper bound for price?? (ex.$100,000)
+    //A listing must have one (itemId, serviceId) greater than 0, and the other one = 0
+    //Listing cannot be null
+    //listingId, itemId, serviceId cannot be null
+    //No duplicate userId, itemId, serviceId
     private ListingResult validate(Listing listing) {
         ListingResult result = new ListingResult();
         if (listing == null) {
             result.addErrorMessage("Listing cannot be null.", ResultType.INVALID);
             return result;
         }
-        if (listing.getName() == null) {
-            result.addErrorMessage("Listing name cannot be null.", ResultType.INVALID);
+        if (listing.getItemId() > 0 && listing.getServiceId() > 0) {
+            result.addErrorMessage("itemId and serviceId cannot both be greater than 0", ResultType.INVALID);
         }
-        else if (listing.getName().equals("")) {
-            result.addErrorMessage("Listing name cannot be blank.", ResultType.INVALID);
+        else if (listing.getItemId() == 0 && listing.getServiceId() == 0) {
+            result.addErrorMessage("itemId and serviceId cannot both be equal to 0", ResultType.INVALID);
         }
-        if (listing.getPrice() == null) {
-            result.addErrorMessage("Price cannot be null", ResultType.INVALID);
-        }
-        else if (listing.getPrice().doubleValue() <= 0) {
-            result.addErrorMessage("Price must be greater than 0.", ResultType.INVALID);
+        else if ((listing.getItemId() < 0 || listing.getServiceId() < 0)) {
+            result.addErrorMessage("itemId or serviceId cannot be less than 0", ResultType.INVALID);
         }
         if(result.isSuccess()) {
             List<Listing> listings = findAll();//get all listings
             System.out.println("Size:" + listings.size());
-            for (Listing i: listings) {//check for duplicate combos
-                //System.out.println(i.getName());
-                //System.out.println(listing.getName());
-                //if(i.getListingId() != listing.getListingId() &&
-                if (i.getName().equalsIgnoreCase(listing.getName())  &&
-                        i.getDescription().equalsIgnoreCase(listing.getDescription())) {
-                    //i.getPrice().equals(listing.getPrice()) &&
-
+            for (Listing l: listings) {//check for duplicate combos
+                //No duplicate userId, itemId, serviceId
+                if (listing.getUserId() == l.getUserId() &&
+                    listing.getItemId() == l.getItemId() &&
+                    listing.getServiceId() == l.getServiceId()) {
                     System.out.println("found");
-                    result.addErrorMessage("Cannot have a duplicate listing. (name and description must be unique)", ResultType.INVALID);
+                    result.addErrorMessage("Cannot have a duplicate listing. (userId, itemId, serviceId must be unique)", ResultType.INVALID);
                 }
             }
         }
-
         return result;
     }
 }
