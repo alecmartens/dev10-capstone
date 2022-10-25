@@ -1,6 +1,7 @@
 package learn.capstone.data;
 
 import learn.capstone.models.Item;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,12 +15,16 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class ItemJDBCTemplateRepositoryTest {
     @Autowired
-    private ItemJDBCTemplateRepository repository;
+    ItemJDBCTemplateRepository repository;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    KnownGoodState knownGoodState;
+
 //    static boolean hasSetup = false;
+//
 //    @BeforeEach
 //    void setup() {
 //        if (!hasSetup) {
@@ -32,15 +37,10 @@ class ItemJDBCTemplateRepositoryTest {
     void shouldFindAll() {
         List<Item> result = repository.findAll();
         assertNotNull(result);
+        System.out.println(result.size());
         assertTrue(result.size() > 2);
         System.out.println(result.size());
         System.out.println(result.get(0).getName());
-
-        //(name, price, description, item_condition, item_sold, category)
-        //("desk", 150.50, "wooden desk, two drawers", "like new", false, "furniture"),
-//        Item item = new Item(1, "desk", BigDecimal.valueOf(150.50), "wooden desk, two drawers",
-//                "like new", false, "furniture", null);
-//        assertTrue(result.contains(item));
     }
 
     @Test
