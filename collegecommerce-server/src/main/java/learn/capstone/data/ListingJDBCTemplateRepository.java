@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -16,6 +17,7 @@ import java.util.List;
 //    user_id int not null,
 //    item_id int,
 //    service_id int,
+@Repository
 public class ListingJDBCTemplateRepository implements ListingRepository {
     private final JdbcTemplate jdbcTemplate;
     public ListingJDBCTemplateRepository(JdbcTemplate jdbcTemplate) {
@@ -83,7 +85,7 @@ public class ListingJDBCTemplateRepository implements ListingRepository {
                 "is_available = ?, " +
                 "user_id = ?, " +
                 "item_id = ?, " +
-                "service_id = ?, " +
+                "service_id = ? " +
                 "where listing_id = ?;";
 
         int rowsUpdated = jdbcTemplate.update(sql,
@@ -92,7 +94,7 @@ public class ListingJDBCTemplateRepository implements ListingRepository {
                 listing.getItemId(),
                 listing.getServiceId(),
                 listing.getListingId());
-        System.out.println(rowsUpdated);
+        System.out.println("Rows updated: " + rowsUpdated);
         return rowsUpdated > 0;
     }
 

@@ -41,12 +41,12 @@ create table listing (
     constraint fk_listing_user_id
 		foreign key (user_id)
         references user_info(user_id),
-	constraint fk_listing_item_id
-		foreign key (item_id)
-        references item(item_id),
-	constraint fk_listing_service_id
-		foreign key (service_id)
-        references service(service_id), 
+	-- constraint fk_listing_item_id
+-- 		foreign key (item_id)
+--         references item(item_id),
+-- 	constraint fk_listing_service_id
+-- 		foreign key (service_id)
+--         references service(service_id), 
     constraint uq unique (user_id, item_id, service_id)
 );
 
@@ -78,6 +78,16 @@ insert into service(name, description, price_per_hour, category)
 values ("delivering food", "pizza", 50.00,"food"),
  ("pet service", "any pet", 50.00,"pets"),
  ("setup fridge", "lift anything under 100 lbs", 50.00,"furniture"); 
+
+insert into user_info(username, email, password_hash)
+values("johnnyappleseed", "johnnyappleseed@apple.com", "apple"),
+("georgewashington","georgewashington@gmail.com","george"),
+("billyjoel","joelbilly@hotmail.com","bill");
+
+insert into listing(is_available, user_id, item_id, service_id)
+values(true, 1, 1, 0),
+(false,2,0,1),
+(true,3,2,0);
 
 end //
 -- 4. Change the statement terminator back to the original.
