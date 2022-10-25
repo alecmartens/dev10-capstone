@@ -1,0 +1,40 @@
+GET http://localhost:8080/api/listing
+
+###
+
+GET http://localhost:8080/api/listing/1
+
+###
+
+POST http://localhost:8080/api/listing
+Content-Type: application/json
+
+{
+    "is_available":true,
+    "user_id":4,
+    "item_id":2,
+    "service_id":0
+}
+
+###
+
+DELETE http://localhost:8080/api/listing/2
+
+###
+PUT http://localhost:8080/api/listing/7
+Content-Type: application/json
+
+{
+    "itemId":7,
+    "name":"bball",
+    "price":10,
+    "description":"baseball",
+    "item_condition":"good",
+    "item_sold":true,
+    "category":"sports",
+    "image_url":"test"
+}
+
+###
+
+DELETE http://localhost:8080/api/listing/6

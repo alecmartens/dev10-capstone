@@ -64,6 +64,7 @@ public class ListingService {
     //listingId, itemId, serviceId cannot be null
     //No duplicate userId, itemId, serviceId
     private ListingResult validate(Listing listing) {
+        repository.printListing(listing);
         ListingResult result = new ListingResult();
         if (listing == null) {
             result.addErrorMessage("Listing cannot be null.", ResultType.INVALID);
