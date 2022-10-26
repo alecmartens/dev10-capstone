@@ -69,7 +69,7 @@ class ItemJDBCTemplateRepositoryTest {
         //Run shouldCreate before this test
         //update the item created in the above test
         Item item = new Item();
-        item.setItemId(6);
+        item.setItemId(1);
         item.setName("Update Name");
         item.setPrice(BigDecimal.valueOf(100));
         item.setDescription("Update Description");
@@ -81,14 +81,14 @@ class ItemJDBCTemplateRepositoryTest {
         assertTrue(repository.update(item));
 //        assertEquals(item, repository.findByItemId(6));
         repository.printItem(item);
-        repository.printItem(repository.findByItemId(6));
+        repository.printItem(repository.findByItemId(1));
     }
 
     @Test
     void shouldDelete() {
         //Run shouldCreate before this test
         int before = repository.findAll().size();
-        assertTrue(repository.deleteByItemId(6));
+        assertTrue(repository.deleteByItemId(3));
         int after = repository.findAll().size();
         assertEquals(1, before - after);//check that there is one less item in the list
     }

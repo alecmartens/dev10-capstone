@@ -98,6 +98,7 @@ begin
 	truncate table user_info;
     truncate table service;
 	truncate table item;
+    truncate table listing;
 
 	insert into user_info (username, email, password_hash, image_url)
 		values
@@ -120,10 +121,10 @@ values ("desk", 150.50, "wooden desk, two drawers", "like new", false, "furnitur
 ("Chair", 151.50, "small, gray", "new", false, "furniture"),
 ("Bike", 152.50, "Black, light", "new", false, "outdoor"); 
 
--- insert into listing(is_available, user_id, item_id, service_id)
--- values(true, 1, 1, 0),
--- (false,2,0,1),
--- (true,3,2,0); 
+insert into listing(is_available, user_id, item_id, service_id)
+values(true, 1, 1, 0),
+(false,2,0,1),
+(true,3,2,0); 
 
 end //
 delimiter ;

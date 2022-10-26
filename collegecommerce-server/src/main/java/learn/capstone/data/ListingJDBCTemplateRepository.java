@@ -39,7 +39,7 @@ public class ListingJDBCTemplateRepository implements ListingRepository {
     @Override
     public List<Listing> findAll() {
         final String sql = "select listing_id, is_available, user_id, item_id, service_id " +
-                "from college_commerce.listing ";
+                "from listing ";
 
         return jdbcTemplate.query(sql, mapper);
     }
@@ -47,7 +47,7 @@ public class ListingJDBCTemplateRepository implements ListingRepository {
     @Override
     public Listing findByListingId(int listingId) {
         final String sql = "select listing_id, is_available, user_id, item_id, service_id " +
-                "from college_commerce.listing " +
+                "from listing " +
                 "where listing_id = ?";
 
         return jdbcTemplate.query(sql, mapper, listingId).stream().findFirst().orElse(null);
@@ -55,7 +55,7 @@ public class ListingJDBCTemplateRepository implements ListingRepository {
 
     @Override
     public Listing create(Listing listing) {
-        final String sql = "insert into college_commerce.listing " +
+        final String sql = "insert into listing " +
                 "(is_available, user_id, item_id, service_id) " +
                 "values (?, ?, ?, ?);";
 
@@ -81,7 +81,7 @@ public class ListingJDBCTemplateRepository implements ListingRepository {
 
     @Override
     public boolean update(Listing listing) {
-        final String sql = "update college_commerce.listing set " +
+        final String sql = "update listing set " +
                 "is_available = ?, " +
                 "user_id = ?, " +
                 "item_id = ?, " +
@@ -100,7 +100,7 @@ public class ListingJDBCTemplateRepository implements ListingRepository {
 
     @Override
     public boolean deleteByListingId(int listingId) {
-        final String sql = "delete from college_commerce.listing where listing_id = ?;";
+        final String sql = "delete from listing where listing_id = ?;";
         return jdbcTemplate.update(sql,listingId) > 0;
     }
 

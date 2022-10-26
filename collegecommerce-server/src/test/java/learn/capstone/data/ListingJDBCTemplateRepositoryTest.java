@@ -1,9 +1,11 @@
 package learn.capstone.data;
 
 import learn.capstone.models.Listing;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
@@ -13,16 +15,25 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ListingJDBCTemplateRepositoryTest {
     @Autowired
     ListingJDBCTemplateRepository repository;
+
     @Autowired
-    KnownGoodState knownGoodState;
+    private JdbcTemplate jdbcTemplate;
+
+//    @Autowired
+//    KnownGoodState knownGoodState;
+
+    @BeforeEach
+    void setUp() {
+        jdbcTemplate.update("call set_known_good_state();");
+    }
 
     @Test
     void shouldFindAll() {
         List<Listing> result = repository.findAll();
         assertNotNull(result);
-        assertTrue(result.size() > 2);
         System.out.println(result.size());
-        System.out.println(result.get(0).getListingId());
+        repository.printListing(result.get(0));
+        assertTrue(result.size() > 2);
     }
 
     @Test
@@ -54,7 +65,7 @@ public class ListingJDBCTemplateRepositoryTest {
         //Run shouldCreate before this test
         //update the listing created in the above test
         Listing listing = new Listing();
-        listing.setListingId(4);
+        listing.setListingId(2);
         listing.setAvailable(true);
         listing.setUserId(4);
         listing.setItemId(2);
@@ -63,14 +74,14 @@ public class ListingJDBCTemplateRepositoryTest {
         assertTrue(repository.update(listing));
         repository.update(listing);
         repository.printListing(listing);
-        repository.printListing(repository.findByListingId(4));
+        repository.printListing(repository.findByListingId(2));
     }
 
     @Test
     void shouldDelete() {
         //Run shouldCreate before this test
         int before = repository.findAll().size();
-        assertTrue(repository.deleteByListingId(4));
+        assertTrue(repository.deleteByListingId(1));
         int after = repository.findAll().size();
         assertEquals(1, before - after);//check that there is one less listing in the list
     }

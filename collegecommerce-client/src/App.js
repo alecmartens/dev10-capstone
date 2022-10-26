@@ -17,20 +17,32 @@ function App() {
             <ServiceConfirmDelete />
           </Route>
           <Route exact path="/">
-          <div className="row">
-          <h1 className="col-9">Welcome</h1>
-          <div className="col-3">
-            <Link to="/services" className="btn btn-primary">View services</Link>
-          </div>
-        </div>
+            <div className="row">
+              <h1 className="col-9">Welcome</h1>
+              <div className="col-3">
+                <Link to="/services" className="btn btn-primary">View Services</Link>
+                <br></br>
+                <br></br>
+                <Link to="/items" className="btn btn-primary">View Items</Link>
+              </div>
+            </div>
           </Route>
-          <Route  path="/services">
-          <div className="row">
-          <h1 className="col-9">services</h1>
-          <div className="col-3">
-            <Link to="/services/add" className="btn btn-primary">Add a service</Link>
-          </div>
-        </div>
+          <Route path="/items">
+            <div className="row">
+              <h1 className="col-9">Items</h1>
+              <div className="col-3">
+                <Link to="/services/add" className="btn btn-primary">Add an item</Link>
+              </div>
+            </div>
+            {/* <ItemGrid /> */}
+          </Route>
+          <Route path="/services">
+            <div className="row">
+              <h1 className="col-9">services</h1>
+              <div className="col-3">
+                <Link to="/services/add" className="btn btn-primary">Add a service</Link>
+              </div>
+            </div>
             <ServiceGrid />
           </Route>
           <Route path="/error">
