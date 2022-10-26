@@ -20,6 +20,7 @@ public class ServiceJdbcTemplateRepositoryTest {
 //    void setup() {
 //        knownGoodState.set();
 //    }
+
     @Test
     void shouldFindAll(){
         List<Service> all = repo.findAll();

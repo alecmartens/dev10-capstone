@@ -2,14 +2,17 @@ package learn.capstone.domain;
 
 import learn.capstone.data.ItemRepository;
 import learn.capstone.models.Item;
+import learn.capstone.models.Listing;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class ItemServiceTest {
@@ -163,8 +166,9 @@ class ItemServiceTest {
         Item item = new Item(1,"name",BigDecimal.valueOf(10),"description",
                 "condition",true,"category","url");
 
+        when(repository.findByItemId(1)).thenReturn(item);
+        when(repository.update(item)).thenReturn(true);
         ItemResult result = service.update(item);
-        System.out.println(result.getErrorMessages().get(0));
         assertTrue(result.isSuccess());
     }
 
@@ -177,8 +181,32 @@ class ItemServiceTest {
 
     @Test
     void shouldDelete() {
+        Item item = new Item(1,"name",BigDecimal.valueOf(10),"description",
+                "condition",true,"category","url");
+
+        when(repository.deleteByItemId(1)).thenReturn(true);
+        when(repository.findByItemId(1)).thenReturn(item);
+
         ItemResult result = service.deleteByItemId(1);
-        System.out.println(result.getErrorMessages().get(0));
         assertTrue(result.isSuccess());
+    }
+
+    @Test
+    void shouldNotCreateDuplicateItem() {
+        Item item = new Item();
+        item.setName("desk");
+        item.setPrice(BigDecimal.valueOf(150.50));
+        item.setDescription("wooden desk, two drawers");
+        item.setItemCondition("like new");
+        item.setItemSold(false);
+        item.setCategory("furniture");
+        item.setImageUrl(null);
+
+        when(repository.findAll()).thenReturn(List.of(item));
+
+        ItemResult result = service.create(item);
+        assertFalse(result.isSuccess());
+        assertEquals(1, result.getErrorMessages().size());
+        System.out.println(result.getErrorMessages().get(0));
     }
 }

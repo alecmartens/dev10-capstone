@@ -32,6 +32,7 @@ public class ItemController {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody Item item) {
+        System.out.println(item.getName());
         ItemResult result = service.create(item);
         if (!result.isSuccess()) {
             return new ResponseEntity<>(result.getErrorMessages(), HttpStatus.BAD_REQUEST); //400

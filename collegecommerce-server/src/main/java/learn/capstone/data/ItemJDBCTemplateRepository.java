@@ -46,7 +46,7 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
     @Override
     public List<Item> findAll() {
         final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url " +
-                "from college_commerce.item ";
+                "from item ";
 
         return jdbcTemplate.query(sql, mapper);
     }
@@ -54,7 +54,7 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
     @Override
     public Item findByItemId(int itemId) {
         final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url " +
-                "from college_commerce.item " +
+                "from item " +
                 "where item_id = ?";
 
         return jdbcTemplate.query(sql, mapper, itemId).stream().findFirst().orElse(null);
@@ -62,7 +62,7 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
 
     @Override
     public Item create(Item item) {
-        final String sql = "insert into college_commerce.item " +
+        final String sql = "insert into item " +
                 "(name, price, description, item_condition, item_sold, category, image_url) " +
                 "values (?, ?, ?, ?, ?, ?, ?);";
 
@@ -91,7 +91,7 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
 
     @Override
     public boolean update(Item item) {
-        final String sql = "update college_commerce.item set " +
+        final String sql = "update item set " +
                 "name = ?, " +
                 "price = ?, " +
                 "description = ?, " +
@@ -116,7 +116,7 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
 
     @Override
     public boolean deleteByItemId(int itemId) {
-        final String sql = "delete from college_commerce.item where item_id = ?;";
+        final String sql = "delete from item where item_id = ?;";
         return jdbcTemplate.update(sql,itemId) > 0;
     }
 

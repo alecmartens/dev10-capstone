@@ -10,5 +10,12 @@ insert into service(name, description, price_per_hour, category)
 values ("moving furniture", "lift anything under 70 lbs", 50.00,"furnitue"); 
 
 insert into user_info(username, email, password_hash)
-values("johnnyappleseed", "johnnyappleseed@apple.com", "apple"); 
+values("johnnyappleseed", "johnnyappleseed@apple.com", "apple"),
+("georgewashington","georgewashington@gmail.com","george"),
+("billyjoel","joelbilly@hotmail.com","bill"),
+("johnhancock","hancock@constitution.gov","john");
 
+insert into listing(is_available, user_id, item_id, service_id)
+values(true, 1, 1, 0),
+(false,2,0,1),
+(true,3,2,0);

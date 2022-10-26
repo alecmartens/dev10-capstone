@@ -68,8 +68,8 @@ create table service_booked_times(
     constraint uq unique(service_id, begin_time, end_time), 
     constraint fk_b foreign key (service_id) references service(service_id)
 ); 
-insert into service_booked_times(service_id, begin_time, end_time) 
-values(1, '2023-06-20 01:00:00', '2023-06-20 05:00:00'); 
+-- insert into service_booked_times(service_id, begin_time, end_time) 
+-- values(1, '2023-06-20 01:00:00', '2023-06-20 05:00:00'); 
 select * from service_booked_times; 
 create table listing (
 	listing_id int primary key auto_increment,
@@ -80,12 +80,12 @@ create table listing (
     constraint fk_listing_user_id
 		foreign key (user_id)
         references user_info(user_id),
-	constraint fk_listing_item_id
-		foreign key (item_id)
-        references item(item_id),
-	constraint fk_listing_service_id
-		foreign key (service_id)
-        references service(service_id), 
+	-- constraint fk_listing_item_id
+-- 		foreign key (item_id)
+--         references item(item_id),
+-- 	constraint fk_listing_service_id
+-- 		foreign key (service_id)
+--         references service(service_id), 
     constraint uq unique (user_id, item_id, service_id)
 );
 
@@ -113,18 +113,18 @@ select * from college_info;
 
 insert into app_role (app_role_id, name) values (1, "USER"), (2, "ADMIN");
 
-delimiter //
-create procedure set_known_good_state()
-begin
-insert into service(name, description, price_per_hour, category) 
-values ("delivering food", "pizza", 50.00,'DELIVERY'),
- ("pet service", "any pet", 50.00,'DELIVERY'),
- ("setup fridge", "lift anything under 100 lbs", 50.00,'DELIVERY'); 
+-- delimiter //
+-- create procedure set_known_good_state()
+-- begin
+-- insert into service(name, description, price_per_hour, category) 
+-- values ("delivering food", "pizza", 50.00,'DELIVERY'),
+--  ("pet service", "any pet", 50.00,'DELIVERY'),
+--  ("setup fridge", "lift anything under 100 lbs", 50.00,'DELIVERY'); 
 
-end //
--- 4. Change the statement terminator back to the original.
-delimiter ;
+-- end //
+-- -- 4. Change the statement terminator back to the original.
+-- delimiter ;
 SET SQL_SAFE_UPDATES = 0;
-call set_known_good_state(); 
+-- call set_known_good_state(); -- 
 select * from service; 
 -- delete from service; 
