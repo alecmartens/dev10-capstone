@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/refresh_token").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/user/*", "/api/listing/*").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/service/*", "/api/item/*").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/service", "/api/service/*", "/api/item/*", "/api/item").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/item", "/api/service", "/api/listing").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").hasAnyAuthority("USER","ADMIN")
