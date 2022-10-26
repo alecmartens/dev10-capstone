@@ -38,7 +38,7 @@ create table item (
     item_sold boolean,
     category varchar(100),
     image_url varchar(512) null, 
-    constraint uq unique (name ,price , description)
+    constraint uq unique (name , description)
 );
 
 create table service (
@@ -59,12 +59,12 @@ create table listing (
     constraint fk_listing_user_id
 		foreign key (user_id)
         references user_info(user_id),
-	constraint fk_listing_item_id
-		foreign key (item_id)
-        references item(item_id),
-	constraint fk_listing_service_id
-		foreign key (service_id)
-        references service(service_id), 
+	-- constraint fk_listing_item_id
+-- 		foreign key (item_id)
+--         references item(item_id),
+-- 	constraint fk_listing_service_id
+-- 		foreign key (service_id)
+--         references service(service_id), 
     constraint uq unique (user_id, item_id, service_id)
 );
 
@@ -97,6 +97,7 @@ begin
 	SET FOREIGN_KEY_CHECKS = 0;
 	truncate table user_info;
     truncate table service;
+	truncate table item;
 
 	insert into user_info (username, email, password_hash, image_url)
 		values
@@ -111,6 +112,18 @@ begin
     values ("delivering food", "pizza", 50.00,"food"),
     ("pet service", "any pet", 50.00,"pets"),
     ("setup fridge", "lift anything under 100 lbs", 50.00,"furniture");
+    
+    insert into item(name, price, description, item_condition, item_sold, category)
+values ("desk", 150.50, "wooden desk, two drawers", "like new", false, "furniture"),
+("Calculus Textbook", 150.50, "8th edition, 500 pages", "good", false, "textbook"),
+("Sofa", 150.50, "10' width, gray", "new", false, "furniture"),
+("Chair", 151.50, "small, gray", "new", false, "furniture"),
+("Bike", 152.50, "Black, light", "new", false, "outdoor"); 
+
+-- insert into listing(is_available, user_id, item_id, service_id)
+-- values(true, 1, 1, 0),
+-- (false,2,0,1),
+-- (true,3,2,0); 
 
 end //
 delimiter ;
