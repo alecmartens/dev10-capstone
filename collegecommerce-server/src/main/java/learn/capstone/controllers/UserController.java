@@ -5,6 +5,7 @@ import learn.capstone.domain.UserService;
 import learn.capstone.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,7 +31,10 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable int id, @RequestBody User user) {
+    public ResponseEntity<Object> update(@AuthenticationPrincipal User authUser, @PathVariable int id, @RequestBody User user) {
+        if (authUser.getUserId() != user.getUserId()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         if (id != user.getUserId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -44,7 +48,10 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable int id) {
+    public ResponseEntity<Object> delete(@AuthenticationPrincipal User authUser, @PathVariable int id) {
+        if (authUser.getUserId() != id) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         Result<User> result = service.delete(id);
         if (!result.isSuccess()) {
             return ErrorResponse.build(result);

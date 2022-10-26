@@ -25,11 +25,6 @@ function App() {
     setRestoreLoginAttemptCompleted(true);
   }, [])
 
-  const auth = {
-    user: user ? {...user} : null,
-    login,
-    logout
-  }
 
   const login = (token) => {
 
@@ -53,6 +48,12 @@ function App() {
   const logout = () => {
     setUser(null);
     localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
+  }
+
+  const auth = {
+    user: user ? {...user} : null,
+    login,
+    logout
   }
 
   if (!restoreLoginAttemptCompleted) {
