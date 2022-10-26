@@ -9,6 +9,8 @@ import { useState } from "react";
 import jwtDecode from 'jwt-decode';
 import { useEffect } from "react";
 import AuthContext from "./contexts/AuthContext";
+import ShoppingCart from "./components/ShoppingCart";
+import CheckoutForm from "./components/CheckoutForm";
 
 function App() {
 
@@ -78,6 +80,13 @@ function App() {
               <Link to="/services" className="btn btn-primary">View services</Link>
             </div>
           </div>
+            </Route>
+            <Route path="/cart">
+             {/* { localStorage.clear() } */}
+              <ShoppingCart />
+            </Route>
+            <Route path="/checkout">
+             <CheckoutForm />
             </Route>
             <Route  path="/services">
             <div className="row">
