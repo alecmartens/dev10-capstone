@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest
 public class UserServiceTest {
 
     @Autowired
@@ -125,16 +125,6 @@ public class UserServiceTest {
         Result<User> result = service.delete(user.getUserId());
         assertTrue(result.isSuccess());
     }
-
-//    @Test
-//    void encoderShouldWork() {
-//        User user = makeUser();
-//        user.setPassword("P@ssw0rd!");
-//        when(repository.create(user)).thenReturn(user);
-//
-//        Result<User> result = service.create(user);
-//        assertEquals("P@ssw0rd!", result.getPayload().getPassword());
-//    }
 
     private User makeUser() {
         return new User(0, "TestUser", "testuser25@gmail.com", "testPassword#123", "imageurl", List.of("USER"));

@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000"})
 @RequestMapping("/api/user")
 public class UserController {
 
@@ -30,9 +29,9 @@ public class UserController {
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{username}")
-    public ResponseEntity<Object> update(@PathVariable String username, @RequestBody User user) {
-        if (!username.equals(user.getUsername())) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> update(@PathVariable int id, @RequestBody User user) {
+        if (id != user.getUserId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         Result<User> result = service.update(user);

@@ -1,7 +1,7 @@
-const SERVICE_API_URL = "http://localhost:8080/api/service";
+const USER_API_URL = "http://localhost:8080/api/user";
 
-export async function findAll() {
-    const response = await fetch(SERVICE_API_URL);
+export async function findByUserName(username) {
+    const response = await fetch(`${USER_API_URL}/${username}`);
     if (response.ok) {
         return response.json();
     } else {
@@ -9,29 +9,21 @@ export async function findAll() {
     }
 }
 
-export async function findById(serviceId) {
-    const response = await fetch(`${SERVICE_API_URL}/${serviceId}`);
-    if (response.ok) {
-        return response.json();
-    } else {
-        return Promise.reject();
-    }
-}
-
-async function add(service) {
+async function createAccount(user) {
 
     const init = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("collegeCommerceToken")}`
+            "Accept": "application/json"
         },
-        body: JSON.stringify(service)
+        body: JSON.stringify(user)
     };
 
-    const response = await fetch(SERVICE_API_URL, init);
+    const response = await fetch(USER_API_URL, init);
     if (response.ok) {
-        return Promise.resolve();
+        const {userId} = await response.json();
+        return userId;
     } else if (response.status === 400) {
         const errs = await response.json();
         return Promise.reject(errs);
@@ -40,7 +32,7 @@ async function add(service) {
     }
 }
 
-async function update(service) {
+async function update(user) {
 
     const init = {
         method: "PUT",
@@ -48,10 +40,10 @@ async function update(service) {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem("collegeCommerceToken")}`
         },
-        body: JSON.stringify(service)
+        body: JSON.stringify(user)
     };
 
-    const response = await fetch(`${SERVICE_API_URL}/${service.serviceId}`, init);
+    const response = await fetch(`${USER_API_URL}/${user.userId}`, init);
     if (response.ok) {
         return Promise.resolve();
     } else if (response.status === 400) {
@@ -62,18 +54,18 @@ async function update(service) {
     }
 }
 
-export async function save(service) {
-    return service.serviceId > 0 ? update(service) : add(service);
+export async function save(user) {
+    return user.userId > 0 ? update(user) : createAccount(user);
 }
 
-export async function deleteById(serviceId) {
+export async function deleteById(userId) {
     const init = { 
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${localStorage.getItem("collegeCommerceToken")}`
         }
     };
-    const response = await fetch(`${SERVICE_API_URL}/${serviceId}`, init);
+    const response = await fetch(`${USER_API_URL}/${userId}`, init);
     if (response.ok) {
         return Promise.resolve();
     } else {

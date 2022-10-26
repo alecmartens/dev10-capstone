@@ -1,0 +1,52 @@
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "NewUserName36",
+    "password": "P@ssw0rd!"
+}
+
+###
+GET http://localhost:8080/api/user/TestUser3 HTTP/1.1
+Content-Type: application/json
+
+
+###
+PUT http://localhost:8080/api/user/4 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb2xsZWdlLWNvbW1lcmNlIiwic3ViIjoiVGVzdFVzZXIzIiwidXNlcl9pZCI6NCwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjY2NzI2OTcxfQ.gcs_zgTQ6KJyNIO_AZ1Xyth28yJPE4tTjZPJbyVAc9w
+
+{
+    "userId": 4,
+    "username": "NewUserName35",
+    "email": "newEmail@gmail.com",
+    "password": "P@ssw0rd!",
+    "roles": ["USER"]
+}
+
+###
+POST http://localhost:8080/api/user HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "FredSmith",
+    "email": "FredSmith@hotmail.com",
+    "password": "P@ssw0rd!",
+    "roles": ["USER"]
+}
+
+###
+DELETE http://localhost:8080/api/user/5 HTTP/1.1
+
+###
+POST http://localhost:8080/refresh_token HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb2xsZWdlLWNvbW1lcmNlIiwic3ViIjoiTmV3VXNlck5hbWUzNiIsInVzZXJfaWQiOjQsImF1dGhvcml0aWVzIjoiVVNFUiIsImV4cCI6MTY2NjcyOTQ5N30.k_jI23kkyhE45ohfLXYldOX5Qy3Pvi5AhhRLCc4qjIU
+
+{
+    "userId": 4,
+    "username": "NewUserName36",
+    "email": "newEmail@gmail.com",
+    "password": "P@ssw0rd!",
+    "roles": ["USER"]
+}
