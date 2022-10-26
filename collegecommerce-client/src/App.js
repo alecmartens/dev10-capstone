@@ -9,6 +9,13 @@ import { useState } from "react";
 import jwtDecode from 'jwt-decode';
 import { useEffect } from "react";
 import AuthContext from "./contexts/AuthContext";
+// item imports
+import ItemForm from "./components/item/ItemForm";
+import ItemConfirmDelete from "./components/item/ItemConfirmDelete";
+import ItemGrid from "./components/item/ItemGrid";
+// listing imports
+import ListingConfirmDelete from "./components/listing/ListingConfirmDelete";
+import ListingGrid from "./components/listing/ListingGrid";
 
 function App() {
 
@@ -25,11 +32,7 @@ function App() {
     setRestoreLoginAttemptCompleted(true);
   }, [])
 
-  const auth = {
-    user: user ? {...user} : null,
-    login,
-    logout
-  }
+
 
   const login = (token) => {
 
@@ -55,6 +58,12 @@ function App() {
     localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
   }
 
+  const auth = {
+    user: user ? { ...user } : null,
+    login,
+    logout
+  }
+
   if (!restoreLoginAttemptCompleted) {
     return null;
   }
@@ -70,21 +79,60 @@ function App() {
             <Route path="/services/delete/:id">
               <ServiceConfirmDelete />
             </Route>
+
             <Route exact path="/">
-            <div className="row">
-            <h1 className="col-9">Welcome</h1>
-            <div className="col-3">
-              <Link to="/services" className="btn btn-primary">View services</Link>
-            </div>
-          </div>
+              <div className="row">
+                <h1 className="col-9">Welcome</h1>
+                <div className="col-3">
+                  <Link to="/services" className="btn btn-primary">View Services</Link>
+                  <br></br>
+                  <br></br>
+                  <Link to="/items" className="btn btn-primary">View Items</Link>
+                  <br></br>
+                  <br></br>
+                  <Link to="/listings" className="btn btn-primary">View Listings</Link>
+                </div>
+              </div>
             </Route>
-            <Route  path="/services">
-            <div className="row">
-            <h1 className="col-9">services</h1>
-            <div className="col-3">
-              <Link to="/services/add" className="btn btn-primary">Add a service</Link>
-            </div>
-          </div>
+
+            {/* Item Paths */}
+            <Route path={["/items/add", "/items/edit/:id"]}>
+              <ItemForm />
+            </Route>
+            <Route path="/items/delete/:id">
+              <ItemConfirmDelete />
+            </Route>
+            <Route path="/items">
+              <div className="row">
+                <h1 className="col-9">Items</h1>
+                <div className="col-3">
+                  <Link to="/items/add" className="btn btn-primary">Add an Item</Link>
+                </div>
+              </div>
+              <ItemGrid />
+            </Route>
+
+            {/* Listing Paths */}
+            <Route path="/listings/delete/:id">
+              <ListingConfirmDelete />
+            </Route>
+            <Route path="/listings">
+              <div className="row">
+                <h1 className="col-9">Listings</h1>
+                <div className="col-3">
+                  <Link to="/listings/add" className="btn btn-primary">Add a Listing</Link>
+                </div>
+              </div>
+              <ListingGrid />
+            </Route>
+
+            <Route path="/services">
+              <div className="row">
+                <h1 className="col-9">services</h1>
+                <div className="col-3">
+                  <Link to="/services/add" className="btn btn-primary">Add a service</Link>
+                </div>
+              </div>
               <ServiceGrid />
             </Route>
             <Route path="/error">
