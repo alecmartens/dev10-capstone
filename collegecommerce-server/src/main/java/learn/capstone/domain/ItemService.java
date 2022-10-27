@@ -92,7 +92,7 @@ public class ItemService {
                 i.getDescription().equalsIgnoreCase(item.getDescription())) {
                     //i.getPrice().equals(item.getPrice()) &&
 
-                    System.out.println("found");
+//                    System.out.println("found");
                     result.addErrorMessage("Cannot have a duplicate item. (name and description must be unique)", ResultType.INVALID);
                 }
             }

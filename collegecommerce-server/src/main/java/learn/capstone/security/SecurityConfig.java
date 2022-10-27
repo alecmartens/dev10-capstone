@@ -30,9 +30,15 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/api/user/*", "/api/listing/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/service", "/api/service/*", "/api/item/*", "/api/item").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/item", "/api/service", "/api/listing").hasAnyAuthority("USER", "ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").hasAnyAuthority("USER","ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").hasAnyAuthority("USER","ADMIN")
+                //changed
+                .antMatchers(HttpMethod.POST, "/api/item", "/api/service", "/api/listing").permitAll()
+                //.antMatchers(HttpMethod.POST, "/api/item", "/api/service", "/api/listing").hasAnyAuthority("USER", "ADMIN")
+                //changed
+                .antMatchers(HttpMethod.PUT, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").permitAll()//, "/api/item", "/api/items","/api/items/*"
+//                .antMatchers(HttpMethod.PUT, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").hasAnyAuthority("USER","ADMIN")
+                //changed
+                .antMatchers(HttpMethod.DELETE, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").permitAll()
+                //.antMatchers(HttpMethod.DELETE, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").hasAnyAuthority("USER","ADMIN")
                 .antMatchers("/**").denyAll()
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(authConfig), converter))

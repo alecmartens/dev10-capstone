@@ -32,7 +32,8 @@ public class ItemController {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody Item item) {
-        System.out.println(item.getName());
+        System.out.println("Passed Item ID: " + item.getItemId());
+        System.out.println("Passed Item Name: " + item.getName());
         ItemResult result = service.create(item);
         if (!result.isSuccess()) {
             return new ResponseEntity<>(result.getErrorMessages(), HttpStatus.BAD_REQUEST); //400
@@ -42,9 +43,11 @@ public class ItemController {
 
     @PutMapping("/{itemId}")
     public ResponseEntity<Object> update(@PathVariable int itemId, @RequestBody Item item) {
-        System.out.println(itemId);
-        System.out.println(item.getItemId());
+        System.out.println("Path Item ID: " + itemId);
+        System.out.println("Passed Item ID: " + item.getItemId());
+        System.out.println("Passed Item Name: " + item.getName());
         if (itemId != item.getItemId()) {
+            System.out.println("409 error when attempting to update");
             return new ResponseEntity<>(HttpStatus.CONFLICT); // 409
         }
 
