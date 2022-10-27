@@ -13,7 +13,7 @@ function ServiceGrid({ handleEdit, handleDelete }){
             .then(setServices)
             .catch(() => history.push("/error"));
     }, []);
-
+    
     return (
         <>
         <table>
@@ -28,7 +28,13 @@ function ServiceGrid({ handleEdit, handleDelete }){
                 </tr>
             </thead>
             <tbody>
-                {services.map(s =><Service key={s.serviceId} service={s} handleEdit={handleEdit} handleDelete={handleDelete} />)}
+                {services.map(s =>
+                <Service key={s.serviceId} service={s} handleEdit={handleEdit} handleDelete={handleDelete} />)}
+                {services.map(s=>{
+                if(!localStorage.getItem("servicehm")){localStorage.setItem("servicehm", JSON.stringify({}));}
+                let hm= JSON.parse(localStorage.getItem("servicehm"));  
+                hm[s.serviceId] = [s.name, s.description, s.pricePerHour]; 
+                localStorage.setItem("servicehm", JSON.stringify(hm)); })}
             </tbody>
         </table>
         </>

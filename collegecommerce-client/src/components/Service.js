@@ -19,11 +19,11 @@ function Service({service}){
             setShow(true);
              (localStorage.getItem("cartCount"))?localStorage.setItem("cartCount", parseInt(localStorage.getItem("cartCount"))+ 1):localStorage.setItem("cartCount", 1); 
              let cart = JSON.parse(localStorage.getItem("cartProducts")); 
-             if(cart[service.name]){
-                 cart[service.name] += 1; 
+             if(cart[service.serviceId]){
+                 cart[service.serviceId] += 1; 
              }
              else{
-                 cart[service.name] = 1; 
+                 cart[service.serviceId] = 1; 
              }
              localStorage.setItem("cartProducts", JSON.stringify(cart));  }}>+</button></td>
         <td><button className="btn btn-warning" onClick={() => {setColorMsg("danger"); setShow(true); }}>-</button></td>
