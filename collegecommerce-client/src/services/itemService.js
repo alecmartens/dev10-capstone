@@ -1,6 +1,6 @@
 const ITEM_API_URL = "http://localhost:8080/api/item";
 
-export async function findAll() {
+export async function findAllItems() {
     const response = await fetch(ITEM_API_URL);
     if (response.ok) {
         return response.json();
@@ -9,7 +9,7 @@ export async function findAll() {
     }
 }
 
-export async function findById(itemId) {
+export async function findByItemId(itemId) {//changed name
     const response = await fetch(`${ITEM_API_URL}/${itemId}`);
     if (response.ok) {
         return response.json();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { deleteById,findById } from "../../services/itemService";
+import { deleteById,findByItemId } from "../../services/itemService";
 function ItemConfirmDelete(){
     const [item, setItem] = useState({});
 
@@ -11,7 +11,7 @@ function ItemConfirmDelete(){
         if (!id) {
             history.push("/items");
         }
-        findById(id)
+        findByItemId(id)
             .then(setItem)
             .catch(() => history.push("/invalid"));
     }, [])

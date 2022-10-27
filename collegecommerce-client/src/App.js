@@ -15,7 +15,8 @@ import ItemConfirmDelete from "./components/item/ItemConfirmDelete";
 import ItemGrid from "./components/item/ItemGrid";
 // listing imports
 import ListingConfirmDelete from "./components/listing/ListingConfirmDelete";
-import ListingGrid from "./components/listing/ListingGrid";
+import ListingItemGrid from "./components/listing/ListingItemGrid";
+import ListingServiceGrid from "./components/listing/ListingServiceGrid";
 
 import ShoppingCart from "./components/ShoppingCart";
 import CheckoutForm from "./components/CheckoutForm";
@@ -127,8 +128,12 @@ function App() {
                 <div className="col-3">
                   <Link to="/listings/add" className="btn btn-primary">Add a Listing</Link>
                 </div>
+                <h2 className="col-9">Items</h2>
               </div>
-              <ListingGrid />
+              <ListingItemGrid />
+              <h2 className="col-9">Services</h2>
+              {/* <ListingServiceGrid /> */}
+
             </Route>
 
             {/* <Route path="/services">

@@ -21,7 +21,7 @@ PUT http://localhost:8080/api/service/4
 Content-Type: application/json
 
 {
-    "serviceId":30,
+    "serviceId":4,
     "name":"mail delivery2",
     "description":"mail2",
     "pricePerHour":5.99,

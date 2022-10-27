@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { findAll } from "../../services/itemService";
+import { findAllItems } from "../../services/itemService";
 import Item from "./Item";
 
 import { Link, Router } from "react-router-dom";
@@ -11,7 +11,7 @@ function ItemGrid({ handleEdit, handleDelete }) {
     const history = useHistory();
 
     useEffect(() => {
-        findAll()
+        findAllItems()
             .then(setItems)
             .catch(() => history.push("/error"));
     }, []);

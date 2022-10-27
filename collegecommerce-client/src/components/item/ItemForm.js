@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { findById, findAll, save } from "../../services/itemService";
+import { findByItemId, findAll, save } from "../../services/itemService";
 function ItemForm() {
     const [item, setItem] = useState({
         itemId: 0,
@@ -17,7 +17,7 @@ function ItemForm() {
     const { id } = useParams();
     useEffect(() => {
         if (id) {
-            findById(id)
+            findByItemId(id)
                 .then(setItem)
                 .catch(() => history.push("/invalid"));
         }

@@ -17,13 +17,14 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8080/api/item/1
+DELETE http://localhost:8080/api/item/7
 
 ###
-PUT http://localhost:8080/api/item/1
+PUT http://localhost:8080/api/item/8
 Content-Type: application/json
 
 {
+    "itemId": 8,
     "name":"bball",
     "price":10,
     "description":"baseball",
