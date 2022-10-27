@@ -45,8 +45,8 @@ async function update(item) {
     const init = {
         method: "PUT",
         headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("collegeCommerceToken")}`
+            "Content-Type": "application/json"
+            //"Authorization": `Bearer ${localStorage.getItem("collegeCommerceToken")}`
         },
         body: JSON.stringify(item)
     };

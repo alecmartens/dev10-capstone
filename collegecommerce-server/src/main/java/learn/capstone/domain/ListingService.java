@@ -84,13 +84,13 @@ public class ListingService {
         }
         if(result.isSuccess()) {
             List<Listing> listings = findAll();//get all listings
-            System.out.println("Size:" + listings.size());
+//            System.out.println("Size:" + listings.size());
             for (Listing l: listings) {//check for duplicate combos
                 //No duplicate userId, itemId, serviceId
                 if (listing.getUserId() == l.getUserId() &&
                     listing.getItemId() == l.getItemId() &&
                     listing.getServiceId() == l.getServiceId()) {
-                    System.out.println("found");
+//                    System.out.println("found");
                     result.addErrorMessage("Cannot have a duplicate listing. (userId, itemId, serviceId must be unique)", ResultType.INVALID);
                 }
             }

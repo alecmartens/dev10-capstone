@@ -9,7 +9,7 @@ Content-Type: application/json
     "name":"basketball",
     "price":20,
     "description":"basketball",
-    "item_condition":"good",
+    "itemCondition":"good",
     "item_sold":true,
     "category":"sports",
     "image_url":"test"
@@ -17,21 +17,20 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8080/api/item/6
+DELETE http://localhost:8080/api/item/1
 
 ###
-PUT http://localhost:8080/api/item/7
+PUT http://localhost:8080/api/item/1
 Content-Type: application/json
 
 {
-    "itemId":7,
     "name":"bball",
     "price":10,
     "description":"baseball",
-    "item_condition":"good",
-    "item_sold":true,
+    "itemCondition":"good",
+    "itemSold":true,
     "category":"sports",
-    "image_url":"test"
+    "imageUrl":"test"
 }
 
 ###

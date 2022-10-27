@@ -18,91 +18,33 @@ public class SecurityConfig {
         this.converter = converter;
     }
 
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationConfiguration authConfig) throws Exception {
-//        http.csrf().disable();
-//
-//        http.cors();
-//
-//        http.authorizeRequests()
-//                //changed
-//                .antMatchers("/api/service").permitAll()
-//                .antMatchers("/api/service/*").permitAll()
-//                .antMatchers("/api/item").permitAll()
-//                .antMatchers("/api/item/*").permitAll()
-//
-//                .antMatchers("/authenticate").permitAll()
-//                .antMatchers("/refresh_token").authenticated()
-//                .antMatchers(HttpMethod.GET, "/api/user/*", "/api/listing/*").permitAll()
-//                //.antMatchers(HttpMethod.GET, "/api/service/*", "/api/item/*").hasAnyAuthority("USER", "ADMIN")
-//                .antMatchers(HttpMethod.POST, "/api/user").permitAll()
-//                .antMatchers(HttpMethod.POST, "/api/item", "/api/service", "/api/listing").hasAnyAuthority("USER", "ADMIN")
-//                .antMatchers(HttpMethod.PUT, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").hasAnyAuthority("USER","ADMIN")
-//                .antMatchers(HttpMethod.DELETE, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").hasAnyAuthority("USER","ADMIN")
-//                .antMatchers("/**").denyAll()
-//                .and()
-//                .addFilter(new JwtRequestFilter(authenticationManager(authConfig), converter))
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//
-//        return http.build();
-//    }
-
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationConfiguration authConfig) throws Exception {
-//        http.csrf().disable();
-//        http.cors();
-//        http.authorizeRequests()
-//                .antMatchers("/api/service").permitAll()
-//                //.antMatchers("/api/service/*").permitAll()
-//                .antMatchers("/api/item").permitAll()
-//                //.antMatchers("/api/item/*").permitAll()
-//                .antMatchers("/authenticate").permitAll()
-//                .antMatchers("/refresh_token").authenticated()
-//                .antMatchers(HttpMethod.GET, "/api/user/*").permitAll()
-//                .antMatchers(HttpMethod.POST, "/api/user").permitAll()
-//                .antMatchers(HttpMethod.PUT, "/api/user/*").hasAnyAuthority("USER","ADMIN")
-//                .antMatchers(HttpMethod.DELETE, "/api/user/*").hasAnyAuthority("USER","ADMIN")
-//                .antMatchers("/**").denyAll()
-//                .and()
-//                .addFilter(new JwtRequestFilter(authenticationManager(authConfig), converter))
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        return http.build();
-//    }
-
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationConfiguration authConfig) throws Exception {
         http.csrf().disable();
+
         http.cors();
 
-//        http.authorizeRequests()
-//                .antMatchers("/authenticate").permitAll()
-//                .antMatchers("/refresh_token").authenticated()
-//                .antMatchers(HttpMethod.GET, "/api/user/*", "/api/listing/*").permitAll()
-//                .antMatchers(HttpMethod.GET, "/api/service/*", "/api/item/*").hasAnyAuthority("USER", "ADMIN")
-//                .antMatchers(HttpMethod.POST, "/api/user").permitAll()
-//                .antMatchers(HttpMethod.POST, "/api/item", "/api/service", "/api/listing").hasAnyAuthority("USER", "ADMIN")
-//                .antMatchers(HttpMethod.PUT, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").hasAnyAuthority("USER","ADMIN")
-//                .antMatchers(HttpMethod.DELETE, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").hasAnyAuthority("USER","ADMIN")
-//                .antMatchers("/**").denyAll()
-//                .and()
-//                .addFilter(new JwtRequestFilter(authenticationManager(authConfig), converter))
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/refresh_token").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/user/*", "/api/listing/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/service", "/api/service/*", "/api/item/*", "/api/item").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/item", "/api/service", "/api/listing").hasAnyAuthority("USER", "ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").hasAnyAuthority("USER","ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").hasAnyAuthority("USER","ADMIN")
+                //changed
+                .antMatchers(HttpMethod.POST, "/api/item", "/api/service", "/api/listing").permitAll()
+                //.antMatchers(HttpMethod.POST, "/api/item", "/api/service", "/api/listing").hasAnyAuthority("USER", "ADMIN")
+                //changed
+                .antMatchers(HttpMethod.PUT, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").permitAll()//, "/api/item", "/api/items","/api/items/*"
+//                .antMatchers(HttpMethod.PUT, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").hasAnyAuthority("USER","ADMIN")
+                //changed
+                .antMatchers(HttpMethod.DELETE, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").permitAll()
+                //.antMatchers(HttpMethod.DELETE, "/api/user/*", "/api/listing/*", "/api/item/*", "/api/service/*").hasAnyAuthority("USER","ADMIN")
                 .antMatchers("/**").denyAll()
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(authConfig), converter))
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
         return http.build();
     }
 
