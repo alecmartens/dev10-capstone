@@ -7,7 +7,7 @@ public class Service {
     private String name;
     private String description;
     private double pricePerHour;
-    private String category; //TODO: change to enum
+    private ServiceCategory category; //TODO: change to enum
 
     public int getServiceId() {
         return serviceId;
@@ -41,11 +41,11 @@ public class Service {
         this.pricePerHour = pricePerHour;
     }
 
-    public String getCategory() {
+    public ServiceCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ServiceCategory category) {
         this.category = category;
     }
 }

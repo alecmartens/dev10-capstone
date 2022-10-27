@@ -1,6 +1,7 @@
 package learn.capstone.data;
 
 import learn.capstone.models.Service;
+import learn.capstone.models.ServiceCategory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -21,7 +22,10 @@ public class ServiceJdbcTemplateRepository implements ServiceRepository{
         service.setName(rs.getString("name"));
         service.setDescription(rs.getString("description"));
         service.setPricePerHour(rs.getDouble("price_per_hour"));
-        service.setCategory(rs.getString("category"));
+//        service.setCategory(rs.getString("category"));
+        //TODO category enum
+        ServiceCategory category = ServiceCategory.valueOf(rs.getString("category"));
+        service.setCategory(category);
         return service;
     };
 
@@ -56,7 +60,7 @@ public class ServiceJdbcTemplateRepository implements ServiceRepository{
             ps.setString(1, service.getName());
             ps.setString(2, service.getDescription());
             ps.setDouble(3, service.getPricePerHour());
-            ps.setString(4, service.getCategory());
+            ps.setString(4, service.getCategory().getName());
             return ps;
         }, keyholder);
         if (rowsAffected <= 0) {
