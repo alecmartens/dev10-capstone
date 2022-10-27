@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { findAllListings } from "../../services/listingService";
 import { findAllItems } from "../../services/itemService";
 function ListingItemGrid({ handleEdit, handleDelete }) {
@@ -12,13 +12,14 @@ function ListingItemGrid({ handleEdit, handleDelete }) {
         findAllListings()
             .then(setListings)
             .catch(() => history.push("/error"));
-    }, []);
+    }, [history]/*, []*/);
 
     useEffect(() => {//get all items
         findAllItems()
             .then(setItems)
-    })
-
+            .catch(() => history.push("/error"));
+    }/*, [history]*/)
+    
     return (
         <>
             <table>

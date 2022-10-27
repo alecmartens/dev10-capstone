@@ -16,7 +16,7 @@ import ItemGrid from "./components/item/ItemGrid";
 // listing imports
 import ListingConfirmDelete from "./components/listing/ListingConfirmDelete";
 import ListingItemGrid from "./components/listing/ListingItemGrid";
-import ListingServiceGrid from "./components/listing/ListingServiceGrid";
+// import ListingServiceGrid from "./components/listing/ListingServiceGrid";
 
 import ShoppingCart from "./components/ShoppingCart";
 import CheckoutForm from "./components/CheckoutForm";
