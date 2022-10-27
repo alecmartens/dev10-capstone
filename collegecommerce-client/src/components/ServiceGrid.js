@@ -24,6 +24,7 @@ function ServiceGrid({ handleEdit, handleDelete }){
                     <th>description</th>
                     <th>pricePerHour</th>
                     <th>category</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

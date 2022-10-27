@@ -50,27 +50,27 @@ create table service (
     constraint uq unique (name, description, price_per_hour)
 );
 
-create table service_availability(
-	service_id int primary key not null, 
-	begin_time varchar(45) not null, 
-    end_time varchar(45) not null, 
-    constraint uq unique(service_id, begin_time, end_time), 
-    constraint fk foreign key (service_id) references service(service_id)
-); 
+-- create table service_availability(
+-- 	service_id int primary key not null, 
+-- 	begin_time varchar(45) not null, 
+--     end_time varchar(45) not null, 
+--     constraint uq unique(service_id, begin_time, end_time), 
+--     constraint fk foreign key (service_id) references service(service_id)
+-- ); 
 
-insert into service_availability(service_id, begin_time, end_time) 
-values(1, '2023-06-18 01:00:00', '2023-06-18 05:00:00'); 
-select * from service_availability; 
-create table service_booked_times(
-	service_id int primary key not null, 
-	begin_time varchar(45) not null, 
-    end_time varchar(45) not null, 
-    constraint uq unique(service_id, begin_time, end_time), 
-    constraint fk_b foreign key (service_id) references service(service_id)
-); 
+-- insert into service_availability(service_id, begin_time, end_time) 
+-- values(1, '2023-06-18 01:00:00', '2023-06-18 05:00:00'); 
+-- select * from service_availability; 
+-- create table service_booked_times(
+-- 	service_id int primary key not null, 
+-- 	begin_time varchar(45) not null, 
+--     end_time varchar(45) not null, 
+--     constraint uq unique(service_id, begin_time, end_time), 
+--     constraint fk_b foreign key (service_id) references service(service_id)
+-- ); 
 -- insert into service_booked_times(service_id, begin_time, end_time) 
 -- values(1, '2023-06-20 01:00:00', '2023-06-20 05:00:00'); 
-select * from service_booked_times; 
+-- select * from service_booked_times; 
 create table listing (
 	listing_id int primary key auto_increment,
     is_available boolean,

@@ -6,6 +6,8 @@ function CheckoutForm(){
     function handleSubmit(evt){
         evt.preventDefault(); 
     }
+    //https://api.collegeai.com/v1/docs/overview/sample-site -- college locations
+    //https://developer.squareup.com/reference/square/payments-api -- payments
     return (
         <form onSubmit={handleSubmit}>
             <h2>Checkout</h2>
