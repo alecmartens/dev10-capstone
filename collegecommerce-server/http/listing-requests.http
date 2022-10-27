@@ -8,6 +8,7 @@ GET http://localhost:8080/api/listing/4
 
 POST http://localhost:8080/api/listing
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb2xsZWdlLWNvbW1lcmNlIiwic3ViIjoiSm9obkRvZSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiIiwiZXhwIjoxNjY2ODA4ODgxfQ.NlnXKj9d-PQsyzWO_YUcb5gOh81qrkIV0w_7T7iIeRU
 
 {
     "available":true,

@@ -2,23 +2,23 @@ POST http://localhost:8080/authenticate HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "NewUserName36",
+    "username": "JohnDoe",
     "password": "P@ssw0rd!"
 }
 
 ###
-GET http://localhost:8080/api/user/TestUser3 HTTP/1.1
+GET http://localhost:8080/api/user/JohnDoe HTTP/1.1
 Content-Type: application/json
 
 
 ###
-PUT http://localhost:8080/api/user/4 HTTP/1.1
+PUT http://localhost:8080/api/user/2 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb2xsZWdlLWNvbW1lcmNlIiwic3ViIjoiVGVzdFVzZXIzIiwidXNlcl9pZCI6NCwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjY2NzI2OTcxfQ.gcs_zgTQ6KJyNIO_AZ1Xyth28yJPE4tTjZPJbyVAc9w
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb2xsZWdlLWNvbW1lcmNlIiwic3ViIjoiSm9obkRvZSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiVVNFUiIsImV4cCI6MTY2NjgxMDA2Mn0.8VlmKWBATIIU_N7D6LMr6Tkrtqtm81xRGEpjePgQye8
 
 {
-    "userId": 4,
-    "username": "NewUserName35",
+    "userId": 2,
+    "username": "SomeRandomName",
     "email": "newEmail@gmail.com",
     "password": "P@ssw0rd!",
     "roles": ["USER"]
@@ -36,7 +36,8 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/api/user/5 HTTP/1.1
+DELETE http://localhost:8080/api/user/4 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb2xsZWdlLWNvbW1lcmNlIiwic3ViIjoiSm9obkRvZSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiIiwiZXhwIjoxNjY2ODA5OTAyfQ.Xl_4rqzQ7baH28m16qRJCKg-bjxotoRMsSSJBkLe0BQ
 
 ###
 POST http://localhost:8080/refresh_token HTTP/1.1

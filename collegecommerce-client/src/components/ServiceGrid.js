@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { findAll } from "../services/serviceServices";
 import Service from "./Service";
-
+import { Table } from "react-bootstrap";
 function ServiceGrid({ handleEdit, handleDelete }){
     const [services, setServices] = useState([]);
 
@@ -13,10 +13,10 @@ function ServiceGrid({ handleEdit, handleDelete }){
             .then(setServices)
             .catch(() => history.push("/error"));
     }, []);
-
+    
     return (
         <>
-        <table>
+        <Table striped bordered hover>
             <thead>
                 <tr>
                     <th>serviceId</th>
@@ -24,12 +24,19 @@ function ServiceGrid({ handleEdit, handleDelete }){
                     <th>description</th>
                     <th>pricePerHour</th>
                     <th>category</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                {services.map(s =><Service key={s.serviceId} service={s} handleEdit={handleEdit} handleDelete={handleDelete} />)}
+                {services.map(s =>
+                <Service key={s.serviceId} service={s} handleEdit={handleEdit} handleDelete={handleDelete} />)}
+                {services.map(s=>{
+                if(!localStorage.getItem("servicehm")){localStorage.setItem("servicehm", JSON.stringify({}));}
+                let hm= JSON.parse(localStorage.getItem("servicehm"));  
+                hm[s.serviceId] = [s.name, s.description, s.pricePerHour]; 
+                localStorage.setItem("servicehm", JSON.stringify(hm)); })}
             </tbody>
-        </table>
+        </Table>
         </>
     ); 
 

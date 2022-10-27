@@ -6,8 +6,10 @@ values ("desk", 150.50, "wooden desk, two drawers", "like new", false, "furnitur
 ("Chair", 151.50, "small, gray", "new", false, "furniture"),
 ("Bike", 152.50, "Black, light", "new", false, "outdoor");  
 
-insert into service(name, description, price_per_hour, category) 
-values ("moving furniture", "lift anything under 70 lbs", 50.00,"furnitue"); 
+insert into service(name, description, price_per_hour, category)
+    values ("delivering food", "pizza", 50.00,"DELIVERY"),
+    ("pet service", "any pet", 50.00,"REPAIR"),
+    ("setup fridge", "lift anything under 100 lbs", 50.00,"OTHER");
 
 insert into user_info(username, email, password_hash)
 values("johnnyappleseed", "johnnyappleseed@apple.com", "apple"),
