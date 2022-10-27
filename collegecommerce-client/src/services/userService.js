@@ -9,8 +9,7 @@ export async function findByUserName(username) {
     }
 }
 
-async function createAccount(user) {
-
+export async function createAccount(user) {
     const init = {
         method: "POST",
         headers: {
@@ -22,8 +21,8 @@ async function createAccount(user) {
 
     const response = await fetch(USER_API_URL, init);
     if (response.ok) {
-        const {userId} = await response.json();
-        return userId;
+        const user = await response.json();
+        return user;
     } else if (response.status === 400) {
         const errs = await response.json();
         return Promise.reject(errs);
@@ -32,7 +31,7 @@ async function createAccount(user) {
     }
 }
 
-async function update(user) {
+export async function update(user) {
 
     const init = {
         method: "PUT",
@@ -54,9 +53,6 @@ async function update(user) {
     }
 }
 
-export async function save(user) {
-    return user.userId > 0 ? update(user) : createAccount(user);
-}
 
 export async function deleteById(userId) {
     const init = { 
