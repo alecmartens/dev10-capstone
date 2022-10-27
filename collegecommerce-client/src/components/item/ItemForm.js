@@ -8,7 +8,7 @@ function ItemForm() {
         price: 0,
         description: "",
         itemCondition: "",
-        itemSold: false,
+        //itemSold: false,
         category: "",
         imageUrl: ""
     });
