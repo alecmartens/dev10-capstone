@@ -8,27 +8,29 @@ GET http://localhost:8080/api/listing/4
 
 POST http://localhost:8080/api/listing
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb2xsZWdlLWNvbW1lcmNlIiwic3ViIjoiSm9obkRvZSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiIiwiZXhwIjoxNjY2ODA4ODgxfQ.NlnXKj9d-PQsyzWO_YUcb5gOh81qrkIV0w_7T7iIeRU
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb2xsZWdlLWNvbW1lcmNlIiwic3ViIjoiSm9obkRvZSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiVVNFUiIsImV4cCI6MTY2NjgxMDA2Mn0.8VlmKWBATIIU_N7D6LMr6Tkrtqtm81xRGEpjePgQye8
 
 {
     "available":true,
-    "userId":4,
-    "itemId":2,
+    "userId":3,
+    "itemId":3,
     "serviceId":0
 }
 
 ###
 
 DELETE http://localhost:8080/api/listing/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb2xsZWdlLWNvbW1lcmNlIiwic3ViIjoiSmFuZVNtaXRoIiwidXNlcl9pZCI6MiwiYXV0aG9yaXRpZXMiOiJBRE1JTiIsImV4cCI6MTY2NjgxMjg4M30.zuG6g70h3gE1aRk979yHx94vC91xLUzaPxuSmnkeKQw
 
 ###
-PUT http://localhost:8080/api/listing/4
+PUT http://localhost:8080/api/listing/3
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb2xsZWdlLWNvbW1lcmNlIiwic3ViIjoiSm9obkRvZSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiVVNFUiIsImV4cCI6MTY2NjgxMjc4M30.GTLqX_RXxBW6Pvf3hOUs71UFhOqv_PzTvrVtFtUScfw
 
 {
-    "listingId": 4,
+    "listingId": 3,
     "available":true,
-    "userId":3,
-    "itemId":1,
+    "userId":1,
+    "itemId":4,
     "serviceId":0
 }

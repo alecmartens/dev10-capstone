@@ -22,6 +22,8 @@ import CheckoutForm from "./components/CheckoutForm";
 import CartMessage from "./components/CartMessage";
 import { Badge } from "react-bootstrap";
 import NavBar2 from "./components/NavBar2";
+import Login from "./components/Login";
+import Register from "./components/Register";
 function App() {
 
   const LOCAL_STORAGE_TOKEN_KEY = "collegeCommerceToken";
@@ -130,47 +132,44 @@ function App() {
               </div>
               <ListingGrid />
             </Route>
-
-            {/* <Route path="/services">
-              <div className="row">
-                <h1 className="col-9">services</h1>
-                <div className="col-3">
-                  <Link to="/services/add" className="btn btn-primary">Add a service</Link>
-                </div>
-              </div> */}
-              <Route path="/cart">
-                {/* { localStorage.removeItem("cartProducts") } */}
-                <ShoppingCart />
-              </Route>
-              <Route path="/checkout">
-                <CheckoutForm />
-              </Route>
-              <Route path="/services">
-                {/* <div className="row">
-                  <h1 className="col-9">services</h1>
-                  <div className="col-3">
-                    <Link to="/cart" className="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
-                      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                    </svg><Badge bg="secondary">{localStorage.getItem("cartCount")}</Badge></Link>
-                    <Link to="/services/add" className="btn btn-primary">Add a service</Link>
-                  </div>
-                </div> */}
-                <ServiceGrid />
-              </Route>
-              <Route path="/error">
-                <Error />
-              </Route>
-              <Route path="/invalid">
-                <Invalid />
-              </Route>
-              <Route path="/cartmsg">
-                <CartMessage color="success" productName="petcare" />
-              </Route>
-              <Route path="*">
-                <NotFound />
-              </Route>
-            {/* </Route> */}
-
+            <Route path="/cart">
+             {/* { localStorage.removeItem("cartProducts") } */}
+              <ShoppingCart />
+            </Route>
+            <Route path="/checkout">
+             <CheckoutForm />
+            </Route>
+            <Route  path="/services">
+            <div className="row">
+            {/* <h1 className="col-9">services</h1> */}
+            {/* <div className="col-3">
+            <Link to="/cart" className="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
+  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+</svg><Badge bg="secondary">{localStorage.getItem("cartCount")}</Badge></Link>
+              <Link to="/services/add" className="btn btn-primary">Add a service</Link>
+            </div> */}
+          </div>
+              <ServiceGrid />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/register">
+              <Register />
+            </Route>
+            <Route path="/error">
+              <Error />
+            </Route>
+            <Route path="/invalid">
+              <Invalid />
+            </Route>
+            <Route path="/cartmsg">
+              <CartMessage color="success" productName="petcare"/>
+            </Route>
+            <Route path="*">
+              <NotFound />
+            </Route>
+            
           </Switch>
         </div>
       </BrowserRouter>
