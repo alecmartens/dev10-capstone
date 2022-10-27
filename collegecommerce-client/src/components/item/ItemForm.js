@@ -8,7 +8,7 @@ function ItemForm() {
         price: 0,
         description: "",
         itemCondition: "",
-        //itemSold: false,
+        itemSold: false,
         category: "",
         imageUrl: ""
     });
@@ -64,7 +64,13 @@ function ItemForm() {
                 <input type="text" name="itemCondition" id="itemCondition" className="form-control"
                     value={item.itemCondition} onChange={handleChange} />
             </div>
-            <fieldset>
+            {/* Not sure if we want to allow user to say if an item is sold, should be done automatically */}
+            {/* <div className="mb-3">
+                <label htmlFor="itemSold" className="form-label">Item Sold</label>
+                <input type="text" name="itemSold" id="itemSold" className="form-control"
+                    value={item.itemSold} onChange={handleChange} />
+            </div> */}
+            {/* <fieldset>
                 <legend>Item Sold</legend>
                 <div className="mb-3">
                     <label htmlFor="itemSold" className="form-label">True</label>
@@ -76,7 +82,7 @@ function ItemForm() {
                     <input type="radio" id="itemSold" name="itemSold"
                         value={item.itemSold} onChange={handleChange}></input>
                 </div>
-            </fieldset>
+            </fieldset> */}
             <div className="mb-3">
                 <label htmlFor="category" className="form-label">Category</label>
                 <input type="text" name="category" id="category" className="form-control"
@@ -85,7 +91,8 @@ function ItemForm() {
             <div className="mb-3">
                 <label htmlFor="imageUrl" className="form-label">Image URL</label>
                 <input type="text" name="imageUrl" id="imageUrl" className="form-control"
-                    value={item.imageUrl} onChange={handleChange} />
+                    // value={item.imageUrl} 
+                    onChange={handleChange} />
             </div>
             {
                 errs.length !== 0 && <div className="alert alert-danger">

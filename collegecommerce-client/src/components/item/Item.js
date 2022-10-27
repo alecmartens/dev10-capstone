@@ -7,7 +7,7 @@ function Item({item}) {
         <td>{item.price}</td>
         <td>{item.description}</td>
         <td>{item.itemCondition}</td>
-        <td>{item.itemSold}</td>
+        <td>{String(item.itemSold)}</td>
         <td>{item.category}</td>
         <td>{item.imageUrl}</td>
         <td><Link to={`/items/delete/${item.itemId}`} className="btn btn-danger me-2">Delete</Link></td>
