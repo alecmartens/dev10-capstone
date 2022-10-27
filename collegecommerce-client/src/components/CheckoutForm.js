@@ -1,4 +1,4 @@
-
+import { Button } from "react-bootstrap";
 function CheckoutForm(){
     function handleChange(){
 
@@ -38,7 +38,10 @@ function CheckoutForm(){
                  onChange={handleChange} />
             </div>
             <h4>Order Details:</h4>
-            
+            <h6>Total Price:</h6>
+            ${localStorage.getItem("totalPrice")}
+            <br></br>
+            <Button variant="primary">Submit</Button>
         </form>
     ); 
 }
