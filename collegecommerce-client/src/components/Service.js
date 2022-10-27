@@ -11,9 +11,8 @@ function Service({service}){
         <td>{service.description}</td>
         <td>{service.pricePerHour}</td>
         <td>{service.category}</td>
-        <td><Link to={`/services/delete/${service.serviceId}`} className="btn btn-danger me-2">Delete</Link></td>
-        <td><Link to={`/services/edit/${service.serviceId}`} className="btn btn-secondary">Edit</Link></td>
-        <td><button className="btn btn-primary" onClick={()=>{
+        <td><Link to={`/services/delete/${service.serviceId}`} className="btn btn-danger m-2">Delete</Link>
+        <Link to={`/services/edit/${service.serviceId}`} className="btn btn-secondary m-2">Edit</Link><button className="btn btn-primary" onClick={()=>{
             if(!localStorage.getItem("cartProducts")) {localStorage.setItem("cartProducts", JSON.stringify({})); }; 
             
             setShow(true);
@@ -25,8 +24,7 @@ function Service({service}){
              else{
                  cart[service.serviceId] = 1; 
              }
-             localStorage.setItem("cartProducts", JSON.stringify(cart));  }}>+</button></td>
-        <td><button className="btn btn-warning" onClick={() => {setColorMsg("danger"); setShow(true); }}>-</button></td>
+             localStorage.setItem("cartProducts", JSON.stringify(cart));  }}>+</button><button className="btn btn-warning m-2" onClick={() => {setColorMsg("danger"); setShow(true); }}>-</button></td>
         {show && <td><CartMessage color={colorMsg} productName={service.name}/></td>}
     </tr>
     ); 

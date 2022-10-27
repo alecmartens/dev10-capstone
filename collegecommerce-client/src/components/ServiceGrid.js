@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { findAll } from "../services/serviceServices";
 import Service from "./Service";
-
+import { Table } from "react-bootstrap";
 function ServiceGrid({ handleEdit, handleDelete }){
     const [services, setServices] = useState([]);
 
@@ -16,7 +16,7 @@ function ServiceGrid({ handleEdit, handleDelete }){
     
     return (
         <>
-        <table>
+        <Table striped bordered hover>
             <thead>
                 <tr>
                     <th>serviceId</th>
@@ -36,7 +36,7 @@ function ServiceGrid({ handleEdit, handleDelete }){
                 hm[s.serviceId] = [s.name, s.description, s.pricePerHour]; 
                 localStorage.setItem("servicehm", JSON.stringify(hm)); })}
             </tbody>
-        </table>
+        </Table>
         </>
     ); 
 
