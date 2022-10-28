@@ -25,6 +25,7 @@ public class SecurityConfig {
         http.cors();
 
         http.authorizeRequests()
+                .antMatchers("/api/customers/create").permitAll()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/refresh_token").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/user/*", "/api/listing/*").permitAll()
