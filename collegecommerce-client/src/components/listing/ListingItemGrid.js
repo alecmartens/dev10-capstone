@@ -2,25 +2,22 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { findAllListings } from "../../services/listingService";
 import { findAllItems } from "../../services/itemService";
+import { findAll } from "../../services/serviceServices";
 function ListingItemGrid({ handleEdit, handleDelete }) {
     const [listings, setListings] = useState([]);
     const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const history = useHistory(); 
+    useEffect(()=>{
+        setLoading(true); 
+        const allListings = findAllListings(); 
+        const allItems = findAllItems(); 
+        Promise.all([allListings, allItems]).then(data=>{setListings(data[0]); setItems(data[1]);}).catch(console.log); 
+    },[]); 
 
-    //const history = useHistory();
-
-    useEffect(() => {//get all items
-        findAllItems()
-            .then(setItems)
-            //.catch(() => history.push("/error"));
-    }, []);
-    
-
-    useEffect(() => {//Get all listings
-        findAllListings()
-            .then(setListings)
-           // .catch(() => history.push("/error"));
-    }, []);
-
+    if(loading){
+        <span>loading...</span>
+    }
     
     return (
         <>

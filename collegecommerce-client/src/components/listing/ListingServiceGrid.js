@@ -7,19 +7,17 @@ function ListingServiceGrid({ handleEdit, handleDelete }) {
     const [services, setServices] = useState([]);
 
     const history = useHistory();
+    const [loading, setLoading] = useState(false);
+    useEffect(()=>{
+        setLoading(true); 
+        const allListings = findAllListings(); 
+        const allServices = findAll(); 
+        Promise.all([allListings, allServices]).then(data=>{setListings(data[0]); setServices(data[1]);}).catch(console.log); 
+    },[]); 
 
-    useEffect(() => {//Get all listings
-        findAllListings()
-            .then(setListings)
-            .catch(() => history.push("/error"));
-    }, []);
-
-    useEffect(() => {//get all services
-        findAll()
-            .then(setServices)
-            .catch(() => history.push("/error"));
-    }, []);
-
+    if(loading){
+        <span>loading...</span>
+    }
     return (
         <>
             <table>
@@ -35,6 +33,8 @@ function ListingServiceGrid({ handleEdit, handleDelete }) {
                     </tr>
                 </thead>
                 <tbody>
+                    {console.log("services" + services)}
+                    {console.log("listings" + listings)}
                     {
                         listings.map(l => (
                             <tr key={l.listingId}>
