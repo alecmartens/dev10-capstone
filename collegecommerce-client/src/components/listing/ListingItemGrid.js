@@ -12,13 +12,13 @@ function ListingItemGrid({ handleEdit, handleDelete }) {
         findAllListings()
             .then(setListings)
             .catch(() => history.push("/error"));
-    }, [history]/*, []*/);
+    }, []);
 
     useEffect(() => {//get all items
         findAllItems()
             .then(setItems)
             .catch(() => history.push("/error"));
-    }/*, [history]*/)
+    }, [])
     
     return (
         <>
@@ -56,6 +56,9 @@ function ListingItemGrid({ handleEdit, handleDelete }) {
             </table>
         </>
     );
+    // return (
+    //     <div>ListingItemGrid</div>
+    // );
 }
 
 export default ListingItemGrid;
