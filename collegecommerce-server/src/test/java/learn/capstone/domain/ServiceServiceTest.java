@@ -2,6 +2,7 @@ package learn.capstone.domain;
 
 import learn.capstone.data.ServiceJdbcTemplateRepository;
 import learn.capstone.models.Service;
+import learn.capstone.models.ServiceCategory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,7 +34,7 @@ public class ServiceServiceTest {
         service.setName("repair & deliver new2");
         service.setDescription("new furniture delivery, repair2");
         service.setPricePerHour(111.00);
-        service.setCategory("furniture2");
+        service.setCategory(ServiceCategory.DELIVERY);
         Service mock = service;
         mock.setServiceId(100);
         when(serviceRepo.add(service)).thenReturn(mock);
@@ -55,7 +56,7 @@ public class ServiceServiceTest {
         service.setName("repair & deliver new2");
         service.setDescription("new furniture delivery, repair2");
         service.setPricePerHour(111.00);
-        service.setCategory("furniture2");
+        service.setCategory(ServiceCategory.DELIVERY);
         Service mock = service;
         mock.setServiceId(1);
         when(serviceRepo.delete(1)).thenReturn(true);
@@ -74,7 +75,7 @@ public class ServiceServiceTest {
         service.setName("repair & deliver new2");
         service.setDescription("new furniture delivery, repair2");
         service.setPricePerHour(111.00);
-        service.setCategory("furniture2");
+        service.setCategory(ServiceCategory.DELIVERY);
         Service mock = service;
         mock.setServiceId(1);
         when(serviceRepo.findById(1)).thenReturn(mock);
