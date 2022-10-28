@@ -20,41 +20,41 @@ function ListingServiceGrid({ handleEdit, handleDelete }) {
             .catch(() => history.push("/error"));
     }, []);
 
-    // return (
-    //     <>
-    //         <table>
-    //             <thead>
-    //                 <tr>
-    //                     <th>Listing Id</th>
-    //                     <th>Is Available</th>
-    //                     <th>User Id</th>
-    //                     <th>name</th>
-    //                     <th>description</th>
-    //                     <th>pricePerHour</th>
-    //                     <th>category</th>
-    //                 </tr>
-    //             </thead>
-    //             <tbody>
-    //                 {
-    //                     listings.map(l => (
-    //                         <tr key={l.listingId}>
-    //                             <td>{l.listingId}</td>
-    //                             <td>{String(l.available)}</td>
-    //                             <td>{l.userId}</td>
-    //                             <td>{services.at(l.serviceId).name}</td>
-    //                             <td>{services.at(l.serviceId).description}</td>
-    //                             <td>{services.at(l.serviceId).pricePerHour}</td>
-    //                             <td>{services.at(l.serviceId).category}</td>
-    //                         </tr>
-    //                     ))
-    //                 }
-    //             </tbody>
-    //         </table>
-    //     </>
-    // );
     return (
-        <div>ListingServiceGrid</div>
+        <>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Listing Id</th>
+                        <th>Is Available</th>
+                        <th>User Id</th>
+                        <th>name</th>
+                        <th>description</th>
+                        <th>pricePerHour</th>
+                        <th>category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        listings.map(l => (
+                            <tr key={l.listingId}>
+                                <td>{l.listingId}</td>
+                                <td>{String(l.available)}</td>
+                                <td>{l.userId}</td>
+                                <td>{services.at(l.serviceId).name}</td>
+                                <td>{services.at(l.serviceId).description}</td>
+                                <td>{services.at(l.serviceId).pricePerHour}</td>
+                                <td>{services.at(l.serviceId).category}</td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+        </>
     );
+    // return (
+    //     <div>ListingServiceGrid</div>
+    // );
 }
 
 export default ListingServiceGrid;

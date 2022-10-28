@@ -123,17 +123,25 @@ function App() {
               <ListingConfirmDelete />
             </Route> */}
             <Route path="/listings/items">
-              <h2>Items</h2>
               <div className="row">
                 <h1 className="col-9">Item Listings</h1>
                 <div className="col-3">
                   <Link to="/listings/items/add" className="btn btn-primary">Add an Item Listing</Link>
                 </div>
-                <h2 className="col-9">Items</h2>
               </div>
               <ListingItemGrid />
             </Route>
-            
+
+            <Route path="/listings/services">
+              <div className="row">
+                <h1 className="col-9">Service Listings</h1>
+                <div className="col-3">
+                  <Link to="/listings/services/add" className="btn btn-primary">Add a Service Listing</Link>
+                </div>
+              </div>
+              <ListingServiceGrid />
+            </Route>
+
             <Route path="/listings">
               <div className="row">
                 <div className="col-3">

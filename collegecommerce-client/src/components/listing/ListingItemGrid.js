@@ -6,19 +6,21 @@ function ListingItemGrid({ handleEdit, handleDelete }) {
     const [listings, setListings] = useState([]);
     const [items, setItems] = useState([]);
 
-    const history = useHistory();
-
-    useEffect(() => {//Get all listings
-        findAllListings()
-            .then(setListings)
-            .catch(() => history.push("/error"));
-    }, []);
+    //const history = useHistory();
 
     useEffect(() => {//get all items
         findAllItems()
             .then(setItems)
-            .catch(() => history.push("/error"));
-    }, [])
+            //.catch(() => history.push("/error"));
+    }, []);
+    
+
+    useEffect(() => {//Get all listings
+        findAllListings()
+            .then(setListings)
+           // .catch(() => history.push("/error"));
+    }, []);
+
     
     return (
         <>
