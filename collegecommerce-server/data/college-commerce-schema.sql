@@ -112,9 +112,9 @@ create table college_info(
     address varchar(150) not null, 
     constraint uq unique (`name`, address)
 ); 
-insert into college_info(`name`, address)
-select distinct LocationName, Address from imports; 
-select * from college_info;
+-- insert into college_info(`name`, address)
+-- select distinct LocationName, Address from imports; 
+-- select * from college_info;
 
 insert into app_role (app_role_id, name) values (1, "USER"), (2, "ADMIN");
 

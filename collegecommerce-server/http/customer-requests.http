@@ -1,0 +1,18 @@
+GET http://localhost:8080/api/customers/
+
+###
+POST http://localhost:8080/api/customers/create
+Content-Type: application/json
+
+{
+    "name":"Temp2", 
+    "email":"email2@email.com"
+}
+
+###
+DELETE http://localhost:8080/api/customers/
+Content-Type: application/json
+
+{
+    "customerId":"cus_MhNgZmxym2qopA"
+}

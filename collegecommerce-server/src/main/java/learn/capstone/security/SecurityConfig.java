@@ -25,6 +25,7 @@ public class SecurityConfig {
         http.cors();
 
         http.authorizeRequests()
+                .antMatchers("/api/customers/*").permitAll()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/refresh_token").authenticated()
                 //changed

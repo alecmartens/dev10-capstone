@@ -1,7 +1,6 @@
 import Alert from 'react-bootstrap/Alert';
 import { useState } from 'react';
-function CartMessage({color, productName}){
-    const [show, setShow] = useState(true);
+function CartMessage({color, productName, setShow, show = true, setColor}){
     let msg = ""; 
     if(color == "success"){
         msg = productName + " added to shopping cart."; 
@@ -12,7 +11,7 @@ function CartMessage({color, productName}){
     if(show){
         return(
             <>
-            <Alert variant={color} onClose={() => setShow(false)} dismissible>
+            <Alert variant={color} onClose={() => {setShow(false); setColor("success")}} dismissible>
                 {msg}
             </Alert>
             </>

@@ -34,7 +34,7 @@ public class ServiceJdbcTemplateRepositoryTest {
         service.setName("repair & deliver");
         service.setDescription("furniture delivery, repair");
         service.setPricePerHour(111.00);
-        service.setCategory("furniture");
+        service.setCategory(ServiceCategory.DELIVERY);
         assertTrue(repo.update(service));
     }
 
@@ -50,7 +50,7 @@ public class ServiceJdbcTemplateRepositoryTest {
         service.setName("repair & deliver new");
         service.setDescription("new furniture delivery, repair");
         service.setPricePerHour(111.00);
-        service.setCategory("furniture");
+        service.setCategory(ServiceCategory.DELIVERY);
         assertNotNull(repo.add(service));
     }
 }
