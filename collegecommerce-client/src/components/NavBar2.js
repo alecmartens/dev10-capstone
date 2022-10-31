@@ -16,7 +16,9 @@ function NavBar2() {
           <Navbar.Brand href="/">CollegeCommerce</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/services">Services</Nav.Link>
-            <Nav.Link href="/services/add">Add Service</Nav.Link>
+            <Nav.Link href="/services/add">Add a Service</Nav.Link>
+            <Nav.Link href="/items">Items</Nav.Link>
+            <Nav.Link href="/items/add">Add an Item</Nav.Link>
             <Nav.Link href="#">More</Nav.Link>
           </Nav>
           {auth.user ? (

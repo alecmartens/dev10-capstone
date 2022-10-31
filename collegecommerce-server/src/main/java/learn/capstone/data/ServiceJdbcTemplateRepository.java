@@ -26,6 +26,8 @@ public class ServiceJdbcTemplateRepository implements ServiceRepository{
         //TODO category enum
         ServiceCategory category = ServiceCategory.valueOf(rs.getString("category"));
         service.setCategory(category);
+        service.setUserId(rs.getInt("user_id"));
+        service.setAvailable(rs.getBoolean("is_available"));
         return service;
     };
 
@@ -35,14 +37,14 @@ public class ServiceJdbcTemplateRepository implements ServiceRepository{
 
     @Override
     public List<Service> findAll() {
-        final String sql = "select service_id,name,description,price_per_hour,category from service;";
+        final String sql = "select service_id,name,description,price_per_hour,category,user_id,is_available from service;";
         List<Service> all = jdbcTemplate.query(sql, serviceMapper);
         return all;
     }
 
     @Override
     public Service findById(int id) {
-        String sql =  "select service_id,name,description,price_per_hour,category from service " +
+        String sql =  "select service_id,name,description,price_per_hour,category,user_id, is_available from service " +
                 "where service_id=?;";
         Service service = jdbcTemplate.query(sql, serviceMapper,id).stream()
                 .findFirst()
@@ -53,7 +55,7 @@ public class ServiceJdbcTemplateRepository implements ServiceRepository{
     @Transactional
     @Override
     public Service add(Service service){
-        final String sql ="insert into service(name, description, price_per_hour, category) values (?,?,?,?);";
+        final String sql ="insert into service(name, description, price_per_hour, category, user_id, is_available) values (?,?,?,?,?,?);";
        KeyHolder keyholder= new GeneratedKeyHolder();
                 int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -61,6 +63,8 @@ public class ServiceJdbcTemplateRepository implements ServiceRepository{
             ps.setString(2, service.getDescription());
             ps.setDouble(3, service.getPricePerHour());
             ps.setString(4, service.getCategory().getName());
+            ps.setInt(5, service.getUserId());
+            ps.setBoolean(6,service.isAvailable());
             return ps;
         }, keyholder);
         if (rowsAffected <= 0) {
@@ -73,9 +77,9 @@ public class ServiceJdbcTemplateRepository implements ServiceRepository{
     @Transactional
     @Override
     public boolean update(Service service) {
-        final String sql = "update service set name= ?, description = ?, price_per_hour = ?, category=?" +
+        final String sql = "update service set name= ?, description = ?, price_per_hour = ?, category = ?, user_id = ?, is_available = ? " +
                 "where service_id = ?;";
-        return jdbcTemplate.update(sql, service.getName(), service.getDescription(), service.getPricePerHour(), service.getCategory(), service.getServiceId()) > 0;
+        return jdbcTemplate.update(sql, service.getName(), service.getDescription(), service.getPricePerHour(), service.getCategory(), service.getUserId(), service.isAvailable(), service.getServiceId()) > 0;
     }
 
     @Transactional

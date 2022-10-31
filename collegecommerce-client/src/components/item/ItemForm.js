@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { findById, findAll, save } from "../../services/itemService";
+import { findByItemId, findAll, save } from "../../services/itemService";
+
 function ItemForm() {
     const [item, setItem] = useState({
         itemId: 0,
@@ -17,7 +18,7 @@ function ItemForm() {
     const { id } = useParams();
     useEffect(() => {
         if (id) {
-            findById(id)
+            findByItemId(id)
                 .then(setItem)
                 .catch(() => history.push("/invalid"));
         }
@@ -92,6 +93,11 @@ function ItemForm() {
                 <label htmlFor="imageUrl" className="form-label">Image URL</label>
                 <input type="text" name="imageUrl" id="imageUrl" className="form-control"
                     // value={item.imageUrl} 
+                    onChange={handleChange} />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="isAvailable" className="form-label">Is Available</label>
+                <input type="text" name="isAvailable" id="isAvailable" className="form-control"
                     onChange={handleChange} />
             </div>
             {

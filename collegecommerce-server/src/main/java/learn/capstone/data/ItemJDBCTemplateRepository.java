@@ -39,13 +39,15 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
         item.setItemSold(resultSet.getBoolean("item_sold"));
         item.setCategory(resultSet.getString("category"));
         item.setImageUrl(resultSet.getString("image_url"));
+        item.setUserId(resultSet.getInt("user_id"));
+        item.setAvailable(resultSet.getBoolean("is_available"));
 
         return item;
     };
 
     @Override
     public List<Item> findAll() {
-        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url " +
+        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available " +
                 "from item ";
 
         return jdbcTemplate.query(sql, mapper);
@@ -53,7 +55,7 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
 
     @Override
     public Item findByItemId(int itemId) {
-        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url " +
+        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available " +
                 "from item " +
                 "where item_id = ?";
 
@@ -63,8 +65,8 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
     @Override
     public Item create(Item item) {
         final String sql = "insert into item " +
-                "(name, price, description, item_condition, item_sold, category, image_url) " +
-                "values (?, ?, ?, ?, ?, ?, ?);";
+                "(name, price, description, item_condition, item_sold, category, image_url, user_id, is_available) " +
+                "values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -76,6 +78,8 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                     statement.setBoolean(5,item.isItemSold());
                     statement.setString(6,item.getCategory());
                     statement.setString(7, item.getImageUrl());
+                    statement.setInt(8, item.getUserId());
+                    statement.setBoolean(9, item.isAvailable());
 
             return statement;
         }, keyHolder);
@@ -98,7 +102,9 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                 "item_condition = ?, " +
                 "item_sold = ?, " +
                 "category = ?, " +
-                "image_url = ? " +
+                "image_url = ?, " +
+                "user_id = ?, " +
+                "is_available = ? " +
                 "where item_id = ?;";
 
         int rowsUpdated = jdbcTemplate.update(sql,
@@ -109,7 +115,10 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                 item.isItemSold(),
                 item.getCategory(),
                 item.getImageUrl(),
+                item.getUserId(),
+                item.isAvailable(),
                 item.getItemId());
+
         System.out.println(rowsUpdated);
         return rowsUpdated > 0;
     }
@@ -131,7 +140,9 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                         " itemCondition: " + item.getItemCondition() +
                         " itemSold: " + item.isItemSold() +
                         " category: " + item.getCategory() +
-                        " imageUrl: " + item.getImageUrl();
+                        " imageUrl: " + item.getImageUrl() +
+                        " userId: " + item.getUserId() +
+                        " isAvailable " + item.isAvailable();
         System.out.println(result);
     }
 }
