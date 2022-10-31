@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { findAllItems } from "../../services/itemService";
 import Item from "./Item";
+import { Table } from "react-bootstrap";
 
 import { Link, Router } from "react-router-dom";
 
@@ -18,7 +19,7 @@ function ItemGrid({ handleEdit, handleDelete }) {
 
     return (
         <>
-            <table>
+            <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Item Id</th>
@@ -34,7 +35,7 @@ function ItemGrid({ handleEdit, handleDelete }) {
                 <tbody>
                     {items.map(i => <Item key={i.itemId} item={i} handleEdit={handleEdit} handleDelete={handleDelete} />)}
                 </tbody>
-            </table>
+            </Table>
         </>
     );
 }
