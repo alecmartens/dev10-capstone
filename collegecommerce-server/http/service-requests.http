@@ -9,7 +9,9 @@ Content-Type: application/json
     "name":"mail delivery",
     "description":"mail",
     "pricePerHour":5.99,
-    "category":"mail"
+    "category":"OTHER",
+    "userId":2,
+    "available":false
 }
 
 ###
@@ -54,5 +56,5 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8080/api/service/5
+DELETE http://localhost:8080/api/service/4
 
