@@ -63,17 +63,18 @@ public class UserService implements UserDetailsService {
             result.addMessage("User cannot be null.", ResultType.INVALID);
             return result;
         }
-        Result<User> result = validate(user.getUsername(), user.getPassword());
+//        Result<User> result = validate(user.getUsername(), user.getPassword());
+        Result<User> result = new Result<>();
 
-        if (!result.isSuccess()) {
-            return result;
-        }
+//        if (!result.isSuccess()) {
+//            return result;
+//        }
         if (user.getUserId() <= 0) {
             result.addMessage("User ID cannot be equal or less than 0.", ResultType.INVALID);
             return result;
         }
 
-        user.setPassword(encoder.encode(user.getPassword()));
+//        user.setPassword(encoder.encode(user.getPassword()));
 
         boolean updated = false;
         try {

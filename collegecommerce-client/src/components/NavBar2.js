@@ -4,13 +4,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from "react-router-dom";
 import AuthContext from '../contexts/AuthContext';
+import LocationContext from '../contexts/LocationContext';
 
 function NavBar2() {
 
   const auth = useContext(AuthContext);
+  const myLocation = useContext(LocationContext);
 
   return (
-    <>
+    <div>
       <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand href="/">CollegeCommerce</Navbar.Brand>
@@ -21,8 +23,14 @@ function NavBar2() {
             <Nav.Link href="/items/add">Add an Item</Nav.Link>
             <Nav.Link href="#">More</Nav.Link>
           </Nav>
+          <div className="d-flex flex-column justfiy-content-around form-inline me-4">
+        {auth.user && <div>Current User: {auth.user.username} </div>}
+        {myLocation.location && <div>Location: {myLocation.location}</div>}
+          </div>
+          
           {auth.user ? (
             <form className="form-inline">
+              <Link to={`/user/${auth.user.username}`} className="btn btn-outline-primary me-2">Profile</Link>
               <button className="btn btn-outline-success " type="button" onClick={auth.logout}>Logout</button>
             </form>
             ) : (
@@ -32,8 +40,7 @@ function NavBar2() {
           )}
         </Container>
       </Navbar>
-      {auth.user && <p>Current User: {auth.user.username}</p>}
-    </>
+    </div>
   );
 }
 
