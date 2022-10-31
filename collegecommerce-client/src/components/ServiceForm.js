@@ -7,7 +7,7 @@ function ServiceForm(){
         name:"", 
         description:"", 
         pricePerHour:0, 
-        category:""
+        category:"DELIVERY"
     });
     const [errs, setErrs] = useState([]);
     const history = useHistory();
@@ -27,6 +27,10 @@ function ServiceForm(){
 
     function handleSubmit(evt) {
         evt.preventDefault();
+        const nextService = { ...service };
+        nextService.category="DELIVERY"; 
+        setService(nextService); 
+        console.log(service); 
         save(service)
             .then(() => history.push("/services"))
             .catch(errs => {
@@ -58,17 +62,19 @@ function ServiceForm(){
             <div>
                 <label htmlFor="category">category</label>
                 <select id="category" name="category"
-                    value={service.category} onChange={handleChange}>
-                    <option>DELIVERY</option>
-                    <option>REPAIR</option>
-                    <option>OTHER</option>
+                    value={service.category} type="text" onChange={handleChange}>
+                    <option value="DELIVERY">DELIVERY</option>
+                    <option value="REPAIR">REPAIR</option>
+                    <option value="OTHER">OTHER</option>
                 </select>
             </div>
-            {errs.length !== 0 && <div className="alert alert-danger">
-                <ul>
-                    {errs.map(err => <li key={err}>{err}</li>)}
-                </ul>
-            </div>}
+            {
+                errs.length !== 0 && <div className="alert alert-danger">
+                    <ul>
+                        {errs.map(err => <li key={err}>{err}</li>)}
+                    </ul>
+                </div>
+            }
             <div className="mb-3">
                 <button className="btn btn-primary me-2" type="submit">Save</button>
                 <Link to="/services" className="btn btn-warning">Cancel</Link>

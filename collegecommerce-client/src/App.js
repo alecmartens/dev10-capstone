@@ -24,6 +24,7 @@ import { Badge } from "react-bootstrap";
 import NavBar2 from "./components/NavBar2";
 import Login from "./components/Login";
 import Register from "./components/Register";
+// import Payment from "./components/Payment";
 function App() {
 
   const LOCAL_STORAGE_TOKEN_KEY = "collegeCommerceToken";
@@ -166,6 +167,9 @@ function App() {
             <Route path="/cartmsg">
               <CartMessage color="success" productName="petcare"/>
             </Route>
+            {/* <Route path="/payment">
+              <Payment /> 
+            </Route> */}
             <Route path="*">
               <NotFound />
             </Route>

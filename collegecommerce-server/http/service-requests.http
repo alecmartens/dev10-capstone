@@ -25,7 +25,7 @@ Content-Type: application/json
     "name":"mail delivery2",
     "description":"mail2",
     "pricePerHour":5.99,
-    "category":"mail"
+    "category":"DELIVERY"
 }
 
 ###
