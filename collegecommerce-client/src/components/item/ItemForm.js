@@ -98,7 +98,6 @@ function ItemForm() {
             <div className="mb-3">
                 <label htmlFor="isAvailable" className="form-label">Is Available</label>
                 <input type="text" name="isAvailable" id="isAvailable" className="form-control"
-                    // value={item.imageUrl} 
                     onChange={handleChange} />
             </div>
             {

@@ -98,7 +98,7 @@ function App() {
                   <Link to="/items" className="btn btn-primary">View Items</Link>
                   <br></br>
                   <br></br>
-                  <Link to="/listings" className="btn btn-primary">View Listings</Link>
+                  {/* <Link to="/listings" className="btn btn-primary">View Listings</Link> */}
                 </div>
               </div>
             </Route>
