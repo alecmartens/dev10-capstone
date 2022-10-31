@@ -9,6 +9,12 @@ function ListingServiceGrid({ handleEdit, handleDelete }) {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(false);
     const history = useHistory();
+    useEffect(()=>{
+        setLoading(true); 
+        const allListings = findAllListings(); 
+        const allServices = findAll(); 
+        Promise.all([allListings, allServices]).then(data=>{setListings(data[0]); setServices(data[1]);}).catch(console.log); 
+    },[]); 
 
     const [listing, setListing] = useState();
 
@@ -38,6 +44,8 @@ function ListingServiceGrid({ handleEdit, handleDelete }) {
                     </tr>
                 </thead>
                 <tbody>
+                    {console.log("services" + services)}
+                    {console.log("listings" + listings)}
                     {
                         listings.map(l => (
                             console.log(l),
