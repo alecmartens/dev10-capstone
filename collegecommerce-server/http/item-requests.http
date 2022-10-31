@@ -12,7 +12,9 @@ Content-Type: application/json
     "itemCondition":"good",
     "item_sold":true,
     "category":"sports",
-    "image_url":"test"
+    "image_url":"test",
+    "userId":1,
+    "available":true
 }
 
 ###

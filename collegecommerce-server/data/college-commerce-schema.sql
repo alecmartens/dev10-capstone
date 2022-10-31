@@ -37,7 +37,10 @@ create table item (
     item_condition varchar(50),
     item_sold boolean,
     category varchar(100),
-    image_url varchar(512) null, 
+    image_url varchar(512) null,
+    -- added
+    user_id int not null,
+    is_available boolean,
     constraint uq unique (name , description)
 );
 
@@ -71,23 +74,23 @@ create table service (
 -- insert into service_booked_times(service_id, begin_time, end_time) 
 -- values(1, '2023-06-20 01:00:00', '2023-06-20 05:00:00'); 
 -- select * from service_booked_times; 
-create table listing (
-	listing_id int primary key auto_increment,
-    is_available boolean,
-    user_id int not null,
-    item_id int,
-    service_id int,
-    constraint fk_listing_user_id
-		foreign key (user_id)
-        references user_info(user_id),
-	-- constraint fk_listing_item_id
--- 		foreign key (item_id)
---         references item(item_id),
--- 	constraint fk_listing_service_id
--- 		foreign key (service_id)
---         references service(service_id), 
-    constraint uq unique (user_id, item_id, service_id)
-);
+-- create table listing (
+-- 	listing_id int primary key auto_increment,
+--     is_available boolean,
+--     user_id int not null,
+--     item_id int,
+--     service_id int,
+--     constraint fk_listing_user_id
+-- 		foreign key (user_id)
+--         references user_info(user_id),
+-- 	-- constraint fk_listing_item_id
+-- -- 		foreign key (item_id)
+-- --         references item(item_id),
+-- -- 	constraint fk_listing_service_id
+-- -- 		foreign key (service_id)
+-- --         references service(service_id), 
+--     constraint uq unique (user_id, item_id, service_id)
+-- );
 
 create table location (
 	location_id int primary key auto_increment,
