@@ -4,6 +4,9 @@ import { findAll } from "../services/serviceServices";
 import Service from "./Service";
 import { Table, Badge } from "react-bootstrap";
 function ServiceGrid({ handleEdit, handleDelete }) {
+    const [show, setShow] = useState(false);
+    const [colorMsg, setColorMsg] = useState("success");
+
     const [services, setServices] = useState([]);
 
     const [service, setService] = useState({
@@ -62,8 +65,37 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                 <td>{s.pricePerHour}</td>
                                 <td>{s.category}</td>
                                 <td>{String(s.available)}</td>
-                                <td><Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger me-2">Delete</Link></td>
-                                <td><Link to={`/services/edit/${s.serviceId}`} className="btn btn-secondary">Edit</Link></td>
+                                {/* <td><Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger me-2">Delete</Link></td> */}
+                                {/* <td><Link to={`/services/edit/${s.serviceId}`} className="btn btn-secondary">Edit</Link></td> */}
+                                <td><Link to={`/services/delete/${service.serviceId}`} className="btn btn-danger m-2">Delete</Link>
+                                    <Link to={`/services/edit/${service.serviceId}`} className="btn btn-secondary m-2">Edit</Link><button className="btn btn-primary" onClick={() => {
+                                        if (!localStorage.getItem("cartProducts")) { localStorage.setItem("cartProducts", JSON.stringify({})); };
+                                        setCount(count + 1);
+                                        setShow(true);
+                                        (localStorage.getItem("cartCount")) ? localStorage.setItem("cartCount", parseInt(localStorage.getItem("cartCount")) + 1) : localStorage.setItem("cartCount", 1);
+                                        let cart = JSON.parse(localStorage.getItem("cartProducts"));
+                                        if (cart[service.serviceId]) {
+                                            cart[service.serviceId] += 1;
+                                        }
+                                        else {
+                                            cart[service.serviceId] = 1;
+                                        }
+                                        localStorage.setItem("cartProducts", JSON.stringify(cart));
+                                    }}>+</button><button className="btn btn-warning m-2" onClick={() => {
+                                        setShow(true);
+                                        setColorMsg("danger");
+                                        if (localStorage.getItem("cartProducts")) {
+                                            let cart = JSON.parse(localStorage.getItem("cartProducts"));
+                                            if (cart[service.serviceId]) {
+                                                cart[service.serviceId] -= 1;
+                                                setCount(count - 1);
+                                                localStorage.setItem("cartCount", count - 1);
+                                                console.log(cart[service.serviceId]);
+                                            }
+                                            localStorage.setItem("cartProducts", JSON.stringify(cart));
+                                        }
+                                    }}>-</button></td>
+
                                 <td><button className="btn btn-success me-2" onClick={() => {
                                     //Set isAvailable to true, to post listing
                                     //This posts services for other users to see
@@ -79,6 +111,7 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                     console.log(s);
                                 }}>Unlist Service</button></td>
                                 {/* <td><Link to={`/services/delete/${service.serviceId}`} className="btn btn-danger m-2">Delete</Link></td> */}
+
                             </tr>
                         ))
                     }
