@@ -8,6 +8,8 @@ public class Service {
     private String description;
     private double pricePerHour;
     private ServiceCategory category; //TODO: change to enum
+    private int userId;
+    private boolean isAvailable;
 
     public int getServiceId() {
         return serviceId;
@@ -47,6 +49,22 @@ public class Service {
 
     public void setCategory(ServiceCategory category) {
         this.category = category;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 }
 

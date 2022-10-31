@@ -50,6 +50,8 @@ create table service (
     description varchar(300),
     price_per_hour decimal(8,2) not null,
     category varchar(100), 
+    user_id int not null,
+    is_available boolean,
     constraint uq unique (name, description, price_per_hour)
 );
 
