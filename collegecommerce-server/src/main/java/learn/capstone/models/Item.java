@@ -20,8 +20,14 @@ public class Item {
     private boolean itemSold;
     private String category; //Enum???
     private String imageUrl;
+    private int userId;
+    private boolean isAvailable;
 
-    public Item(int itemId, String name, BigDecimal price, String description, String itemCondition, boolean itemSold, String category, String imageUrl) {
+
+    public Item() {
+    }
+
+    public Item(int itemId, String name, BigDecimal price, String description, String itemCondition, boolean itemSold, String category, String imageUrl, int userId, boolean isAvailable) {
         this.itemId = itemId;
         this.name = name;
         this.price = price;
@@ -30,9 +36,8 @@ public class Item {
         this.itemSold = itemSold;
         this.category = category;
         this.imageUrl = imageUrl;
-    }
-
-    public Item() {
+        this.userId = userId;
+        this.isAvailable = isAvailable;
     }
 
     public int getItemId() {
@@ -97,5 +102,21 @@ public class Item {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 }

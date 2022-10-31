@@ -29,7 +29,9 @@ public class SecurityConfig {
                 .antMatchers("/api/customers/*").permitAll()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/refresh_token").authenticated()
-                .antMatchers(HttpMethod.GET, "/api/user/*", "/api/listing/*").permitAll()
+                //changed
+                .antMatchers(HttpMethod.GET, "/api/user/*", "/api/listing/*", "/api/listing").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/user/*", "/api/listing/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/service", "/api/service/*", "/api/item/*", "/api/item").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user").permitAll()
                 //changed

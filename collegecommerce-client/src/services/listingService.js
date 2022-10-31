@@ -1,6 +1,6 @@
 const LISTING_API_URL = "http://localhost:8080/api/listing";
 
-export async function findAll() {
+export async function findAllListings() {
     const response = await fetch(LISTING_API_URL);
     if (response.ok) {
         return response.json();

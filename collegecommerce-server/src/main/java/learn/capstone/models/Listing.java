@@ -13,6 +13,7 @@ public class Listing {
     int itemId;
     int serviceId;
 
+
     public Listing() {
     }
 
