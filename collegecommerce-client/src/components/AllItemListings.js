@@ -36,9 +36,6 @@ function AllItemListings() {
   return (
     <>
       <div>
-        {/* <div className="col-3">
-          <Link to={`/user/${user.username}/items/add`} className="btn btn-primary">Add an Item</Link>
-        </div> */}
         <h1>Items & Services</h1>
         <Nav variant="tabs" defaultActiveKey="/services">
           <Nav.Item>
