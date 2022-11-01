@@ -9,7 +9,7 @@ export async function findAllItems() {
     }
 }
 
-export async function findByItemId(itemId) {//changed name
+export async function findByItemId(itemId) {
     const response = await fetch(`${ITEM_API_URL}/${itemId}`);
     if (response.ok) {
         return response.json();

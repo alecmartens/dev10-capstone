@@ -11,6 +11,8 @@ public class Service {
     private int userId;
     private boolean isAvailable;
 
+    private String location;
+
     public int getServiceId() {
         return serviceId;
     }
@@ -66,13 +68,15 @@ public class Service {
     public void setAvailable(boolean available) {
         isAvailable = available;
     }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }
 
-//    create table service (
-//        service_id int primary key auto_increment,
-//        name varchar(100) not null,
-//        description varchar(300),
-//        price_per_hour decimal(8,2) not null,
-//        category varchar(100),
-//        constraint uq unique (name, description, price_per_hour)
-//        );
+
+

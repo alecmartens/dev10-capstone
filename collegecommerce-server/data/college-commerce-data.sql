@@ -1,15 +1,17 @@
+use college_commerce;
 set sql_safe_updates = 0; 
-insert into college_commerce.item(name, price, description, item_condition, item_sold, category, user_id, is_available)
-values ("desk", 150.50, "wooden desk, two drawers", "like new", false, "furniture", 1, false),
-("Calculus Textbook", 150.50, "8th edition, 500 pages", "good", false, "textbook", 2, true),
-("Sofa", 150.50, "10' width, gray", "new", false, "furniture", 1, false),
-("Chair", 151.50, "small, gray", "new", false, "furniture", 2, true),
-("Bike", 152.50, "Black, light", "new", false, "outdoor", 3, true);  
 
-insert into college_commerce.service(name, description, price_per_hour, category, user_id, is_available)
-    values ("delivering food", "pizza", 50.00,"DELIVERY",1,false),
-    ("pet service", "any pet", 50.00,"REPAIR",1,true),
-    ("setup fridge", "lift anything under 100 lbs", 50.00,"OTHER",2,false);
+insert into item(name, price, description, item_condition, item_sold, category, user_id, is_available, location)
+values ("desk", 150.50, "wooden desk, two drawers", "like new", false, "furniture", 1, true, "North Dakota State University"),
+("Calculus Textbook", 150.50, "8th edition, 500 pages", "good", false, "textbook", 1, true, "University of Minnesota"),
+("Sofa", 150.50, "10' width, gray", "new", false, "furniture", 1, false, "University of Minnesota"),
+("Chair", 151.50, "small, gray", "new", false, "furniture", 2, true, "North Dakota State University"),
+("Bike", 152.50, "Black, light", "new", false, "outdoor", 2, false, "North Dakota State University");  
+
+insert into service(name, description, price_per_hour, category, user_id, is_available, location)
+    values ("delivering food", "pizza", 50.00,"DELIVERY",1,false, "North Dakota State University"),
+    ("pet service", "any pet", 50.00,"REPAIR",1,true, "North Dakota State University"),
+    ("setup fridge", "lift anything under 100 lbs", 50.00,"OTHER",2,false, "University of Minnesota");
 
 insert into user_info(username, email, password_hash, image_url)
 values ("JohnDoe", "johndoe@gmail.com",

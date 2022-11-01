@@ -1,17 +1,21 @@
 import Nav from 'react-bootstrap/Nav';
 import { Card, Row, Col } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState, useEffect , useContext} from 'react';
 import { useHistory } from 'react-router';
 import { findAllItems } from '../services/itemService';
 import { Link } from 'react-router-dom';
 import { Badge } from 'react-bootstrap';
 import { Image } from 'react-bootstrap';
+import LocationContext from '../contexts/LocationContext';
 function AllItemListings() {
 
   const [show, setShow] = useState(false);
   const [colorMsg, setColorMsg] = useState("success");
   const [items, setItems] = useState([]);
+
   const history = useHistory();
+    const myLocation = useContext(LocationContext);
+
   {
     items.map(i => {
       if (!localStorage.getItem("itemhm")) { localStorage.setItem("itemhm", JSON.stringify({})); }
@@ -23,8 +27,19 @@ function AllItemListings() {
 
   if (!localStorage.getItem("cartCount")) { localStorage.setItem("cartCount", 0) }
   const [count, setCount] = useState(parseInt(localStorage.getItem("cartCount")));
+
   useEffect(() => {
     const nextItems = [];
+        if (myLocation.location) {
+          findAllItems()
+            .then((items)=>{
+              const nextItems =[]; 
+              items.map((i)=>{if(i.available && i.location === myLocation.location){nextItems.push(i)}})
+              setItems(nextItems);  
+            })
+            .catch(() => history.push("/error"));
+          }
+        else {
     findAllItems()
       .then((items) => {
         const nextItems = [];
@@ -32,7 +47,9 @@ function AllItemListings() {
         setItems(nextItems);
       })
       .catch(() => history.push("/error"));
+          };
   }, []);
+
   return (
     <>
       <div>

@@ -1,27 +1,47 @@
 import Nav from 'react-bootstrap/Nav';
 import { Card, Row, Col } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState, useEffect , useContext} from 'react';
 import { useHistory } from 'react-router';
 import { findAll } from '../services/serviceServices';
 import { Link } from 'react-router-dom';
 import { Badge } from 'react-bootstrap';
+import LocationContext from '../contexts/LocationContext';
+
 function AllServiceListings() {
   const [show, setShow] = useState(false);
   const [colorMsg, setColorMsg] = useState("success");
   const [services, setServices] = useState([]);
+
   const history = useHistory();
+  const myLocation = useContext(LocationContext);
+
   if (!localStorage.getItem("cartCount")) { localStorage.setItem("cartCount", 0) }
   const [count, setCount] = useState(parseInt(localStorage.getItem("cartCount")));
+
   useEffect(() => {
-    const nextServices = [];
-    findAll()
+      debugger;
+      if (myLocation.location) {
+        findAll()
+          .then((services)=>{
+          const nextServices =[];
+            services.map((s) => {if(s.available && s.location === myLocation.location){nextServices.push(s)}});
+            // services.map((s) => {if(s.location === myLocation.location) {nextServices.push(s)}});
+            setServices(nextServices);  
+          })
+          .catch(() => history.push("/error"));
+
+      } else {
+        findAll()
       .then((services) => {
         const nextServices = [];
         services.map((s) => { if (s.available) { nextServices.push(s) } });
         setServices(nextServices);
       })
       .catch(() => history.push("/error"));
+      }
+      
   }, []);
+
   return (
     <div>
       <h1>Items & Services</h1>

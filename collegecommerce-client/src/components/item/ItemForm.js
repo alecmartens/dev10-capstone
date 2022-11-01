@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { findByItemId, findAll, save } from "../../services/itemService";
+import { findByItemId, save } from "../../services/itemService";
+import { getUniversitiesByName } from "../../services/universitiesService";
 
 //user imports
 import { findByUserName } from "../../services/userService";
@@ -26,24 +27,54 @@ function ItemForm() {
         category: "",
         imageUrl: "",
         userId: user.userId,
-        available: false
+        available: false,
+        location: ""
     });
     const [errs, setErrs] = useState([]);
     const history = useHistory();
     const { id } = useParams();
+
+    const [location, setLocation] = useState("");
+    const [locations, setLocations] = useState([]);
+    const [displayConfirmation, setDisplayConfirmation] = useState(false);
+
     useEffect(() => {
         if (id) {
             findByItemId(id)
-                .then(setItem)
+                .then((i) => {
+                    setItem(i);
+                    setLocation(i.location);
+                })
                 .catch(() => history.push("/invalid"));
+
+            console.log(location);
         }
     }, []);
 
+    function handleLocationChange(evt) {
+        setLocation(evt.target.value);
+
+        if (location && location.length > 0) {
+            getUniversitiesByName(location)
+                .then((loc) => setLocations(loc))
+                .catch((error) => console.log(error));
+        } 
+    }
+
     function handleChange(evt) {
         const nextItem = { ...item };
-        nextItem[evt.target.name] = evt.target.value;
+        if (evt.target.name === "isAvailable") {
+            nextItem.isAvailable = evt.target.checked;
+        } else if (evt.target.name === "location") {
+            nextItem[evt.target.name] = evt.target.value;
+            setDisplayConfirmation(true);
+        }
+        else {
+            nextItem[evt.target.name] = evt.target.value;
+        }
         setItem(nextItem);
     }
+    
 
     function handleSubmit(evt) {
         evt.preventDefault();
@@ -59,7 +90,9 @@ function ItemForm() {
                 }
             });
     }
+
     return (
+        <div className="container w-50 p-4">
         <form onSubmit={handleSubmit}>
             <h2>{id > 0 ? "Edit item" : "Add item"}</h2>
             <div className="mb-3">
@@ -108,13 +141,12 @@ function ItemForm() {
             </div>
             <div className="mb-3">
                 <label htmlFor="imageUrl" className="form-label">Image URL</label>
-                <input type="text" name="imageUrl" id="imageUrl" className="form-control"
-                    // value={item.imageUrl} 
+                <input type="imageUrl" name="imageUrl" id="imageUrl" className="form-control"
                     onChange={handleChange} />
             </div>
-            {/* <div className="mb-3">
-                <label htmlFor="isAvailable" className="form-label">Is Available</label>
-                <input type="text" name="isAvailable" id="isAvailable" className="form-control"
+            {/* <div className="form-check mb-3">
+                <label htmlFor="isAvailable" className="form-check-label">Is Available</label>
+                <input type="checkbox" name="isAvailable" id="isAvailable" className="form-check-input"
                     onChange={handleChange} />
             </div> */}
             <div>
@@ -133,6 +165,27 @@ function ItemForm() {
                     <option value="NO">NO</option> */}
                 </select>}
             </div>
+                <div className="form-group mb-3">
+                    <label htmlFor="username" className="form-label">University</label>
+                    <input
+                        type="text"
+                        onChange={handleLocationChange}
+                        id="location"
+                        name="location"
+                        value={location}
+                        className="form-control"
+                        autoComplete="on"
+                    />
+                    </div>
+                    {locations && <div className="alert alert-secondary mt-3">
+                    <div className="list-group list-group-flush">
+                        {locations.filter((loc, index) => index < 10).map(loc => <button type="button" className="list-group-item list-group-item-action" 
+                                                                                key={loc.name} value={loc.name} name="location" onClick={handleChange}>{loc.name}</button>)}
+                    </div>
+                </div>}
+                {item.location && displayConfirmation && <div className="alert alert-primary mt-3">
+                    {item.location} added as item location.
+                </div>}
             {/* {
                 errs.length !== 0 && <div className="alert alert-danger">
                     <ul>
@@ -145,6 +198,7 @@ function ItemForm() {
                 <Link to="/items" className="btn btn-warning">Cancel</Link>
             </div>
         </form >
+        </div>
     );
 }
 
