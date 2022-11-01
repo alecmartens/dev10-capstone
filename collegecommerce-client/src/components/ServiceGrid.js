@@ -58,9 +58,9 @@ function ServiceGrid({ handleEdit, handleDelete }) {
             <div className="row">
                 <h1 className="col-9">services</h1>
                 <div className="col-3">
-                    <Link to="/cart" className="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
+                    {/* <Link to="/cart" className="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
                         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                    </svg><Badge bg="secondary">{count}</Badge></Link>
+                    </svg><Badge bg="secondary">{count}</Badge></Link> */}
                     <Link to="/services/add" className="btn btn-primary">Add a service</Link>
                 </div>
             </div>
@@ -95,18 +95,19 @@ function ServiceGrid({ handleEdit, handleDelete }) {
       name="toggle-switch"
         type="switch"
         id="switch"
-        label="make listing public" ref={ref} onChange={handleChange(s)} defaultChecked
+        label="" ref={ref} onChange={handleChange(s)} defaultChecked
       />:
       <Form.Check 
       name="toggle-switch"
         type="switch"
         id="switch"
-        label="make listing public" ref={ref} onChange={handleChange(s)} 
+        label="" ref={ref} onChange={handleChange(s)} 
       />}</Form></td>
                                 {/* <td><Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger me-2">Delete</Link></td> */}
                                 {/* <td><Link to={`/services/edit/${s.serviceId}`} className="btn btn-secondary">Edit</Link></td> */}
                                 <td><Link to={`/services/delete/${service.serviceId}`} className="btn btn-danger m-2">Delete</Link>
-                                    <Link to={`/services/edit/${service.serviceId}`} className="btn btn-secondary m-2">Edit</Link><button className="btn btn-primary" onClick={() => {
+                                    <Link to={`/services/edit/${service.serviceId}`} className="btn btn-secondary m-2">Edit</Link>
+                                    {/* <button className="btn btn-primary" onClick={() => {
                                         if (!localStorage.getItem("cartProducts")) { localStorage.setItem("cartProducts", JSON.stringify({})); };
                                         setCount(count + 1);
                                         setShow(true);
@@ -132,7 +133,8 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                             }
                                             localStorage.setItem("cartProducts", JSON.stringify(cart));
                                         }
-                                    }}>-</button></td>
+                                    }}>-</button> */}
+                                    </td>
                                 {/* <td><Form>
       <Form.Check 
         type="switch"
