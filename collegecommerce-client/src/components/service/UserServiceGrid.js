@@ -163,7 +163,7 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                             localStorage.setItem("cartProducts", JSON.stringify(cart));
                                         }
                                     }}>-</button> */}
-                                </td>
+                                {/* </td> */}
                                 {/* <td><Form>
       <Form.Check 
         type="switch"
