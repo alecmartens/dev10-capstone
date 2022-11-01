@@ -46,7 +46,7 @@ function ServiceGrid({ handleEdit, handleDelete }) {
             const nextService = { ...service };
             nextService["available"] = !nextService.available;
             save(nextService)
-                .then(() => { console.log("updated"); history.push("/services") })
+                .then(() => { console.log("updated"); history.push(`/user/${user.username}/services`) })
                 .catch(errs => {
                     if (errs) {
                         console.log(errs);
