@@ -18,10 +18,18 @@ const ShoppingCart = () => {
   const arr = Object.keys(cartProds); 
   let totalPrice = 0.0; 
   const [quantity, setQuantity] = useState(cartProds); 
+
+  if(!localStorage.getItem("cartProductsForItems")){localStorage.setItem("cartProductsForItems", JSON.stringify({})); }
+  if(!localStorage.getItem("itemhm")){localStorage.setItem("itemhm", JSON.stringify({})); }
+  const cartProdsItems = JSON.parse(localStorage.getItem("cartProductsForItems")); 
+  const itemmp = JSON.parse(localStorage.getItem("itemhm")); 
+  const arr2= Object.keys(cartProdsItems); 
+  const [quantityForItems, setQuantityForItems] = useState(cartProdsItems); 
   return (
     <div className='container'>
     <Table striped bordered hover>
       <thead>
+        <th>Services</th>
         <tr>
           <th>
             name
@@ -59,6 +67,38 @@ const ShoppingCart = () => {
            )}
            {arr.map(s =>  
           {totalPrice += servicemp[s][2]*cartProds[s]; 
+          })}
+          
+          
+      </tbody>     
+    </Table>
+
+    <Table striped bordered hover>
+      <thead>
+        <th>Items</th>
+      </thead>
+      <tbody>
+          {arr2.map(i =>
+            
+          <tr key={i}><td>{itemmp[i][0]}</td><td>{itemmp[i][1]}</td><td>{itemmp[i][2]}</td><td>{quantityForItems[i]}<Button variant="secondary" size="sm" className='m-2'
+        onClick={()=>{
+          let cartProd2 = JSON.parse(localStorage.getItem("cartProductsForItems")); 
+            cartProd2[i]++; 
+            localStorage.setItem("cartProductsForItems", JSON.stringify(cartProd2)); 
+            setQuantityForItems(cartProd2); 
+            if(localStorage.getItem("cartCount")){localStorage.setItem("cartCount", parseInt(localStorage.getItem("cartCount")) + 1)}
+        }}>+</Button><Button variant="danger" size="sm" className='m-2'onClick={()=>{
+          let cartProd2 = JSON.parse(localStorage.getItem("cartProductsForItems")); 
+          if(cartProd2 && cartProd2[i] > 0){
+            cartProd2[i]--; 
+            localStorage.setItem("cartProductsForItems", JSON.stringify(cartProd2)); 
+            setQuantityForItems(cartProd2); 
+            if(localStorage.getItem("cartCount") && localStorage.getItem("cartCount") > 0){localStorage.setItem("cartCount", parseInt(localStorage.getItem("cartCount")) - 1)}
+           }
+        }}>-</Button></td></tr>
+           )}
+           {arr2.map(i =>  
+          {totalPrice += itemmp[i][2]*cartProdsItems[i]; 
           })}
           
           
