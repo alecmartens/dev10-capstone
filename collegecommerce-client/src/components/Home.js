@@ -72,22 +72,22 @@ function Home() {
                 <div className="d-flex justify-content-evenly mt-4">
                     <div className="card bg-primary m-2 p-4">
                         <div className="card-body">
-                            <Link to="/" className="stretched-link text-reset">Buy Items</Link>
+                            <Link to="/items" className="stretched-link text-reset">Buy Items</Link>
                         </div>
                     </div>
                     <div className="card bg-primary m-2 p-4">
                         <div className="card-body">
-                            <Link to="/" className="stretched-link text-reset">Sell Items</Link>
+                            <Link to="/items" className="stretched-link text-reset">Sell Items</Link>
                         </div>
                     </div>
                     <div className="card bg-primary m-2 p-4">
                         <div className="card-body">
-                            <Link to="/" className="stretched-link text-reset">Buy Services</Link>
+                            <Link to="/services" className="stretched-link text-reset">Buy Services</Link>
                         </div>
                     </div>
                     <div className="card bg-primary m-2 p-4">
                         <div className="card-body">
-                            <Link to="/" className="stretched-link text-reset">Sell Services</Link>
+                            <Link to="/services" className="stretched-link text-reset">Sell Services</Link>
                         </div>
                     </div>
                 </div>

@@ -13,6 +13,7 @@ import AuthContext from "./contexts/AuthContext";
 import ItemForm from "./components/item/ItemForm";
 import ItemConfirmDelete from "./components/item/ItemConfirmDelete";
 import ItemGrid from "./components/item/ItemGrid";
+import UserItemGrid from "./components/item/UserItemGrid";
 // listing imports
 import ListingConfirmDelete from "./components/listing/ListingConfirmDelete";
 import ListingItemGrid from "./components/listing/ListingItemGrid";
@@ -103,128 +104,136 @@ function App() {
   return (
     <AuthContext.Provider value={auth}>
       <LocationContext.Provider value={myLocation} >
-      <BrowserRouter>
-        <div className="">
-          <NavBar2 />
-          <Switch>
-            <Route path={["/services/add", "/services/edit/:id"]}>
-              <ServiceForm />
-            </Route>
-            <Route path="/services/delete/:id">
-              <ServiceConfirmDelete />
-            </Route>
+        <BrowserRouter>
+          <div className="">
+            <NavBar2 />
+            <Switch>
+              <Route path={["/services/add", "/services/edit/:id"]}>
+                <ServiceForm />
+              </Route>
+              <Route path="/services/delete/:id">
+                <ServiceConfirmDelete />
+              </Route>
 
-            <Route exact path="/">
-              <Home />
-            </Route>
+              <Route exact path="/">
+                <Home />
+              </Route>
 
-            {/* Item Paths */}
-            <Route path={["/items/add", "/items/edit/:id"]}>
-              <ItemForm />
-            </Route>
-            <Route path="/items/delete/:id">
-              <ItemConfirmDelete />
-            </Route>
-            <Route path="/items">
-              <div className="row">
-                <h1 className="col-9">Items</h1>
-                <div className="col-3">
-                  <Link to="/items/add" className="btn btn-primary">Add an Item</Link>
+              {/* Item Paths */}
+              <Route path={["/items/add", "/items/edit/:id"]}>
+                <ItemForm />
+              </Route>
+              <Route path="/items/delete/:id">
+                <ItemConfirmDelete />
+              </Route>
+              <Route path="/items">
+                <div className="row">
+                  <h1 className="col-9">Items</h1>
+                  <div className="col-3">
+                    <Link to="/items/add" className="btn btn-primary">Add an Item</Link>
+                  </div>
                 </div>
-              </div>
-              <ItemGrid />
-            </Route>
+                <ItemGrid />
+              </Route>
 
-            {/* Listing Paths */}
-            {/* <Route path="/listings/delete/:id">
+              {/* Listing Paths */}
+              {/* <Route path="/listings/delete/:id">
               <ListingConfirmDelete />
             </Route> */}
-            <Route path={["/listings/items/add", "/listings/items/edit/:id"]}>
-              <ListingItemForm />
-            </Route>
+              <Route path={["/listings/items/add", "/listings/items/edit/:id"]}>
+                <ListingItemForm />
+              </Route>
 
-            <Route path="/listings/items">
-              <div className="row">
-                <h1 className="col-9">Item Listings</h1>
-                {/* <div className="col-3">
+              <Route path="/listings/items">
+                <div className="row">
+                  <h1 className="col-9">Item Listings</h1>
+                  {/* <div className="col-3">
                   <Link to="/listings/items/add" className="btn btn-primary">Add an Item Listing</Link>
                 </div> */}
-              </div>
-              <ListingItemGrid />
-            </Route>
+                </div>
+                <ListingItemGrid />
+              </Route>
 
-            <Route path={["/listings/services/add", "/listings/services/edit/:id"]}>
-              <ListingServiceForm />
-            </Route>
-            <Route path="/listings/services">
-              <div className="row">
-                <h1 className="col-9">Service Listings</h1>
-                {/* <div className="col-3">
+              <Route path={["/listings/services/add", "/listings/services/edit/:id"]}>
+                <ListingServiceForm />
+              </Route>
+              <Route path="/listings/services">
+                <div className="row">
+                  <h1 className="col-9">Service Listings</h1>
+                  {/* <div className="col-3">
                   <Link to="/listings/services/add" className="btn btn-primary">Add a Service Listing</Link>
                 </div> */}
-              </div>
-              <ListingServiceGrid />
-            </Route>
+                </div>
+                <ListingServiceGrid />
+              </Route>
 
-            <Route path="/listings">
-              <div className="row">
-                <div className="col-3">
-                  <Link to="/listings/items" className="btn btn-primary">View Item Listings</Link>
+              <Route path="/listings">
+                <div className="row">
+                  <div className="col-3">
+                    <Link to="/listings/items" className="btn btn-primary">View Item Listings</Link>
+                  </div>
+                  <div className="col-3">
+                    <Link to="/listings/services" className="btn btn-primary">View Service Listings</Link>
+                  </div>
                 </div>
-                <div className="col-3">
-                  <Link to="/listings/services" className="btn btn-primary">View Service Listings</Link>
-                </div>
-              </div>
-            </Route>
-            <Route path="/cart">
-              {/* { localStorage.removeItem("cartProducts") } */}
-              <ShoppingCart />
-            </Route>
-            <Route path="/checkout">
-              <CheckoutForm />
-            </Route>
-            <Route path="/services">
-              <div className="row">
-                {/* <h1 className="col-9">services</h1> */}
-                {/* <div className="col-3">
+              </Route>
+              <Route path="/cart">
+                {/* { localStorage.removeItem("cartProducts") } */}
+                <ShoppingCart />
+              </Route>
+              <Route path="/checkout">
+                <CheckoutForm />
+              </Route>
+              <Route path="/services">
+                <div className="row">
+                  {/* <h1 className="col-9">services</h1> */}
+                  {/* <div className="col-3">
             <Link to="/cart" className="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
   <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
 </svg><Badge bg="secondary">{localStorage.getItem("cartCount")}</Badge></Link>
               <Link to="/services/add" className="btn btn-primary">Add a service</Link>
             </div> */}
-              </div>
-              <ServiceGrid />
-            </Route>
-            <Route exact path="/user/:username">
-              {user ? <UserProfile /> : <Login />}
-            </Route>
-            <Route exact path="/user/edit/:username">
-              {user ? <UserForm /> : <Login />}
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/register">
-              <Register />
-            </Route>
-            <Route path="/error">
-              <Error />
-            </Route>
-            <Route path="/invalid">
-              <Invalid />
-            </Route>
-            <Route path="/cartmsg">
-              <CartMessage color="success" productName="petcare" />
-            </Route>
-            {/* <Route path="/payment">
+                </div>
+                <ServiceGrid />
+              </Route>
+              <Route exact path="/user/:username">
+                {user ? <UserProfile /> : <Login />}
+              </Route>
+              <Route exact path="/user/edit/:username">
+                {user ? <UserForm /> : <Login />}
+              </Route>
+
+              <Route path={`/user/${user.username}/items`}>
+                <UserItemGrid />
+              </Route>
+              {/* <Route path={`/user/${user.username}/services`}>
+                <UserServiceGrid />
+              </Route> */}
+
+              <Route exact path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/register">
+                <Register />
+              </Route>
+              <Route path="/error">
+                <Error />
+              </Route>
+              <Route path="/invalid">
+                <Invalid />
+              </Route>
+              <Route path="/cartmsg">
+                <CartMessage color="success" productName="petcare" />
+              </Route>
+              {/* <Route path="/payment">
               <Payment /> 
             </Route> */}
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
-        </div>
-      </BrowserRouter>
+              <Route path="*">
+                <NotFound />
+              </Route>
+            </Switch>
+          </div>
+        </BrowserRouter>
       </LocationContext.Provider>
     </AuthContext.Provider>
   );
