@@ -106,8 +106,8 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                         />}</Form></td>
                                 {/* <td><Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger me-2">Delete</Link></td> */}
                                 {/* <td><Link to={`/services/edit/${s.serviceId}`} className="btn btn-secondary">Edit</Link></td> */}
-                                <td><Link to={`/services/delete/${service.serviceId}`} className="btn btn-danger m-2">Delete</Link>
-                                    <Link to={`/services/edit/${service.serviceId}`} className="btn btn-secondary m-2">Edit</Link>
+                                <td><Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger m-2">Delete</Link>
+                                    <Link to={`/services/edit/${s.serviceId}`} className="btn btn-secondary m-2">Edit</Link>
                                     {/* <button className="btn btn-primary" onClick={() => {
                                         if (!localStorage.getItem("cartProducts")) { localStorage.setItem("cartProducts", JSON.stringify({})); };
                                         setCount(count + 1);

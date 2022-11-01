@@ -22,7 +22,9 @@ function ServiceForm() {
         description: "",
         pricePerHour: 0,
         category: "OTHER",
-        userId:user.userId
+        userId:user.userId,
+        available:false
+
     });
     // userId: 0,
     // available: false
@@ -40,7 +42,12 @@ function ServiceForm() {
     }, []);
     function handleChange(evt) {
         const nextService = { ...service };
-        nextService[evt.target.name] = evt.target.value;
+        if(evt.target.name === "available"){
+            nextService["available"] = !nextService["available"];
+        }
+        else{
+            nextService[evt.target.name] = evt.target.value;
+        }
         setService(nextService);
     }
 
@@ -51,6 +58,8 @@ function ServiceForm() {
         setService(nextService);
         console.log(service);
         service.userId = user.userId;
+        // setService(nextService); 
+        // console.log(service); 
         save(service)
             .then(() => history.push("/user/:username/services"))
             // .catch(errs => {
@@ -87,6 +96,19 @@ function ServiceForm() {
                     <option value="REPAIR">REPAIR</option>
                     <option value="OTHER">OTHER</option>
                 </select>
+            </div>
+            <div>
+                <label htmlFor="available">Make Public</label>
+                {(service.available)?<select id="available" name="available"
+                    value="YES" type="text" onChange={handleChange}>
+                    <option value="YES">YES</option>
+                    <option value="NO">NO</option>
+                </select>:<select id="available" name="available"
+                    value="NO" type="text" onChange={handleChange}>
+                    <option value="YES">YES</option>
+                    <option value="NO">NO</option>
+                </select> }
+                
             </div>
             {/* <div className="mb-3">
                 <label htmlFor="isAvailable">Is Available</label>

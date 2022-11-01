@@ -27,10 +27,13 @@ const ShoppingCart = () => {
   const [quantityForItems, setQuantityForItems] = useState(cartProdsItems); 
   return (
     <div className='container'>
+    <h3>Shopping Cart</h3>
+    <b>Services</b>
     <Table striped bordered hover>
       <thead>
-        <th>Services</th>
+        
         <tr>
+        
           <th>
             name
           </th>
@@ -72,11 +75,8 @@ const ShoppingCart = () => {
           
       </tbody>     
     </Table>
-
+    <b>Items</b>
     <Table striped bordered hover>
-      <thead>
-        <th>Items</th>
-      </thead>
       <tbody>
           {arr2.map(i =>
             
