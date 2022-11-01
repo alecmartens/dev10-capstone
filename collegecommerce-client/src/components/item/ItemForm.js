@@ -1,9 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { findByItemId, save } from "../../services/itemService";
 import { getUniversitiesByName } from "../../services/universitiesService";
 
+//user imports
+import { findByUserName } from "../../services/userService";
+import AuthContext from "../../contexts/AuthContext";
+
 function ItemForm() {
+    //get user
+    const auth = useContext(AuthContext);
+    const [user, setUser] = useState("");
+    useEffect(() => {
+        findByUserName(auth.user.username)
+            .then((user) => setUser(user))
+            .catch(() => history.pushState("/error"))
+    }, []);
+
     const [item, setItem] = useState({
         itemId: 0,
         name: "",
@@ -13,6 +26,8 @@ function ItemForm() {
         itemSold: false,
         category: "",
         imageUrl: "",
+        userId: user.userId,
+        available: false,
         location: ""
     });
     const [errs, setErrs] = useState([]);
@@ -63,8 +78,10 @@ function ItemForm() {
 
     function handleSubmit(evt) {
         evt.preventDefault();
+        item.userId = user.userId;
         save(item)
-            .then(() => history.push("/items"))
+            // .then(() => history.push("/user/:username/items"))
+            .then(() => history.push(`/user/${user.username}/items`))
             .catch(errs => {
                 if (errs) {
                     setErrs(errs);
@@ -127,10 +144,26 @@ function ItemForm() {
                 <input type="imageUrl" name="imageUrl" id="imageUrl" className="form-control"
                     onChange={handleChange} />
             </div>
-            <div className="form-check mb-3">
+            {/* <div className="form-check mb-3">
                 <label htmlFor="isAvailable" className="form-check-label">Is Available</label>
                 <input type="checkbox" name="isAvailable" id="isAvailable" className="form-check-input"
                     onChange={handleChange} />
+            </div> */}
+            <div>
+                <label htmlFor="available">Make Public</label>
+                {(item.available) ? <select id="available" name="available"
+                    value="YES" type="text" onChange={handleChange}>
+                    <option value="true">YES</option>
+                    <option value="false">NO</option>
+                    {/* <option value="YES">YES</option>
+                    <option value="NO">NO</option> */}
+                </select> : <select id="available" name="available"
+                    value="NO" type="text" onChange={handleChange}>
+                    <option value="true">YES</option>
+                    <option value="false">NO</option>
+                    {/* <option value="YES">YES</option>
+                    <option value="NO">NO</option> */}
+                </select>}
             </div>
                 <div className="form-group mb-3">
                     <label htmlFor="username" className="form-label">University</label>
@@ -153,13 +186,13 @@ function ItemForm() {
                 {item.location && displayConfirmation && <div className="alert alert-primary mt-3">
                     {item.location} added as item location.
                 </div>}
-            {
+            {/* {
                 errs.length !== 0 && <div className="alert alert-danger">
                     <ul>
                         {errs.map(err => <li key={err}>{err}</li>)}
                     </ul>
                 </div>
-            }
+            } */}
             <div className="mb-3">
                 <button className="btn btn-primary me-2" type="submit">Save</button>
                 <Link to="/items" className="btn btn-warning">Cancel</Link>

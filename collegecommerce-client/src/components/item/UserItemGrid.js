@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { Link, Router } from "react-router-dom";
 import { useHistory, useParams } from "react-router-dom";
-import { findAllItems } from "../../services/itemService";
+import { findAllItems, save, update } from "../../services/itemService";
 import Item from "./Item";
 import { Table } from "react-bootstrap";
 
@@ -96,6 +96,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                                     //This posts items for other users to see
                                     i.available = true;
                                     setItem(i);
+                                    save(i);
                                     console.log(i);
                                 }}>List Item</button></td>
                                 <td><button className="btn btn-danger me-2" onClick={() => {
@@ -103,6 +104,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                                     //This hides items for other users to see
                                     i.available = false;
                                     setItem(i);
+                                    save(i);
                                     console.log(i);
                                 }}>Unlist Item</button></td>
 

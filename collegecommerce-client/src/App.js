@@ -210,11 +210,27 @@ function App() {
               </Route>
 
 
-              <Route path={`/user/:username/items`}>
-                {user ? <UserItemGrid /> : <Login />}
+              <Route path="/user/:username/items/add">
+                {user ? <ItemForm /> : <Login />}
               </Route>
+
+              <Route path="/user/:username/items">
+              {user ?
+                <div><div className="col-3">
+                  <Link to={`/user/${user.username}/items/add`} className="btn btn-primary">Add an Item</Link>
+                </div>
+                 <UserItemGrid /> </div>: <Login />}
+              </Route>
+
+              <Route path="/user/:username/services/add">
+                {user ? <ServiceForm /> : <Login />}
+              </Route>
+
               <Route path={`/user/:username/services`}>
-              {user ? <UserServiceGrid /> : <Login />}
+              {user ?<div><div className="col-3">
+                  <Link to={`/user/${user.username}/services/add`} className="btn btn-primary">Add a Service</Link>
+                </div>
+                 <UserServiceGrid /> </div>: <Login />}
               </Route>
               {/* <Route path={`/user/${user.username}/items`}>
                 <UserItemGrid />
@@ -241,18 +257,18 @@ function App() {
               {/* <Route path="/payment">
               <Payment /> 
             </Route> */}
-            <Route path="/allservicelistings">
-              <AllServiceListings />
-            </Route>
-            <Route path="/allitemlistings">
-              <AllItemListings />
-            </Route>
-            <Route path="*">
-              <NotFound />
-            </Route>         
-          </Switch>
-        </div>
-      </BrowserRouter>
+              <Route path="/allservicelistings">
+                <AllServiceListings />
+              </Route>
+              <Route path="/allitemlistings">
+                <AllItemListings />
+              </Route>
+              <Route path="*">
+                <NotFound />
+              </Route>
+            </Switch>
+          </div>
+        </BrowserRouter>
       </LocationContext.Provider>
     </AuthContext.Provider>
   );

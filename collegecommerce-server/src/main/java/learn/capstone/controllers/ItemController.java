@@ -46,10 +46,10 @@ public class ItemController {
         System.out.println("Path Item ID: " + itemId);
         System.out.println("Passed Item ID: " + item.getItemId());
         System.out.println("Passed Item Name: " + item.getName());
-        if (itemId != item.getItemId()) {
-            System.out.println("409 error when attempting to update");
-            return new ResponseEntity<>(HttpStatus.CONFLICT); // 409
-        }
+//        if (itemId != item.getItemId()) {
+//            System.out.println("409 error when attempting to update");
+//            return new ResponseEntity<>(HttpStatus.CONFLICT); // 409
+//        }
 
         ItemResult result = service.update(item);
         if (!result.isSuccess()) {

@@ -7,31 +7,32 @@ import { Form } from "react-bootstrap";
 import { save } from "../services/serviceServices";
 
 function ServiceGrid({ handleEdit, handleDelete }) {
-    const ref = useRef(null); 
+    const ref = useRef(null);
     const [show, setShow] = useState(false);
     const [colorMsg, setColorMsg] = useState("success");
 
     const [services, setServices] = useState([]);
     function handleChange(service) {
         return (evt) => {// const nextService = { ...service };
-        // nextService[evt.target.name] = evt.target.value;
-        // setService(nextService);
-        console.log(evt.target); 
-        console.log(service); 
-        const nextService = {...service}; 
-        nextService["available"] = !nextService.available;
-        save(nextService)
-            .then(() => {console.log("updated"); history.push("/services")})
-            .catch(errs => {
-                if (errs) {
-                    console.log(errs); 
-                } else {
-                    history.push("/error")
-                }
-            });
+            // nextService[evt.target.name] = evt.target.value;
+            // setService(nextService);
+            console.log(evt.target);
+            console.log(service);
+            const nextService = { ...service };
+            nextService["available"] = !nextService.available;
+            save(nextService)
+                .then(() => { console.log("updated"); history.push("/services") })
+                .catch(errs => {
+                    if (errs) {
+                        console.log(errs);
+                    } else {
+                        history.push("/error")
+                    }
+                });
 
-        
-    }}
+
+        }
+    }
     const [service, setService] = useState({
         serviceId: 0,
         name: "",
@@ -46,7 +47,7 @@ function ServiceGrid({ handleEdit, handleDelete }) {
     if (!localStorage.getItem("cartCount")) { localStorage.setItem("cartCount", 0) }
     const [count, setCount] = useState(parseInt(localStorage.getItem("cartCount")));
     useEffect(() => {
-        console.log(ref.current); 
+        console.log(ref.current);
         findAll()
             .then(setServices)
             .catch(() => history.push("/error"));
@@ -91,18 +92,18 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                 {/* <td>{String(s.available)}</td> */}
                                 {/* TODO: useRef */}
                                 <td><Form>
-                                    {s.available? <Form.Check 
-      name="toggle-switch"
-        type="switch"
-        id="switch"
-        label="" ref={ref} onChange={handleChange(s)} defaultChecked
-      />:
-      <Form.Check 
-      name="toggle-switch"
-        type="switch"
-        id="switch"
-        label="" ref={ref} onChange={handleChange(s)} 
-      />}</Form></td>
+                                    {s.available ? <Form.Check
+                                        name="toggle-switch"
+                                        type="switch"
+                                        id="switch"
+                                        label="" ref={ref} onChange={handleChange(s)} defaultChecked
+                                    /> :
+                                        <Form.Check
+                                            name="toggle-switch"
+                                            type="switch"
+                                            id="switch"
+                                            label="" ref={ref} onChange={handleChange(s)}
+                                        />}</Form></td>
                                 {/* <td><Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger me-2">Delete</Link></td> */}
                                 {/* <td><Link to={`/services/edit/${s.serviceId}`} className="btn btn-secondary">Edit</Link></td> */}
                                 <td><Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger m-2">Delete</Link>
@@ -134,7 +135,7 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                             localStorage.setItem("cartProducts", JSON.stringify(cart));
                                         }
                                     }}>-</button> */}
-                                    </td>
+                                </td>
                                 {/* <td><Form>
       <Form.Check 
         type="switch"
@@ -157,7 +158,7 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                     console.log(s);
                                 }}>Unlist Service</button></td> */}
                                 {/* <td><Link to={`/services/delete/${service.serviceId}`} className="btn btn-danger m-2">Delete</Link></td> */}
-                                
+
                             </tr>
                         ))
                     }

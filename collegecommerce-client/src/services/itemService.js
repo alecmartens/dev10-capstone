@@ -40,7 +40,8 @@ async function add(item) {
     }
 }
 
-async function update(item) {
+// async function update(item) {
+export async function update(item) {
 
     const init = {
         method: "PUT",
