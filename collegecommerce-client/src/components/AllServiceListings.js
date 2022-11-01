@@ -23,7 +23,11 @@ function AllServiceListings() {
       .catch(() => history.push("/error"));
   }, []);
   return (
+
     <div>
+      {/* <div className="col-3">
+        <Link to={`/user/${user.username}/services/add`} className="btn btn-primary">Add a Service</Link>
+      </div> */}
       <h1>Items & Services</h1>
       <Nav variant="tabs" defaultActiveKey="/services">
         <Nav.Item>

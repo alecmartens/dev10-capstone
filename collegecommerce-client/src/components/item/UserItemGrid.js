@@ -57,6 +57,12 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
 
     return (
         <>
+            <div className="row">
+                <h1 className="col-9">Items</h1>
+            </div>
+            <div className="col-3">
+                <Link to={`/user/${user.username}/items/add`} className="btn btn-primary">Add an Item</Link>
+            </div>
             <Table striped bordered hover>
                 <thead>
                     <tr>

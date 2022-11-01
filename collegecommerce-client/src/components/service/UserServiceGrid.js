@@ -71,7 +71,9 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                     <Link to="/services/add" className="btn btn-primary">Add a service</Link>
                 </div> */}
             </div>
-
+            <div className="col-3">
+                <Link to={`/user/${user.username}/services/add`} className="btn btn-primary">Add a Service</Link>
+            </div>
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -102,8 +104,8 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                 <td>{String(s.available)}</td>
                                 {/* <td><Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger me-2">Delete</Link></td> */}
                                 {/* <td><Link to={`/services/edit/${s.serviceId}`} className="btn btn-secondary">Edit</Link></td> */}
-                                <td><Link to={`/services/delete/${service.serviceId}`} className="btn btn-danger m-2">Delete</Link>
-                                    <Link to={`/services/edit/${service.serviceId}`} className="btn btn-secondary m-2">Edit</Link></td>
+                                <td><Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger m-2">Delete</Link>
+                                    <Link to={`/services/edit/${s.serviceId}`} className="btn btn-secondary m-2">Edit</Link></td>
                                 {/* <button className="btn btn-primary" onClick={() => {
                                         if (!localStorage.getItem("cartProducts")) { localStorage.setItem("cartProducts", JSON.stringify({})); };
                                         setCount(count + 1);
