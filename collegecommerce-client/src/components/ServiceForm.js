@@ -7,7 +7,8 @@ function ServiceForm() {
         name: "",
         description: "",
         pricePerHour: 0,
-        category: "OTHER"
+        category: "OTHER",
+        available:false
 
     });
     // userId: 0,
@@ -26,14 +27,18 @@ function ServiceForm() {
     }, []);
     function handleChange(evt) {
         const nextService = { ...service };
-        nextService[evt.target.name] = evt.target.value;
+        if(evt.target.name === "available"){
+            nextService["available"] = !nextService["available"];
+        }
+        else{
+            nextService[evt.target.name] = evt.target.value;
+        }
         setService(nextService);
     }
 
     function handleSubmit(evt) {
         evt.preventDefault();
         const nextService = { ...service };
-        nextService.category="DELIVERY"; 
         setService(nextService); 
         console.log(service); 
         save(service)
@@ -73,11 +78,24 @@ function ServiceForm() {
                     <option value="OTHER">OTHER</option>
                 </select>
             </div>
-            <div className="mb-3">
+            <div>
+                <label htmlFor="available">Make Public</label>
+                {(service.available)?<select id="available" name="available"
+                    value="YES" type="text" onChange={handleChange}>
+                    <option value="YES">YES</option>
+                    <option value="NO">NO</option>
+                </select>:<select id="available" name="available"
+                    value="NO" type="text" onChange={handleChange}>
+                    <option value="YES">YES</option>
+                    <option value="NO">NO</option>
+                </select> }
+                
+            </div>
+            {/* <div className="mb-3">
                 <label htmlFor="isAvailable">Is Available</label>
                 <input type="text" name="isAvailable" id="isAvailable" className="form-control"
                     onChange={handleChange} />
-            </div>
+            </div> */}
             {errs.length !== 0 && <div className="alert alert-danger">
                 <ul>
                     {errs.map(err => <li key={err}>{err}</li>)}
