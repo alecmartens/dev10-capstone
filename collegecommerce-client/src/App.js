@@ -1,10 +1,7 @@
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import ServiceForm from "./components/ServiceForm";
-import ServiceConfirmDelete from "./components/ServiceConfirmDelete";
 import NotFound from "./components/NotFound";
 import Invalid from "./components/Invalid";
 import Error from "./components/Error";
-import ServiceGrid from "./components/ServiceGrid";
 import { useState } from "react";
 import jwtDecode from 'jwt-decode';
 import { useEffect } from "react";
@@ -14,12 +11,19 @@ import ItemForm from "./components/item/ItemForm";
 import ItemConfirmDelete from "./components/item/ItemConfirmDelete";
 import ItemGrid from "./components/item/ItemGrid";
 import UserItemGrid from "./components/item/UserItemGrid";
+//service imports
+import ServiceForm from "./components/ServiceForm";
+import ServiceConfirmDelete from "./components/ServiceConfirmDelete";
+import ServiceGrid from "./components/ServiceGrid";
+import UserServiceGrid from "./components/service/UserServiceGrid";
+
 // listing imports
 import ListingConfirmDelete from "./components/listing/ListingConfirmDelete";
 import ListingItemGrid from "./components/listing/ListingItemGrid";
 import ListingServiceGrid from "./components/listing/ListingServiceGrid";
 import ListingItemForm from "./components/listing/ListingItemForm";
 import ListingServiceForm from "./components/listing/ListingServiceForm";
+
 
 import ShoppingCart from "./components/ShoppingCart";
 import CheckoutForm from "./components/CheckoutForm";
@@ -203,10 +207,17 @@ function App() {
                 {user ? <UserForm /> : <Login />}
               </Route>
 
-              <Route path={`/user/${user.username}/items`}>
+
+              <Route path={`/user/:username/items`}>
+                {user ? <UserItemGrid /> : <Login />}
+              </Route>
+              <Route path={`/user/:username/services`}>
+              {user ? <UserServiceGrid /> : <Login />}
+              </Route>
+              {/* <Route path={`/user/${user.username}/items`}>
                 <UserItemGrid />
               </Route>
-              {/* <Route path={`/user/${user.username}/services`}>
+              <Route path={`/user/${user.username}/services`}>
                 <UserServiceGrid />
               </Route> */}
 

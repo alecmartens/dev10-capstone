@@ -1,12 +1,12 @@
 import { useEffect, useState, useContext } from "react";
+import { Link, Router } from "react-router-dom";
 import { useHistory, useParams } from "react-router-dom";
 import { findAllItems } from "../../services/itemService";
 import Item from "./Item";
 import { Table } from "react-bootstrap";
+
+//user imports
 import { findByUserName } from "../../services/userService";
-
-import { Link, Router } from "react-router-dom";
-
 import AuthContext from "../../contexts/AuthContext";
 
 function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
@@ -44,7 +44,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
     }, []);
 
     useEffect(() => {
-        console.log("Items Size: " + items.length);
+        // console.log("Items Size: " + items.length);
         let userItems = [];
         for (let i = 0; i < items.length; i++) {
             if (items[i].userId == user.userId) {
@@ -52,7 +52,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
             }
         }
         setUserItems(userItems);
-        console.log("UserItems Size: " + userItems.length);
+        // console.log("UserItems Size: " + userItems.length);
     }, [user]);
 
     return (
