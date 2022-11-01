@@ -34,7 +34,7 @@ public class ItemService {
     }
 
     public ItemResult update(Item item) {
-        ItemResult result = validate(item);
+        ItemResult result = validateUpdate(item);
         if (item == null) {
             result.addErrorMessage("Item cannot be null.", ResultType.INVALID);
         }
@@ -97,6 +97,44 @@ public class ItemService {
                 }
             }
         }
+
+        return result;
+    }
+
+    private ItemResult validateUpdate(Item item) {
+        ItemResult result = new ItemResult();
+        if (item == null) {
+            result.addErrorMessage("Item cannot be null.", ResultType.INVALID);
+            return result;
+        }
+        if (item.getName() == null) {
+            result.addErrorMessage("Item name cannot be null.", ResultType.INVALID);
+        }
+        else if (item.getName().equals("")) {
+            result.addErrorMessage("Item name cannot be blank.", ResultType.INVALID);
+        }
+        if (item.getPrice() == null) {
+            result.addErrorMessage("Price cannot be null", ResultType.INVALID);
+        }
+        else if (item.getPrice().doubleValue() <= 0) {
+            result.addErrorMessage("Price must be greater than 0.", ResultType.INVALID);
+        }
+//        if(result.isSuccess()) {
+//            List<Item> items = findAll();//get all items
+//            System.out.println("Size:" + items.size());
+//            for (Item i: items) {//check for duplicate combos
+//                //System.out.println(i.getName());
+//                //System.out.println(item.getName());
+//                //if(i.getItemId() != item.getItemId() &&
+//                if (i.getName().equalsIgnoreCase(item.getName())  &&
+//                        i.getDescription().equalsIgnoreCase(item.getDescription())) {
+//                    //i.getPrice().equals(item.getPrice()) &&
+//
+////                    System.out.println("found");
+//                    result.addErrorMessage("Cannot have a duplicate item. (name and description must be unique)", ResultType.INVALID);
+//                }
+//            }
+//        }
 
         return result;
     }

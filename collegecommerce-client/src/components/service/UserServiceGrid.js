@@ -1,12 +1,14 @@
 import { useEffect, useState, useContext, useSyncExternalStore } from "react";
 import { useHistory, useParams, Link } from "react-router-dom";
-import { findAll } from "../../services/serviceServices";
+import { findAll, save } from "../../services/serviceServices";
 import Service from "../Service";
 import { Table, Badge } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 //user imports
 import { findByUserName } from "../../services/userService";
 import AuthContext from "../../contexts/AuthContext";
+// import { save } from "../../services/itemService";
 
 function ServiceGrid({ handleEdit, handleDelete }) {
     //get user
@@ -135,6 +137,7 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                     //This posts services for other users to see
                                     s.available = true;
                                     setService(s);
+                                    save(s);
                                     console.log(s);
                                 }}>List Service</button></td>
                                 <td><button className="btn btn-danger me-2" onClick={() => {
@@ -142,6 +145,7 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                     //This hides services for other users to not see
                                     s.available = false;
                                     setService(s);
+                                    save(s);
                                     console.log(s);
                                 }}>Unlist Service</button></td>
                                 {/* <td><Link to={`/services/delete/${service.serviceId}`} className="btn btn-danger m-2">Delete</Link></td> */}

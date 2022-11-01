@@ -1,8 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { findByItemId, findAll, save } from "../../services/itemService";
 
+//user imports
+import { findByUserName } from "../../services/userService";
+import AuthContext from "../../contexts/AuthContext";
+
 function ItemForm() {
+    //get user
+    const auth = useContext(AuthContext);
+    const [user, setUser] = useState("");
+    useEffect(() => {
+        findByUserName(auth.user.username)
+            .then((user) => setUser(user))
+            .catch(() => history.pushState("/error"))
+    }, []);
+
     const [item, setItem] = useState({
         itemId: 0,
         name: "",
@@ -11,7 +24,9 @@ function ItemForm() {
         itemCondition: "",
         itemSold: false,
         category: "",
-        imageUrl: ""
+        imageUrl: "",
+        userId: user.userId,
+        available: false
     });
     const [errs, setErrs] = useState([]);
     const history = useHistory();
@@ -32,8 +47,10 @@ function ItemForm() {
 
     function handleSubmit(evt) {
         evt.preventDefault();
+        item.userId = user.userId;
         save(item)
-            .then(() => history.push("/items"))
+            // .then(() => history.push("/user/:username/items"))
+            .then(() => history.push(`/user/${user.username}/items`))
             .catch(errs => {
                 if (errs) {
                     setErrs(errs);
@@ -95,18 +112,34 @@ function ItemForm() {
                     // value={item.imageUrl} 
                     onChange={handleChange} />
             </div>
-            <div className="mb-3">
+            {/* <div className="mb-3">
                 <label htmlFor="isAvailable" className="form-label">Is Available</label>
                 <input type="text" name="isAvailable" id="isAvailable" className="form-control"
                     onChange={handleChange} />
+            </div> */}
+            <div>
+                <label htmlFor="available">Make Public</label>
+                {(item.available) ? <select id="available" name="available"
+                    value="YES" type="text" onChange={handleChange}>
+                    <option value="true">YES</option>
+                    <option value="false">NO</option>
+                    {/* <option value="YES">YES</option>
+                    <option value="NO">NO</option> */}
+                </select> : <select id="available" name="available"
+                    value="NO" type="text" onChange={handleChange}>
+                    <option value="true">YES</option>
+                    <option value="false">NO</option>
+                    {/* <option value="YES">YES</option>
+                    <option value="NO">NO</option> */}
+                </select>}
             </div>
-            {
+            {/* {
                 errs.length !== 0 && <div className="alert alert-danger">
                     <ul>
                         {errs.map(err => <li key={err}>{err}</li>)}
                     </ul>
                 </div>
-            }
+            } */}
             <div className="mb-3">
                 <button className="btn btn-primary me-2" type="submit">Save</button>
                 <Link to="/items" className="btn btn-warning">Cancel</Link>
