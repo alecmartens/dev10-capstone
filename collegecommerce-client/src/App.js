@@ -31,6 +31,8 @@ import UserProfile from "./components/user/UserProfile";
 import UserForm from "./components/user/UserForm";
 import Home from "./components/Home";
 import LocationContext from "./contexts/LocationContext";
+import AllServiceListings from "./components/AllServiceListings";
+import AllItemListings from "./components/AllItemListings";
 function App() {
 
   const LOCAL_STORAGE_TOKEN_KEY = "collegeCommerceToken";
@@ -219,6 +221,12 @@ function App() {
             {/* <Route path="/payment">
               <Payment /> 
             </Route> */}
+            <Route path="/allservicelistings">
+              <AllServiceListings />
+            </Route>
+            <Route path="/allitemlistings">
+              <AllItemListings />
+            </Route>
             <Route path="*">
               <NotFound />
             </Route>         
