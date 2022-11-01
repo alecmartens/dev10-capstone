@@ -23,6 +23,7 @@ public class UserJdbcTemplateRepository implements UserRepository {
     }
 
 
+
     @Transactional
     public User findByUsername(String username) {
         List<String> roles = getRolesByUserName(username);
