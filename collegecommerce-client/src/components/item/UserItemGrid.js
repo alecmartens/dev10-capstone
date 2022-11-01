@@ -61,7 +61,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                 <thead>
                     <tr>
                         <th>Item Id</th>
-                        {/* <th>Username</th> */}
+                        <th>Username</th>
                         <th>Name</th>
                         <th>Price</th>
                         <th>Description</th>
@@ -69,7 +69,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                         <th>Item Sold</th>
                         <th>Category</th>
                         <th>Image URL</th>
-                        <th>User ID</th>
+                        {/* <th>User ID</th> */}
                         <th>Is Available</th>
                     </tr>
                 </thead>
@@ -79,7 +79,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                         userItems.map(i => (
                             <tr key={i.itemId}>
                                 <td>{i.itemId}</td>
-                                {/* <td>{auth.user.username}</td> */}
+                                <td>{user.username}</td>
                                 <td>{i.name}</td>
                                 <td>{i.price}</td>
                                 <td>{i.description}</td>
@@ -87,10 +87,10 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                                 <td>{String(i.itemSold)}</td>
                                 <td>{i.category}</td>
                                 <td>{i.imageUrl}</td>
-                                <td>{i.userId}</td>
+                                {/* <td>{i.userId}</td> */}
                                 <td>{String(i.available)}</td>
-                                {/* <td><Link to={`/items/delete/${i.itemId}`} className="btn btn-danger me-2">Delete</Link></td>
-                                <td><Link to={`/items/edit/${i.itemId}`} className="btn btn-secondary">Edit</Link></td> */}
+                                <td><Link to={`/items/delete/${i.itemId}`} className="btn btn-danger me-2">Delete</Link></td>
+                                <td><Link to={`/items/edit/${i.itemId}`} className="btn btn-secondary">Edit</Link></td>
                                 <td><button className="btn btn-success me-2" onClick={() => {
                                     //Set isAvailable to true, to post listing
                                     //This posts items for other users to see
