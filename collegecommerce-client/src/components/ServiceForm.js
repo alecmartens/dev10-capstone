@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { findById, findAll, save } from "../services/serviceServices";
+import { findById, save } from "../services/serviceServices";
 function ServiceForm() {
     const [service, setService] = useState({
         serviceId: 0,

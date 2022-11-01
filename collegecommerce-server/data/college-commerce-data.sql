@@ -1,4 +1,6 @@
+use college_commerce;
 set sql_safe_updates = 0; 
+
 insert into college_commerce.item(name, price, description, item_condition, item_sold, category, user_id, is_available)
 values ("desk", 150.50, "wooden desk, two drawers", "like new", false, "furniture", 1, false),
 ("Calculus Textbook", 150.50, "8th edition, 500 pages", "good", false, "textbook", 2, true),
@@ -10,6 +12,13 @@ insert into college_commerce.service(name, description, price_per_hour, category
     values ("delivering food", "pizza", 50.00,"DELIVERY",1,false),
     ("pet service", "any pet", 50.00,"REPAIR",1,true),
     ("setup fridge", "lift anything under 100 lbs", 50.00,"OTHER",2,false);
+    
+insert into item(name, price, description, item_condition, item_sold, category, user_id, is_available, location)
+	values ("desk", 150.50, "wooden desk, two drawers", "like new", false, "OTHER", 1, true, "North Dakota State University"),
+	("Calculus Textbook", 150.50, "8th edition, 500 pages", "good", false, "OTHER", 1, true, "University of Minnesota"),
+	("Sofa", 150.50, "10' width, gray", "new", false, "OTHER", 1, false, "University of Minnesota"),
+	("Chair", 151.50, "small, gray", "new", false, "OTHER", 2, true, "North Dakota State University"),
+	("Bike", 152.50, "Black, light", "new", false, "OTHER", 2, false, "North Dakota State University"); 
 
 insert into user_info(username, email, password_hash, image_url)
 values ("JohnDoe", "johndoe@gmail.com",

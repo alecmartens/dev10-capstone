@@ -1,10 +1,9 @@
 import { useEffect, useState, useContext } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { findAllItems } from "../../services/itemService";
-import Item from "./Item";
 import { Table } from "react-bootstrap";
 
-import { Link, Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import AuthContext from "../../contexts/AuthContext";
 
@@ -34,6 +33,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
             .then(setItems)
             .catch(() => history.push("/error"));
     }, []);
+    
 
     return (
         <>

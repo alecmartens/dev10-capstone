@@ -38,7 +38,7 @@ function UserForm() {
         const newUser = {
             userId: user.userId,
             username: auth.user.username,
-            password: auth.user.password,
+            password: user.password,
             email: user.email,
             imageUrl: user.imageUrl,
             roles: ["USER"]

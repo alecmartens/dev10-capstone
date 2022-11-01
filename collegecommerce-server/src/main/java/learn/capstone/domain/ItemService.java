@@ -81,6 +81,9 @@ public class ItemService {
         else if (item.getPrice().doubleValue() <= 0) {
             result.addErrorMessage("Price must be greater than 0.", ResultType.INVALID);
         }
+        if (item.getLocation() == null || item.getLocation().isBlank()) {
+            result.addErrorMessage("Location cannot be empty.", ResultType.INVALID);
+        }
         if(result.isSuccess()) {
             List<Item> items = findAll();//get all items
             System.out.println("Size:" + items.size());
