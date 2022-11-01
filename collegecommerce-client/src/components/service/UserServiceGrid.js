@@ -3,6 +3,7 @@ import { useHistory, useParams, Link } from "react-router-dom";
 import { findAll } from "../../services/serviceServices";
 import Service from "../Service";
 import { Table, Badge } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 //user imports
 import { findByUserName } from "../../services/userService";
@@ -130,6 +131,26 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                         }
                                     }}>-</button></td> */}
 
+                                {/* Set/Unset Service Listing */}
+                                {/* <td><Form>
+                                    {s.available ? 
+                                    <Form.Check
+                                        name="toggle-switch"
+                                        type="switch"
+                                        id="switch"
+                                        label=""
+                                        // ref={ref} 
+                                        // onChange={handleChange(s)} 
+                                        defaultChecked
+                                    /> :
+                                        <Form.Check
+                                            name="toggle-switch"
+                                            type="switch"
+                                            id="switch"
+                                            label="" 
+                                            // ref={ref}
+                                            // onChange={handleChange(s)}
+                                        />}</Form></td> */}
                                 <td><button className="btn btn-success me-2" onClick={() => {
                                     //Set isAvailable to true, to post listing
                                     //This posts services for other users to see

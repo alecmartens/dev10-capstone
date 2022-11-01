@@ -1,14 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { findById, findAll, save } from "../services/serviceServices";
+
+//user imports
+import { findByUserName } from "../services/userService";
+import AuthContext from "../contexts/AuthContext";
+
 function ServiceForm() {
+    //get user
+    const auth = useContext(AuthContext);
+    const [user, setUser] = useState("");
+    useEffect(() => {
+        findByUserName(auth.user.username)
+            .then((user) => setUser(user))
+            .catch(() => history.pushState("/error"))
+    }, []);
+
     const [service, setService] = useState({
         serviceId: 0,
         name: "",
         description: "",
         pricePerHour: 0,
-        category: "OTHER"
-
+        category: "OTHER",
+        userId:user.userId
     });
     // userId: 0,
     // available: false
@@ -33,18 +47,19 @@ function ServiceForm() {
     function handleSubmit(evt) {
         evt.preventDefault();
         const nextService = { ...service };
-        nextService.category="DELIVERY"; 
-        setService(nextService); 
-        console.log(service); 
+        nextService.category = "DELIVERY";
+        setService(nextService);
+        console.log(service);
+        service.userId = user.userId;
         save(service)
-            .then(() => history.push("/services"))
-            .catch(errs => {
-                if (errs) {
-                    setErrs(errs);
-                } else {
-                    history.push("/error")
-                }
-            });
+            .then(() => history.push("/user/:username/services"))
+            // .catch(errs => {
+            //     if (errs) {
+            //         setErrs(errs);
+            //     } else {
+            //         history.push("/error")
+            //     }
+            // });
     }
     return (
         <form onSubmit={handleSubmit}>
@@ -73,11 +88,11 @@ function ServiceForm() {
                     <option value="OTHER">OTHER</option>
                 </select>
             </div>
-            <div className="mb-3">
+            {/* <div className="mb-3">
                 <label htmlFor="isAvailable">Is Available</label>
                 <input type="text" name="isAvailable" id="isAvailable" className="form-control"
                     onChange={handleChange} />
-            </div>
+            </div> */}
             {errs.length !== 0 && <div className="alert alert-danger">
                 <ul>
                     {errs.map(err => <li key={err}>{err}</li>)}
