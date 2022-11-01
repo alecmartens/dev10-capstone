@@ -1,6 +1,7 @@
 import { Link, Router } from "react-router-dom";
 import { useState } from "react";
 import CartMessage from "./CartMessage";
+import { Form } from "react-bootstrap";
 function Service({ service, setCount, count }) {
     const [show, setShow] = useState(false);
     const [colorMsg, setColorMsg] = useState("success");
@@ -12,6 +13,12 @@ function Service({ service, setCount, count }) {
             <td>{service.description}</td>
             <td>{service.pricePerHour}</td>
             <td>{service.category}</td>
+            <td><Form>
+      <Form.Check 
+        type="switch"
+        id="custom-switch"
+        label="make listing public"
+      /></Form></td>
             <td><Link to={`/services/delete/${service.serviceId}`} className="btn btn-danger m-2">Delete</Link>
                 <Link to={`/services/edit/${service.serviceId}`} className="btn btn-secondary m-2">Edit</Link><button className="btn btn-primary" onClick={() => {
                     if (!localStorage.getItem("cartProducts")) { localStorage.setItem("cartProducts", JSON.stringify({})); };
@@ -40,6 +47,7 @@ function Service({ service, setCount, count }) {
                         localStorage.setItem("cartProducts", JSON.stringify(cart));
                     }
                 }}>-</button></td>
+            
             {show && <td><CartMessage color={colorMsg} setColor={setColorMsg} setShow={setShow} productName={service.name} /></td>}
         </tr>
     );
