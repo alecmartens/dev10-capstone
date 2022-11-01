@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { findAllItems } from "../../services/itemService";
 import Item from "./Item";
@@ -6,7 +6,12 @@ import { Table } from "react-bootstrap";
 
 import { Link, Router } from "react-router-dom";
 
+import AuthContext from "../../contexts/AuthContext";
+
 function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
+    const auth = useContext(AuthContext);
+    //auth.user.username;
+
     const [items, setItems] = useState([]);
 
     const [item, setItem] = useState({
@@ -36,6 +41,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                 <thead>
                     <tr>
                         <th>Item Id</th>
+                        {/* <th>Username</th> */}
                         <th>Name</th>
                         <th>Price</th>
                         <th>Description</th>
@@ -52,6 +58,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                         items.map(i => (
                             <tr key={i.itemId}>
                                 <td>{i.itemId}</td>
+                                {/* <td>{auth.user.username}</td> */}
                                 <td>{i.name}</td>
                                 <td>{i.price}</td>
                                 <td>{i.description}</td>
