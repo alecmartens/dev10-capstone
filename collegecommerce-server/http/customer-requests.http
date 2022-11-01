@@ -16,3 +16,6 @@ Content-Type: application/json
 {
     "customerId":"cus_MhNgZmxym2qopA"
 }
+
+###
+GET http://localhost:8080/api/payments/create-payment-intent

@@ -27,7 +27,7 @@ Content-Type: application/json
     "name":"mail delivery2",
     "description":"mail2",
     "pricePerHour":5.99,
-    "category":"mail"
+    "category":"DELIVERY"
 }
 
 ###
@@ -36,10 +36,12 @@ POST http://localhost:8080/api/service
 Content-Type: application/json
 
 {
-    "name":"mail",
-    "description":"mail5",
+    "name":"mail delivery",
+    "description":"mail",
     "pricePerHour":5.99,
-    "category":"mail"
+    "category":"OTHER",
+    "userId":2,
+    "available":false
 }
 
 ###

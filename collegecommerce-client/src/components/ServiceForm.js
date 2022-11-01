@@ -32,6 +32,10 @@ function ServiceForm() {
 
     function handleSubmit(evt) {
         evt.preventDefault();
+        const nextService = { ...service };
+        nextService.category="DELIVERY"; 
+        setService(nextService); 
+        console.log(service); 
         save(service)
             .then(() => history.push("/services"))
             .catch(errs => {
@@ -63,10 +67,10 @@ function ServiceForm() {
             <div>
                 <label htmlFor="category">Category</label>
                 <select id="category" name="category"
-                    value={service.category} onChange={handleChange}>
-                    <option>DELIVERY</option>
-                    <option>REPAIR</option>
-                    <option>OTHER</option>
+                    value={service.category} type="text" onChange={handleChange}>
+                    <option value="DELIVERY">DELIVERY</option>
+                    <option value="REPAIR">REPAIR</option>
+                    <option value="OTHER">OTHER</option>
                 </select>
             </div>
             <div className="mb-3">

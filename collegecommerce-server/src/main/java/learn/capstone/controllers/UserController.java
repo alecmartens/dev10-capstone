@@ -40,6 +40,10 @@ public class UserController {
         if (id != user.getUserId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+        // Reassign Password
+        User oldUser = (User) service.loadUserByUsername(user.getUsername());
+        user.setPassword(oldUser.getPassword());
+
         Result<User> result = service.update(user);
         if (!result.isSuccess()) {
             return ErrorResponse.build(result);

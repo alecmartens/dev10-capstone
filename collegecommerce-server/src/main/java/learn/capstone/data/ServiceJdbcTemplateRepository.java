@@ -79,7 +79,7 @@ public class ServiceJdbcTemplateRepository implements ServiceRepository{
     public boolean update(Service service) {
         final String sql = "update service set name= ?, description = ?, price_per_hour = ?, category = ?, user_id = ?, is_available = ? " +
                 "where service_id = ?;";
-        return jdbcTemplate.update(sql, service.getName(), service.getDescription(), service.getPricePerHour(), service.getCategory(), service.getUserId(), service.isAvailable(), service.getServiceId()) > 0;
+        return jdbcTemplate.update(sql, service.getName(), service.getDescription(), service.getPricePerHour(), service.getCategory().getName(), service.getUserId(), service.isAvailable(), service.getServiceId()) > 0;
     }
 
     @Transactional

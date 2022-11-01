@@ -23,16 +23,22 @@ import ListingServiceForm from "./components/listing/ListingServiceForm";
 import ShoppingCart from "./components/ShoppingCart";
 import CheckoutForm from "./components/CheckoutForm";
 import CartMessage from "./components/CartMessage";
-import { Badge } from "react-bootstrap";
 import NavBar2 from "./components/NavBar2";
 import Login from "./components/Login";
 import Register from "./components/Register";
+// import Payment from "./components/Payment";
+import UserProfile from "./components/user/UserProfile";
+import UserForm from "./components/user/UserForm";
+import Home from "./components/Home";
+import LocationContext from "./contexts/LocationContext";
 function App() {
 
   const LOCAL_STORAGE_TOKEN_KEY = "collegeCommerceToken";
+  const LOCAL_STORAGE_LOCATION_KEY = "collegeCommerceLocation";
 
   const [user, setUser] = useState(null);
   const [restoreLoginAttemptCompleted, setRestoreLoginAttemptCompleted] = useState(false);
+  const [location, setLocation] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
@@ -40,6 +46,11 @@ function App() {
       login(token);
     }
     setRestoreLoginAttemptCompleted(true);
+
+    const location = localStorage.getItem(LOCAL_STORAGE_LOCATION_KEY);
+    if (location) {
+      setLocation(location);
+    }
   }, [])
 
 
@@ -65,6 +76,8 @@ function App() {
   const logout = () => {
     setUser(null);
     localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
+    setLocation(null);
+    localStorage.removeItem(LOCAL_STORAGE_LOCATION_KEY);
   }
 
   const auth = {
@@ -73,14 +86,25 @@ function App() {
     logout
   }
 
+  function setMyLocation(location) {
+    localStorage.setItem(LOCAL_STORAGE_LOCATION_KEY, location);
+    setLocation(location);
+  }
+
+  let myLocation = {
+    location,
+    setMyLocation
+  };
+
   if (!restoreLoginAttemptCompleted) {
     return null;
   }
 
   return (
     <AuthContext.Provider value={auth}>
+      <LocationContext.Provider value={myLocation} >
       <BrowserRouter>
-        <div className="container">
+        <div className="">
           <NavBar2 />
           <Switch>
             <Route path={["/services/add", "/services/edit/:id"]}>
@@ -91,18 +115,7 @@ function App() {
             </Route>
 
             <Route exact path="/">
-              <div className="row">
-                <h1 className="col-9">Welcome</h1>
-                <div className="col-3">
-                  <Link to="/services" className="btn btn-primary">View Services</Link>
-                  <br></br>
-                  <br></br>
-                  <Link to="/items" className="btn btn-primary">View Items</Link>
-                  <br></br>
-                  <br></br>
-                  {/* <Link to="/listings" className="btn btn-primary">View Listings</Link> */}
-                </div>
-              </div>
+              <Home />
             </Route>
 
             {/* Item Paths */}
@@ -182,6 +195,12 @@ function App() {
               </div>
               <ServiceGrid />
             </Route>
+            <Route exact path="/user/:username">
+              {user ? <UserProfile /> : <Login />}
+            </Route>
+            <Route exact path="/user/edit/:username">
+              {user ? <UserForm /> : <Login />}
+            </Route>
             <Route exact path="/login">
               <Login />
             </Route>
@@ -197,12 +216,16 @@ function App() {
             <Route path="/cartmsg">
               <CartMessage color="success" productName="petcare" />
             </Route>
+            {/* <Route path="/payment">
+              <Payment /> 
+            </Route> */}
             <Route path="*">
               <NotFound />
             </Route>
           </Switch>
         </div>
       </BrowserRouter>
+      </LocationContext.Provider>
     </AuthContext.Provider>
   );
 }

@@ -18,8 +18,8 @@ export async function findById(serviceId) {
     }
 }
 
-async function add(service) {
-
+async function add(service) { 
+    console.log(service); 
     const init = {
         method: "POST",
         headers: {
@@ -28,7 +28,6 @@ async function add(service) {
         },
         body: JSON.stringify(service)
     };
-
     const response = await fetch(SERVICE_API_URL, init);
     if (response.ok) {
         return Promise.resolve();
