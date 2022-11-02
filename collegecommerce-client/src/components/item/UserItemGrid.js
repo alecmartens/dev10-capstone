@@ -114,6 +114,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                                 <td>{i.itemCondition}</td>
                                 <td>{String(i.itemSold)}</td>
                                 <td>{i.itemCategory}</td>
+                                <td>{i.location}</td>
                                 {/* <td>{i.imageUrl}</td> */}
                                 {/* <td>{i.userId}</td> */}
                                 <td>
@@ -134,7 +135,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                                     </td>
                                 <td><Link to={`/items/delete/${i.itemId}`} className="btn btn-danger me-2">Delete</Link></td>
                                 <td><Link to={`/items/edit/${i.itemId}`} className="btn btn-secondary">Edit</Link></td>
-                                <td><button className="btn btn-success me-2" onClick={() => {
+                                {/* <td><button className="btn btn-success me-2" onClick={() => {
                                     //Set isAvailable to true, to post listing
                                     //This posts items for other users to see
                                     i.available = true;
@@ -149,7 +150,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                                     setItem(i);
                                     save(i);
                                     console.log(i);
-                                }}>Unlist Item</button></td>
+                                }}>Unlist Item</button></td> */}
 
                             </tr>
                         ))

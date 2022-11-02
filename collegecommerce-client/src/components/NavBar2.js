@@ -21,7 +21,7 @@ function NavBar2() {
             {/* <Nav.Link href="/services/add">Add a Service</Nav.Link> */}
             <Nav.Link href="/allitemlistings">Items</Nav.Link>
             {/* <Nav.Link href="/items/add">Add an Item</Nav.Link> */}
-            <Nav.Link href="#">More</Nav.Link>
+            {/* <Nav.Link href="#">More</Nav.Link> */}
           </Nav>
           <div className="d-flex flex-column justfiy-content-around form-inline me-4">
             {auth.user && <div>Current User: {auth.user.username} </div>}
