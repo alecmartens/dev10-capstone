@@ -1,7 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { deleteById,findByItemId } from "../../services/itemService";
+//user imports
+import { findByUserName } from "../../services/userService";
+import AuthContext from "../../contexts/AuthContext";
 function ItemConfirmDelete(){
+    //get user
+    const auth = useContext(AuthContext);
+    const [user, setUser] = useState("");
+    useEffect(() => {
+        findByUserName(auth.user.username)
+            .then((user) => setUser(user))
+            .catch(() => history.pushState("/error"))
+    }, []);
+    
     const [item, setItem] = useState({});
 
     const history = useHistory();
@@ -17,7 +29,7 @@ function ItemConfirmDelete(){
     }, [])
     function handleDelete() {
         deleteById(item.itemId)
-            .then(() => history.push("/items"))
+            .then(() => history.push(`/user/${user.username}/items`))
             .catch(() => history.push("/error"));
     }
     return (
