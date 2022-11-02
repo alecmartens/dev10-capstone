@@ -215,7 +215,11 @@ function App() {
               </Route>
 
               <Route path="/user/:username/items">
-                {user ? <UserItemGrid /> : <Login />}
+              {user ?
+                <div><div className="col-3">
+                  <Link to={`/user/${user.username}/items/add`} className="btn btn-primary">Add an Item</Link>
+                </div>
+                 <UserItemGrid /> </div>: <Login />}
               </Route>
 
               <Route path="/user/:username/services/add">
@@ -223,7 +227,10 @@ function App() {
               </Route>
 
               <Route path={`/user/:username/services`}>
-                {user ? <UserServiceGrid /> : <Login />}
+              {user ?<div><div className="col-3">
+                  <Link to={`/user/${user.username}/services/add`} className="btn btn-primary">Add a Service</Link>
+                </div>
+                 <UserServiceGrid /> </div>: <Login />}
               </Route>
 
               <Route exact path="/login">

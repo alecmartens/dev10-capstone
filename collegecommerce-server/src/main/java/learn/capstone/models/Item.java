@@ -23,11 +23,14 @@ public class Item {
     private int userId;
     private boolean isAvailable;
 
+    private String location;
+
 
     public Item() {
     }
 
-    public Item(int itemId, String name, BigDecimal price, String description, String itemCondition, boolean itemSold, String category, String imageUrl, int userId, boolean isAvailable) {
+    public Item(int itemId, String name, BigDecimal price, String description, String itemCondition, boolean itemSold,
+                String category, String imageUrl, int userId, boolean isAvailable, String location) {
         this.itemId = itemId;
         this.name = name;
         this.price = price;
@@ -38,6 +41,7 @@ public class Item {
         this.imageUrl = imageUrl;
         this.userId = userId;
         this.isAvailable = isAvailable;
+        this.location = location;
     }
 
     public int getItemId() {
@@ -118,5 +122,13 @@ public class Item {
 
     public void setAvailable(boolean available) {
         isAvailable = available;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

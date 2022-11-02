@@ -10,17 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
-
-//    item_id int primary key auto_increment,
-//    name varchar(100) not null,
-//    price decimal(8,2) not null,
-//    description varchar(300),
-//    item_condition varchar(50),
-//    item_sold boolean,
-//    category varchar(100),
-//    image_url varchar(512) null,
-//    constraint uq unique (name ,price , description)
-
 @Repository
 public class ItemJDBCTemplateRepository implements ItemRepository {
     private final JdbcTemplate jdbcTemplate;
@@ -41,13 +30,14 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
         item.setImageUrl(resultSet.getString("image_url"));
         item.setUserId(resultSet.getInt("user_id"));
         item.setAvailable(resultSet.getBoolean("is_available"));
+        item.setLocation(resultSet.getString("location"));
 
         return item;
     };
 
     @Override
     public List<Item> findAll() {
-        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available " +
+        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location " +
                 "from item ";
 
         return jdbcTemplate.query(sql, mapper);
@@ -55,7 +45,7 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
 
     @Override
     public Item findByItemId(int itemId) {
-        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available " +
+        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location " +
                 "from item " +
                 "where item_id = ?";
 
@@ -65,8 +55,8 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
     @Override
     public Item create(Item item) {
         final String sql = "insert into item " +
-                "(name, price, description, item_condition, item_sold, category, image_url, user_id, is_available) " +
-                "values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                "(name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location) " +
+                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -80,6 +70,7 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                     statement.setString(7, item.getImageUrl());
                     statement.setInt(8, item.getUserId());
                     statement.setBoolean(9, item.isAvailable());
+                    statement.setString(10, item.getLocation());
 
             return statement;
         }, keyHolder);
@@ -105,6 +96,7 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                 "image_url = ?, " +
                 "user_id = ?, " +
                 "is_available = ? " +
+                "location = ? " +
                 "where item_id = ?;";
 
         int rowsUpdated = jdbcTemplate.update(sql,
@@ -142,7 +134,8 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                         " category: " + item.getCategory() +
                         " imageUrl: " + item.getImageUrl() +
                         " userId: " + item.getUserId() +
-                        " isAvailable " + item.isAvailable();
+                        " isAvailable " + item.isAvailable() +
+                        " location: " + item.getLocation();
         System.out.println(result);
     }
 }

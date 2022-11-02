@@ -13,32 +13,31 @@ public class ServiceService {
     public ServiceService(ServiceJdbcTemplateRepository serviceRepo) {
         this.serviceRepo = serviceRepo;
     }
-    //    create table service (
-//        service_id int primary key auto_increment,
-//        name varchar(100) not null,
-//        description varchar(300),
-//        price_per_hour decimal(8,2) not null,
-//        category varchar(100),
-//        constraint uq unique (name, description, price_per_hour)
-//        );
+
     public Result<learn.capstone.models.Service> add(learn.capstone.models.Service service){
         Result<learn.capstone.models.Service> res = new Result<>();
         if(service == null){
             res.addMessage("service can't be null", ResultType.INVALID);
             return res;
         }
-        else if (service.getName() == null || service.getName().isBlank()){
+        if (service.getName() == null || service.getName().isBlank()){
             res.addMessage("name required", ResultType.INVALID);
-            return res;
         }
-        else if(service.getPricePerHour() <= 0.0){
+        if(service.getPricePerHour() <= 0.0){
             res.addMessage("price per hour must be greater than 0", ResultType.INVALID);
-            return res;
+        }
+        if(service.getLocation() == null || service.getLocation().isBlank()) {
+            res.addMessage("Location cannot be empty.", ResultType.INVALID);
         }
         if(hasDuplicate(service)){
             res.addMessage("name and description already exists.", ResultType.INVALID);
             return res;
         }
+
+        if (!res.isSuccess()) {
+            return res;
+        }
+
         res.setPayload(serviceRepo.add(service));
         res.addMessage("success", ResultType.SUCCESS);
         return res;
@@ -60,20 +59,24 @@ public class ServiceService {
             res.addMessage("service can't be null", ResultType.INVALID);
             return res;
         }
-        else if(service.getServiceId() <= 0 || serviceRepo.findById(service.getServiceId()) == null){
+        if(service.getServiceId() <= 0 || serviceRepo.findById(service.getServiceId()) == null){
             res.addMessage("service id doesn't exist", ResultType.NOT_FOUND);
-            return res;
         }
-        else if (service.getName() == null || service.getName().isBlank()){
+        if (service.getName() == null || service.getName().isBlank()){
             res.addMessage("name required", ResultType.INVALID);
-            return res;
         }
-        else if(service.getPricePerHour() <= 0.0){
+        if(service.getPricePerHour() <= 0.0){
             res.addMessage("price per hour must be greater than 0", ResultType.INVALID);
-            return res;
+        }
+        if(service.getLocation() == null || service.getLocation().isBlank()) {
+            res.addMessage("Location cannot be empty.", ResultType.INVALID);
         }
         if(hasDuplicate(service)){
             res.addMessage("name and description already exists.", ResultType.INVALID);
+            return res;
+        }
+
+        if(!res.isSuccess()) {
             return res;
         }
         boolean updated = serviceRepo.update(service);

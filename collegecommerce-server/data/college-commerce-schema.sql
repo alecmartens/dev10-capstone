@@ -41,6 +41,7 @@ create table item (
     -- added
     user_id int not null,
     is_available boolean,
+    location varchar(200) not null,
     constraint uq unique (name , description)
 );
 
@@ -52,6 +53,7 @@ create table service (
     category varchar(100), 
     user_id int not null,
     is_available boolean,
+    location varchar(200) not null,
     constraint uq unique (name, description, price_per_hour)
 );
 
