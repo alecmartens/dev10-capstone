@@ -2,8 +2,7 @@ import { useEffect, useState, useContext, useSyncExternalStore } from "react";
 import { useHistory, useParams, Link } from "react-router-dom";
 import { findAll, save } from "../../services/serviceServices";
 import Service from "../Service";
-import { Table, Badge } from "react-bootstrap";
-import { Form } from "react-bootstrap";
+import { Card, Row, Col, Form, Table, Badge } from 'react-bootstrap';
 
 //user imports
 import { findByUserName } from "../../services/userService";
@@ -80,6 +79,43 @@ function ServiceGrid({ handleEdit, handleDelete }) {
 
     return (
         <>
+            <Row className="justify-content-md-center">
+                {
+                    userServices.map(s => (
+                        <Card border="dark" style={{ width: '18rem' }} key={s.serviceId}>
+                            <Card.Header>
+                                <b>{s.category}</b>
+                                <br></br>
+                                <p>Is Available for Purchase?</p>
+                                {s.available ? <Form.Check
+                                    name="toggle-switch"
+                                    type="switch"
+                                    id="switch"
+                                    label="" onChange={handleChange(setCount)} defaultChecked
+                                /> :
+                                    <Form.Check
+                                        name="toggle-switch"
+                                        type="switch"
+                                        id="switch"
+                                        label="" onChange={handleChange(s)}
+                                    />}
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Title>{s.name}</Card.Title>
+                                <Card.Text>
+                                    <b>Description: </b>{s.description}<br />
+                                    <b>Location: </b><br />{s.location}<br />
+                                    ${s.pricePerHour}/hr
+                                    <br></br>
+                                    <Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger m-2">Delete</Link>
+                                    <Link to={`/services/edit/${s.serviceId}`} className="btn btn-secondary m-2">Edit</Link>
+                                    <br></br>
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    ))
+                }
+            </Row>
 
             {/* <div className="row">
                 <h1 className="col-9">services</h1>
@@ -91,11 +127,11 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                 </div>
             </div> */}
 
-            <Table striped bordered hover>
+            {/* <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Service ID</th>
-                        {/* <th>User ID</th> */}
+                        <th>User ID</th>
                         <th>Username</th>
                         <th>Name</th>
                         <th>Description</th>
@@ -112,13 +148,13 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                             <tr key={s.serviceId}>
                                 <td>{s.serviceId}</td>
                                 <td>{user.username}</td>
-                                {/* <td>{s.userId}</td> */}
+                                <td>{s.userId}</td>
                                 <td>{s.name}</td>
                                 <td>{s.description}</td>
                                 <td>{s.pricePerHour}</td>
                                 <td>{s.category}</td>
-                                {/* <td>{String(s.available)}</td> */}
-                                {/* TODO: useRef */}
+                                {/* <td>{String(s.available)}</td>
+                                {/* TODO: useRef
                                 <td><Form>
                                     {s.available ? <Form.Check
                                         name="toggle-switch"
@@ -131,12 +167,12 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                             type="switch"
                                             id="switch"
                                             label="" onChange={handleChange(s)}
-                                        />}</Form></td>
-                                {/* <td><Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger me-2">Delete</Link></td> */}
-                                {/* <td><Link to={`/services/edit/${s.serviceId}`} className="btn btn-secondary">Edit</Link></td> */}
-                                <td><Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger m-2">Delete</Link>
-                                    <Link to={`/services/edit/${s.serviceId}`} className="btn btn-secondary m-2">Edit</Link></td>
-                                {/* <button className="btn btn-primary" onClick={() => {
+                                        />}</Form></td> */}
+            {/* <td><Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger me-2">Delete</Link></td> */}
+            {/* <td><Link to={`/services/edit/${s.serviceId}`} className="btn btn-secondary">Edit</Link></td> */}
+            {/* <td><Link to={`/services/delete/${s.serviceId}`} className="btn btn-danger m-2">Delete</Link>
+                                    <Link to={`/services/edit/${s.serviceId}`} className="btn btn-secondary m-2">Edit</Link></td> */}
+            {/* <button className="btn btn-primary" onClick={() => {
                                         if (!localStorage.getItem("cartProducts")) { localStorage.setItem("cartProducts", JSON.stringify({})); };
                                         setCount(count + 1);
                                         setShow(true);
@@ -163,15 +199,15 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                             localStorage.setItem("cartProducts", JSON.stringify(cart));
                                         }
                                     }}>-</button> */}
-                                {/* </td> */}
-                                {/* <td><Form>
+            {/* </td> */}
+            {/* <td><Form>
       <Form.Check 
         type="switch"
         id="custom-switch"
         label="make listing public"
       /></Form>
 </td> */}
-                                {/* <td><button className="btn btn-success me-2" onClick={() => {
+            {/* <td><button className="btn btn-success me-2" onClick={() => {
                                     //Set isAvailable to true, to post listing
                                     //This posts services for other users to see
                                     s.available = true;
@@ -185,21 +221,21 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                                     setService(s);
                                     console.log(s);
                                 }}>Unlist Service</button></td> */}
-                                {/* <td><Link to={`/services/delete/${service.serviceId}`} className="btn btn-danger m-2">Delete</Link></td> */}
+            {/* <td><Link to={`/services/delete/${service.serviceId}`} className="btn btn-danger m-2">Delete</Link></td> */}
 
-                            </tr>
+            {/* </tr>
                         ))
-                    }
-                    {/* {services.map(s =>
+                    } */}
+            {/* {services.map(s =>
                         <Service key={s.serviceId} service={s} count={count} setCount={setCount} handleEdit={handleEdit} handleDelete={handleDelete} />)} */}
-                    {services.map(s => {
+            {/* {services.map(s => {
                         if (!localStorage.getItem("servicehm")) { localStorage.setItem("servicehm", JSON.stringify({})); }
                         let hm = JSON.parse(localStorage.getItem("servicehm"));
                         hm[s.serviceId] = [s.name, s.description, s.pricePerHour];
                         localStorage.setItem("servicehm", JSON.stringify(hm));
                     })}
                 </tbody>
-            </Table>
+            </Table> */}
         </>
     );
 
