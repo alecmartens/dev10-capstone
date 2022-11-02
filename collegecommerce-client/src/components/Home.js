@@ -26,6 +26,7 @@ function Home() {
                     </div>
                     <div className="card bg-primary m-2 p-4">
                         <div className="card-body">
+                            {/* CHANGE THIS TO GO TO USER ITEMS */}
                             <Link to="/items" className="stretched-link text-reset">Sell Items</Link>
                         </div>
                     </div>
@@ -36,6 +37,7 @@ function Home() {
                     </div>
                     <div className="card bg-primary m-2 p-4">
                         <div className="card-body">
+                            {/* CHANGE THIS TO GO TO USER SERVICES */}
                             <Link to="/services" className="stretched-link text-reset">Sell Services</Link>
                         </div>
                     </div>

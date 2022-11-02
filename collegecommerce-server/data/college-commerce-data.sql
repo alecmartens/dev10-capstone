@@ -13,13 +13,13 @@ insert into service(name, description, price_per_hour, category, user_id, is_ava
     ("pet service", "any pet", 50.00,"REPAIR",1,true, "North Dakota State University"),
     ("setup fridge", "lift anything under 100 lbs", 50.00,"OTHER",2,false, "University of Minnesota");
 
-insert into user_info(username, email, password_hash, image_url)
-values ("JohnDoe", "johndoe@gmail.com",
-        "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
-        "https://images.unsplash.com/photo-1629467057571-42d22d8f0cbd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"),
-        ("JaneSmith", "janesmith24@gmail.com",
-        "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
-        "");
+-- insert into user_info(username, email, password_hash, image_url)
+-- values ("JohnDoe", "johndoe@gmail.com",
+--         "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
+--         "https://images.unsplash.com/photo-1629467057571-42d22d8f0cbd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"),
+--         ("JaneSmith", "janesmith24@gmail.com",
+--         "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
+--         "");
 
 
 -- insert into user_info(username, email, password_hash)
