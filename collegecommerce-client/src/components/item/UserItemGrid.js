@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { findAllItems, save, update } from "../../services/itemService";
 import Item from "./Item";
 import { Table } from "react-bootstrap";
-
+import { Form } from "react-bootstrap";
 //user imports
 import { findByUserName } from "../../services/userService";
 import AuthContext from "../../contexts/AuthContext";
@@ -35,6 +35,23 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
         available: false,
         location: ""
     });
+    function handleChange(item) {
+        return (evt) => {
+            const nextitem = { ...item };
+            nextitem["available"] = !nextitem.available;
+            save(nextitem)
+                .then(() => { console.log("updated"); history.push(`/user/${user.username}/items`) })
+                .catch(errs => {
+                    if (errs) {
+                        console.log(errs);
+                    } else {
+                        history.push("/error")
+                    }
+                });
+
+
+        }
+    }
 
     // itemCondition: "",
     // category: "",
@@ -99,8 +116,22 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                                 <td>{i.itemCategory}</td>
                                 {/* <td>{i.imageUrl}</td> */}
                                 {/* <td>{i.userId}</td> */}
-                                <td>{i.location}</td>
-                                <td>{String(i.available)}</td>
+                                <td>
+                                    {/* {String(i.available)} */}
+                                    <Form>
+                                    {i.available ? <Form.Check
+                                        name="toggle-switch"
+                                        type="switch"
+                                        id="switch"
+                                        label=""  onChange={handleChange(i)} defaultChecked
+                                    /> :
+                                        <Form.Check
+                                            name="toggle-switch"
+                                            type="switch"
+                                            id="switch"
+                                            label="" onChange={handleChange(i)}
+                                        />}</Form>
+                                    </td>
                                 <td><Link to={`/items/delete/${i.itemId}`} className="btn btn-danger me-2">Delete</Link></td>
                                 <td><Link to={`/items/edit/${i.itemId}`} className="btn btn-secondary">Edit</Link></td>
                                 <td><button className="btn btn-success me-2" onClick={() => {

@@ -2,6 +2,9 @@ GET http://localhost:8080/api/service
 
 ###
 
+
+###
+
 POST http://localhost:8080/api/service
 Content-Type: application/json
 
@@ -42,6 +45,7 @@ Content-Type: application/json
     "category":"OTHER",
     "userId":2,
     "available":false
+    
 }
 
 ###
@@ -60,3 +64,17 @@ Content-Type: application/json
 
 DELETE http://localhost:8080/api/service/4
 
+###
+PUT http://localhost:8080/api/service/4
+Content-Type: application/json
+
+{
+    "serviceId": 4,
+    "name": "jhjkhjkhkj",
+    "description": "khjkhjkhjkh",
+    "pricePerHour": 99.0,
+    "category": "OTHER",
+    "userId": 3,
+    "location": "North Dakota State University",
+    "available": true
+  }

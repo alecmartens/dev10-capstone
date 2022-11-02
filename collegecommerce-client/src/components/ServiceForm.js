@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { findById, save } from "../services/serviceServices";
+import { getUniversitiesByName } from "../services/universitiesService";
 
 //user imports
 import { findByUserName } from "../services/userService";
@@ -23,27 +24,51 @@ function ServiceForm() {
         pricePerHour: 0,
         category: "OTHER",
         userId:user.userId,
-        available:false
+        available:false,
+        location:"North Dakota State University"
 
     });
     // userId: 0,
     // available: false
 
-
+//TODO add location
     const [errs, setErrs] = useState([]);
     const history = useHistory();
     const { id } = useParams();
+
+    const [location, setLocation] = useState("");
+    const [locations, setLocations] = useState([]);
+    const [displayConfirmation, setDisplayConfirmation] = useState(false);
+
     useEffect(() => {
         if (id) {
             findById(id)
-                .then(setService)
+                .then((s) => {
+                    setService(s);
+                    setLocation(s.location);
+                })
                 .catch(() => history.push("/invalid"));
         }
     }, []);
+
+    function handleLocationChange(evt) {
+        setLocation(evt.target.value);
+        console.log(locations);
+
+        if (location && location.length > 0) {
+            getUniversitiesByName(location)
+                .then((loc) => setLocations(loc))
+                .catch((error) => console.log(error));
+        } 
+    }
+
     function handleChange(evt) {
         const nextService = { ...service };
         if(evt.target.name === "available"){
             nextService["available"] = !nextService["available"];
+        } else if (evt.target.name === "location") {
+            nextService[evt.target.name] = evt.target.value;
+            setDisplayConfirmation(true);
         }
         else{
             nextService[evt.target.name] = evt.target.value;
@@ -54,7 +79,7 @@ function ServiceForm() {
     function handleSubmit(evt) {
         evt.preventDefault();
         const nextService = { ...service };
-        nextService.category = "DELIVERY";
+        // nextService.category = "DELIVERY";
         setService(nextService);
         console.log(service);
         service.userId = user.userId;
@@ -62,13 +87,13 @@ function ServiceForm() {
         // console.log(service); 
         save(service)
             .then(() => history.push("/user/:username/services"))
-            // .catch(errs => {
-            //     if (errs) {
-            //         setErrs(errs);
-            //     } else {
-            //         history.push("/error")
-            //     }
-            // });
+            .catch(errs => {
+                if (errs) {
+                    setErrs(errs);
+                } else {
+                    history.push("/error")
+                }
+            });
     }
     return (
         <div className="container w-50 p-4">
@@ -116,6 +141,27 @@ function ServiceForm() {
                     <input type="text" name="isAvailable" id="isAvailable" className="form-control"
                         onChange={handleChange} />
                 </div> */}
+                <div className="form-group mb-3">
+                    <label htmlFor="username" className="form-label">University</label>
+                    <input
+                        type="text"
+                        onChange={handleLocationChange}
+                        id="location"
+                        name="location"
+                        value={location}
+                        className="form-control"
+                        autoComplete="on"
+                    />
+                    </div>
+                    {locations && locations.length > 0 && <div className="alert alert-secondary mt-3">
+                    <div className="list-group list-group-flush">
+                        {locations.filter((loc, index) => index < 10).map(loc => <button type="button" className="list-group-item list-group-item-action" 
+                                                                                key={loc.name} value={loc.name} name="location" onClick={handleChange}>{loc.name}</button>)}
+                    </div>
+                </div>}
+                {service.location && displayConfirmation && <div className="alert alert-primary mt-3">
+                    {service.location} added as service location.
+                </div>}
                 {errs.length !== 0 && <div className="alert alert-danger">
                     <ul>
                         {errs.map(err => <li key={err}>{err}</li>)}
@@ -123,7 +169,7 @@ function ServiceForm() {
                 </div>}
                 <div className="mb-3">
                     <button className="btn btn-primary me-2" type="submit">Save</button>
-                    <Link to="/services" className="btn btn-warning">Cancel</Link>
+                    <Link to="/user/:username/services" className="btn btn-warning">Cancel</Link>
                 </div>
             </form>
         </div>

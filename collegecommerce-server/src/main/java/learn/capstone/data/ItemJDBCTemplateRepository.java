@@ -13,9 +13,11 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
+
 @Repository
 public class ItemJDBCTemplateRepository implements ItemRepository {
     private final JdbcTemplate jdbcTemplate;
+
     public ItemJDBCTemplateRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -44,7 +46,8 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
 
     @Override
     public List<Item> findAll() {
-        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location " +
+        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location "
+                +
                 "from item ";
 
         return jdbcTemplate.query(sql, mapper);
@@ -52,7 +55,8 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
 
     @Override
     public Item findByItemId(int itemId) {
-        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location " +
+        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location "
+                +
                 "from item " +
                 "where item_id = ?";
 
@@ -62,7 +66,8 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
     @Override
     public Item create(Item item) {
         final String sql = "insert into item " +
-                "(name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location) " +
+                "(name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location) "
+                +
                 "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -126,10 +131,10 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
     @Override
     public boolean deleteByItemId(int itemId) {
         final String sql = "delete from item where item_id = ?;";
-        return jdbcTemplate.update(sql,itemId) > 0;
+        return jdbcTemplate.update(sql, itemId) > 0;
     }
 
-    //This method takes an item and prints it's contents to sout
+    // This method takes an item and prints it's contents to sout
     @Override
     public void printItem(Item item) {
         String result =

@@ -34,15 +34,12 @@ function ServiceGrid({ handleEdit, handleDelete }) {
         pricePerHour: 0,
         category: "OTHER",
         userId: 0,
-        available: false
+        available: false,
+        location:"North Dakota State University"
     })
 
     function handleChange(service) {
-        return (evt) => {// const nextService = { ...service };
-            // nextService[evt.target.name] = evt.target.value;
-            // setService(nextService);
-            console.log(evt.target);
-            console.log(service);
+        return (evt) => {
             const nextService = { ...service };
             nextService["available"] = !nextService.available;
             save(nextService)

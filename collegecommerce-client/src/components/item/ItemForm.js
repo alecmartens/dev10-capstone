@@ -204,8 +204,8 @@ function ItemForm() {
                         className="form-control"
                         autoComplete="on"
                     />
-                </div>
-                {locations && <div className="alert alert-secondary mt-3">
+                    </div>
+                    {locations && locations.length > 0 && <div className="alert alert-secondary mt-3">
                     <div className="list-group list-group-flush">
                         {locations.filter((loc, index) => index < 10).map(loc => <button type="button" className="list-group-item list-group-item-action"
                             key={loc.name} value={loc.name} name="location" onClick={handleChange}>{loc.name}</button>)}
@@ -214,18 +214,18 @@ function ItemForm() {
                 {item.location && displayConfirmation && <div className="alert alert-primary mt-3">
                     {item.location} added as item location.
                 </div>}
-                {/* {
+            {
                 errs.length !== 0 && <div className="alert alert-danger">
                     <ul>
                         {errs.map(err => <li key={err}>{err}</li>)}
                     </ul>
                 </div>
-            } */}
-                <div className="mb-3">
-                    <button className="btn btn-primary me-2" type="submit">Save</button>
-                    <Link to="/items" className="btn btn-warning">Cancel</Link>
-                </div>
-            </form >
+            }
+            <div className="mb-3">
+                <button className="btn btn-primary me-2" type="submit">Save</button>
+                <Link to="/user/:username/items" className="btn btn-warning">Cancel</Link>
+            </div>
+        </form >
         </div>
     );
 }

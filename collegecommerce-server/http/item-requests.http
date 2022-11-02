@@ -59,3 +59,21 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:8080/api/item/6
+
+###
+PUT http://localhost:8080/api/item/6
+Content-Type: application/json
+
+  {
+    "itemId": 6,
+    "name": "dfasdfsd",
+    "price": 444.00,
+    "description": "xcvzcxvzv",
+    "itemCondition": "vcxzvxc",
+    "itemSold": false,
+    "category": "zxcvcxv",
+    "imageUrl": "url",
+    "userId": 3,
+    "location": "North Dakota State University",
+    "available": false
+  }

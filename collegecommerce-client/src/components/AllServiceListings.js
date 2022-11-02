@@ -19,13 +19,11 @@ function AllServiceListings() {
   const [count, setCount] = useState(parseInt(localStorage.getItem("cartCount")));
 
   useEffect(() => {
-      debugger;
       if (myLocation.location) {
         findAll()
           .then((services)=>{
           const nextServices =[];
             services.map((s) => {if(s.available && s.location === myLocation.location){nextServices.push(s)}});
-            // services.map((s) => {if(s.location === myLocation.location) {nextServices.push(s)}});
             setServices(nextServices);  
           })
           .catch(() => history.push("/error"));
@@ -42,6 +40,10 @@ function AllServiceListings() {
       
   }, []);
 
+  function handleCategoryChange(evt) {
+    console.log("We HERE?");
+  }
+
   return (
 
     <div>
@@ -55,8 +57,24 @@ function AllServiceListings() {
         </Nav.Item>
       </Nav>
       <div className="row">
-        <h1 className="col-9">Services</h1>
-        <div className="col-3">
+        <h1 className="col">Services</h1>
+        <div className="col-6">
+          <div className="container">
+            <div className="bg-light rounded-1 border border-primary w-100">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                Dropdown
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li><button class="dropdown-item" type="button">Action</button></li>
+                <li><button class="dropdown-item" type="button">Another action</button></li>
+                <li><button class="dropdown-item" type="button">Something else here</button></li>
+              </ul>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div className="col">
           <Link to="/cart" className="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
           </svg><Badge bg="secondary">{count}</Badge></Link>

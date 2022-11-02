@@ -34,7 +34,7 @@ function ServiceConfirmDelete(){
             </div>
             <div>
                 <button className="btn btn-danger me-2" onClick={handleDelete}>Delete</button>
-                <Link to="/services" className="btn btn-warning">Cancel</Link>
+                <Link to="/user/:username/services" className="btn btn-warning">Cancel</Link>
             </div>
         </div>
     );
