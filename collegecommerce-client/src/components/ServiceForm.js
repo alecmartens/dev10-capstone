@@ -23,13 +23,14 @@ function ServiceForm() {
         pricePerHour: 0,
         category: "OTHER",
         userId:user.userId,
-        available:false
+        available:false,
+        location:"North Dakota State University"
 
     });
     // userId: 0,
     // available: false
 
-
+//TODO add location
     const [errs, setErrs] = useState([]);
     const history = useHistory();
     const { id } = useParams();
@@ -54,7 +55,7 @@ function ServiceForm() {
     function handleSubmit(evt) {
         evt.preventDefault();
         const nextService = { ...service };
-        nextService.category = "DELIVERY";
+        // nextService.category = "DELIVERY";
         setService(nextService);
         console.log(service);
         service.userId = user.userId;
@@ -123,7 +124,7 @@ function ServiceForm() {
                 </div>}
                 <div className="mb-3">
                     <button className="btn btn-primary me-2" type="submit">Save</button>
-                    <Link to="/services" className="btn btn-warning">Cancel</Link>
+                    <Link to="/user/:username/services" className="btn btn-warning">Cancel</Link>
                 </div>
             </form>
         </div>

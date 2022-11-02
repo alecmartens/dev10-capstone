@@ -34,7 +34,8 @@ function ServiceGrid({ handleEdit, handleDelete }) {
         pricePerHour: 0,
         category: "OTHER",
         userId: 0,
-        available: false
+        available: false,
+        location:"North Dakota State University"
     })
 
     function handleChange(service) {
@@ -45,13 +46,16 @@ function ServiceGrid({ handleEdit, handleDelete }) {
             console.log(service);
             const nextService = { ...service };
             nextService["available"] = !nextService.available;
+            console.log("service"); 
+            console.log(nextService); 
             save(nextService)
                 .then(() => { console.log("updated"); history.push(`/user/${user.username}/services`) })
                 .catch(errs => {
                     if (errs) {
                         console.log(errs);
                     } else {
-                        history.push("/error")
+                        console.log(errs); 
+                        // history.push("/error")
                     }
                 });
 

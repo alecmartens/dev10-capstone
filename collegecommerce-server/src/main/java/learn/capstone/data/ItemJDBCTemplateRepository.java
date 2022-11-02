@@ -109,7 +109,9 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                 item.getImageUrl(),
                 item.getUserId(),
                 item.isAvailable(),
-                item.getItemId());
+                item.getLocation(),
+                item.getItemId()
+                );
 
         System.out.println(rowsUpdated);
         return rowsUpdated > 0;
