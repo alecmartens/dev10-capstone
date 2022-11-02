@@ -26,7 +26,7 @@ function Home() {
                     </div>
                     <div className="card bg-primary m-2 p-4">
                         <div className="card-body">
-                            <Link to="/user/:username/services" className="stretched-link text-reset">Sell Items</Link>
+                            <Link to="/user/:username/items" className="stretched-link text-reset">Sell Items</Link>
                         </div>
                     </div>
                     <div className="card bg-primary m-2 p-4">
