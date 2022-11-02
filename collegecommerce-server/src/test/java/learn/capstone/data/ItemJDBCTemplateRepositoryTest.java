@@ -1,6 +1,8 @@
 package learn.capstone.data;
 
 import learn.capstone.models.Item;
+import learn.capstone.models.ItemCategory;
+import learn.capstone.models.ItemCondition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,50 +48,35 @@ class ItemJDBCTemplateRepositoryTest {
 
     @Test
     void shouldCreate() {
-        Item item = new Item();
-        item.setName("Test Name");
-        item.setPrice(BigDecimal.valueOf(100));
-        item.setDescription("Test Description");
-        item.setItemCondition("Test Condition");
-        item.setItemSold(false);
-        item.setCategory("Test Category");
-        item.setImageUrl("Test URL");
-
+        Item item = makeItem();
         Item result = repository.create(item);
 
         assertNotNull(result);
-        //assertEquals(6,result.getItemId());
-        repository.printItem(result);
-        //repository.printItem(repository.findByItemId(6));
-        //assertEquals(result.getName(),repository.findByItemId(6).getName());
+        assertEquals(6,result.getItemId());
+        assertEquals(result.getName(),repository.findByItemId(6).getName());
     }
 
     @Test
     void shouldUpdate() {
-        //Run shouldCreate before this test
-        //update the item created in the above test
-        Item item = new Item();
-        item.setItemId(1);
-        item.setName("Update Name");
-        item.setPrice(BigDecimal.valueOf(100));
-        item.setDescription("Update Description");
-        item.setItemCondition("Update Condition");
-        item.setItemSold(false);
-        item.setCategory("Update Category");
-        item.setImageUrl("Update URL");
+        Item item = makeItem();
+        item.setItemId(3);
+        item.setName("New Name");
 
         assertTrue(repository.update(item));
-//        assertEquals(item, repository.findByItemId(6));
-        repository.printItem(item);
-        repository.printItem(repository.findByItemId(1));
+        assertEquals("New Name", repository.findByItemId(3).getName());
     }
 
     @Test
     void shouldDelete() {
-        //Run shouldCreate before this test
         int before = repository.findAll().size();
         assertTrue(repository.deleteByItemId(3));
         int after = repository.findAll().size();
-        assertEquals(1, before - after);//check that there is one less item in the list
+        assertEquals(1, before - after);
+    }
+
+    private Item makeItem() {
+        Item item = new Item(0, "Test", BigDecimal.valueOf(100), "Description", ItemCondition.GOOD,
+                false, ItemCategory.BOOKS, "", 1, true, "Location");
+        return item;
     }
 }

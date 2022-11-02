@@ -2,6 +2,8 @@ package learn.capstone.domain;
 
 import learn.capstone.data.ItemRepository;
 import learn.capstone.models.Item;
+import learn.capstone.models.ItemCategory;
+import learn.capstone.models.ItemCondition;
 import learn.capstone.models.Listing;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,14 +41,8 @@ class ItemServiceTest {
 
     @Test
     void shouldNotCreateItemWithNullPrice() {
-        Item item = new Item();
-        item.setName("Test Name");
+        Item item = makeItem();
         item.setPrice(null);
-        item.setDescription("Test Description");
-        item.setItemCondition("Test Condition");
-        item.setItemSold(false);
-        item.setCategory("Test Category");
-        item.setImageUrl("Test URL");
 
         ItemResult result = service.create(item);
         assertFalse(result.isSuccess());
@@ -56,14 +52,8 @@ class ItemServiceTest {
 
     @Test
     void shouldNotCreateItemWithNegativePrice() {
-        Item item = new Item();
-        item.setName("Test Name");
+        Item item = makeItem();
         item.setPrice(BigDecimal.valueOf(-100));
-        item.setDescription("Test Description");
-        item.setItemCondition("Test Condition");
-        item.setItemSold(false);
-        item.setCategory("Test Category");
-        item.setImageUrl("Test URL");
 
         ItemResult result = service.create(item);
         assertFalse(result.isSuccess());
@@ -73,14 +63,8 @@ class ItemServiceTest {
 
     @Test
     void shouldNotCreateItemWithNullName() {
-        Item item = new Item();
+        Item item = makeItem();
         item.setName(null);
-        item.setPrice(BigDecimal.valueOf(100));
-        item.setDescription("Test Description");
-        item.setItemCondition("Test Condition");
-        item.setItemSold(false);
-        item.setCategory("Test Category");
-        item.setImageUrl("Test URL");
 
         ItemResult result = service.create(item);
         assertFalse(result.isSuccess());
@@ -90,14 +74,8 @@ class ItemServiceTest {
 
     @Test
     void shouldNotCreateItemWithEmptyName() {
-        Item item = new Item();
+        Item item = makeItem();
         item.setName("");
-        item.setPrice(BigDecimal.valueOf(100));
-        item.setDescription("Test Description");
-        item.setItemCondition("Test Condition");
-        item.setItemSold(false);
-        item.setCategory("Test Category");
-        item.setImageUrl("Test URL");
 
         ItemResult result = service.create(item);
         assertFalse(result.isSuccess());
@@ -107,14 +85,8 @@ class ItemServiceTest {
 
     @Test
     void shouldCreate() {
-        Item item = new Item();
-        item.setName("TestName");
-        item.setPrice(BigDecimal.valueOf(10));
-        item.setDescription("TestDescription");
-        item.setItemCondition("TestCondition");
-        item.setItemSold(true);
-        item.setCategory("TestCategory");
-        item.setImageUrl("TestURL");
+        Item item = makeItem();
+        when(repository.create(item)).thenReturn(item);
 
         ItemResult result = service.create(item);
         assertTrue(result.isSuccess());
@@ -122,14 +94,8 @@ class ItemServiceTest {
 
     @Test
     void shouldNotUpdateItemWithNegativePrice() {
-        Item item = new Item();
-        item.setName("Test Name");
+        Item item = makeItem();
         item.setPrice(BigDecimal.valueOf(-100));
-        item.setDescription("Test Description");
-        item.setItemCondition("Test Condition");
-        item.setItemSold(false);
-        item.setCategory("Test Category");
-        item.setImageUrl("Test URL");
 
         ItemResult result = service.update(item);
         assertFalse(result.isSuccess());
@@ -138,14 +104,8 @@ class ItemServiceTest {
 
     @Test
     void shouldNotUpdateItemWithEmptyName() {
-        Item item = new Item();
+        Item item = makeItem();
         item.setName("");
-        item.setPrice(BigDecimal.valueOf(100));
-        item.setDescription("Test Description");
-        item.setItemCondition("Test Condition");
-        item.setItemSold(false);
-        item.setCategory("Test Category");
-        item.setImageUrl("Test URL");
 
         ItemResult result = service.update(item);
         assertFalse(result.isSuccess());
@@ -163,10 +123,10 @@ class ItemServiceTest {
 
     @Test
     void shouldUpdate() {
-        Item item = new Item(1,"name",BigDecimal.valueOf(10),"description",
-                "condition",true,"category","url");
+        Item item = makeItem();
+        item.setItemId(3);
 
-        when(repository.findByItemId(1)).thenReturn(item);
+        when(repository.findByItemId(3)).thenReturn(item);
         when(repository.update(item)).thenReturn(true);
         ItemResult result = service.update(item);
         assertTrue(result.isSuccess());
@@ -181,26 +141,18 @@ class ItemServiceTest {
 
     @Test
     void shouldDelete() {
-        Item item = new Item(1,"name",BigDecimal.valueOf(10),"description",
-                "condition",true,"category","url");
+        Item item = makeItem();
 
-        when(repository.deleteByItemId(1)).thenReturn(true);
-        when(repository.findByItemId(1)).thenReturn(item);
+        when(repository.deleteByItemId(0)).thenReturn(true);
+        when(repository.findByItemId(0)).thenReturn(item);
 
-        ItemResult result = service.deleteByItemId(1);
+        ItemResult result = service.deleteByItemId(0);
         assertTrue(result.isSuccess());
     }
 
     @Test
     void shouldNotCreateDuplicateItem() {
-        Item item = new Item();
-        item.setName("desk");
-        item.setPrice(BigDecimal.valueOf(150.50));
-        item.setDescription("wooden desk, two drawers");
-        item.setItemCondition("like new");
-        item.setItemSold(false);
-        item.setCategory("furniture");
-        item.setImageUrl(null);
+        Item item = makeItem();
 
         when(repository.findAll()).thenReturn(List.of(item));
 
@@ -208,5 +160,11 @@ class ItemServiceTest {
         assertFalse(result.isSuccess());
         assertEquals(1, result.getErrorMessages().size());
         System.out.println(result.getErrorMessages().get(0));
+    }
+
+    private Item makeItem() {
+        Item item = new Item(0, "Test", BigDecimal.valueOf(100), "Description", ItemCondition.GOOD,
+                false, ItemCategory.BOOKS, "", 1, true, "Location");
+        return item;
     }
 }
