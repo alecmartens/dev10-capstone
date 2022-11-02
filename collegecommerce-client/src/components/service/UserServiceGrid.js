@@ -71,9 +71,9 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                     <Link to="/services/add" className="btn btn-primary">Add a service</Link>
                 </div> */}
             </div>
-            <div className="col-3">
+            {/* <div className="col-3">
                 <Link to={`/user/${user.username}/services/add`} className="btn btn-primary">Add a Service</Link>
-            </div>
+            </div> */}
             <Table striped bordered hover>
                 <thead>
                     <tr>

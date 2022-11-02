@@ -32,7 +32,7 @@ Content-Type: application/json
     "description":"8th edition, 500 pages",
     "itemCondition":"bad",
     "itemSold":false,
-    "category":"sports",
+    "category":"ball",
     "imageUrl":"test"
 }
 
