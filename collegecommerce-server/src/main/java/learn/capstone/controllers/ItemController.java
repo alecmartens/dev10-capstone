@@ -34,6 +34,7 @@ public class ItemController {
     public ResponseEntity<?> create(@RequestBody Item item) {
         System.out.println("Passed Item ID: " + item.getItemId());
         System.out.println("Passed Item Name: " + item.getName());
+//        System.out.println("Item category: " + item.getItemCategory().getName());
         ItemResult result = service.create(item);
         if (!result.isSuccess()) {
             return new ResponseEntity<>(result.getErrorMessages(), HttpStatus.BAD_REQUEST); //400
@@ -46,6 +47,7 @@ public class ItemController {
         System.out.println("Path Item ID: " + itemId);
         System.out.println("Passed Item ID: " + item.getItemId());
         System.out.println("Passed Item Name: " + item.getName());
+
 //        if (itemId != item.getItemId()) {
 //            System.out.println("409 error when attempting to update");
 //            return new ResponseEntity<>(HttpStatus.CONFLICT); // 409

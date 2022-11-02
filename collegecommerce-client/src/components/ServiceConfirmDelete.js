@@ -1,8 +1,20 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { deleteById,findById } from "../services/serviceServices";
+//user imports
+import { findByUserName } from "../services/userService";
+import AuthContext from "../contexts/AuthContext";
 function ServiceConfirmDelete(){
+    //get user
+    const auth = useContext(AuthContext);
+    const [user, setUser] = useState("");
+    useEffect(() => {
+        findByUserName(auth.user.username)
+            .then((user) => setUser(user))
+            .catch(() => history.pushState("/error"))
+    }, []);
+
     const [service, setService] = useState({});
 
     const history = useHistory();
@@ -18,7 +30,7 @@ function ServiceConfirmDelete(){
     }, [])
     function handleDelete() {
         deleteById(service.serviceId)
-            .then(() => history.push("/services"))
+            .then(() => history.push(`/user/${user.username}/services`))
             .catch(() => history.push("/error"));
     }
     return (

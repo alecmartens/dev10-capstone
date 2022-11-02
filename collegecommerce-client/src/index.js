@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 // const publicKey = await fetch("http:localhost:8080/api/payments/stripe-public-key"); 
 // console.log(publicKey); 
 // console.log(process.env.REACT_APP_STRIPE_PUBLIC_KEY); 
-const promise = loadStripe("STRIPE_PUBLIC_KEY");
+const promise = loadStripe("REACT_APP_STRIPE_PUBLIC_KEY");
 root.render(
   <React.StrictMode>
     <Elements stripe={promise}> <App /></Elements>

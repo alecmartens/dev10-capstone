@@ -2,9 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { Link, Router } from "react-router-dom";
 import { useHistory, useParams } from "react-router-dom";
 import { findAllItems, save, update } from "../../services/itemService";
-import Item from "./Item";
-import { Table } from "react-bootstrap";
-import { Form } from "react-bootstrap";
+import { Card, Row, Col, Form, Table } from 'react-bootstrap';
 //user imports
 import { findByUserName } from "../../services/userService";
 import AuthContext from "../../contexts/AuthContext";
@@ -29,10 +27,11 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
         description: "",
         itemCondition: "",
         itemSold: false,
-        category: "",
+        itemCategory: "",
         imageUrl: "",
         userId: "",
-        available: false
+        available: false,
+        location: ""
     });
     function handleChange(item) {
         return (evt) => {
@@ -74,10 +73,14 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
 
     return (
         <>
-            <Table striped bordered hover>
-                <thead>
+            <div className="row">
+                <h1 className="col-9">Items</h1>
+            </div>
+
+            {/* <Table striped bordered hover> */}
+            {/* <thead>
                     <tr>
-                        <th>Item Id</th>
+                        {/* <th>Item Id</th>
                         <th>Username</th>
                         <th>Name</th>
                         <th>Price</th>
@@ -86,69 +89,104 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                         <th>Item Sold</th>
                         <th>Category</th>
                         <th>Image URL</th>
-                        {/* <th>User ID</th> */}
+                        <th>User ID</th>
+                        <th>Location</th>
                         <th>Is Available</th>
                     </tr>
-                </thead>
-                <tbody>
-                    {
-                        // items.map(i => (
-                        userItems.map(i => (
-                            <tr key={i.itemId}>
-                                <td>{i.itemId}</td>
-                                <td>{user.username}</td>
-                                <td>{i.name}</td>
-                                <td>{i.price}</td>
-                                <td>{i.description}</td>
-                                <td>{i.itemCondition}</td>
-                                <td>{String(i.itemSold)}</td>
-                                <td>{i.category}</td>
-                                <td>{i.imageUrl}</td>
-                                {/* <td>{i.userId}</td> */}
-                                <td>
-                                    {/* {String(i.available)} */}
-                                    <Form>
-                                    {i.available ? <Form.Check
+                </thead> */}
+
+            {/* <tbody> */}
+            {/* xs={1} md={2} className="g-4" */}
+            <Row className="justify-content-md-center">
+                {
+                    userItems.map(i => (
+                        <Card border="dark" style={{ width: '18rem' }} key={i.itemId}>
+                            <Card.Header>
+                                <b>{i.itemCategory}</b>
+                                <br></br>
+                                <p>Is Available for Purchase?</p>
+                                {i.available ? <Form.Check
+                                    name="toggle-switch"
+                                    type="switch"
+                                    id="switch"
+                                    label="" onChange={handleChange(i)} defaultChecked
+                                /> :
+                                    <Form.Check
                                         name="toggle-switch"
                                         type="switch"
                                         id="switch"
-                                        label=""  onChange={handleChange(i)} defaultChecked
-                                    /> :
-                                        <Form.Check
-                                            name="toggle-switch"
-                                            type="switch"
-                                            id="switch"
-                                            label="" onChange={handleChange(i)}
-                                        />}</Form>
-                                    </td>
-                                <td><Link to={`/items/delete/${i.itemId}`} className="btn btn-danger me-2">Delete</Link></td>
-                                <td><Link to={`/items/edit/${i.itemId}`} className="btn btn-secondary">Edit</Link></td>
-                                <td><button className="btn btn-success me-2" onClick={() => {
-                                    //Set isAvailable to true, to post listing
-                                    //This posts items for other users to see
-                                    i.available = true;
-                                    setItem(i);
-                                    save(i);
-                                    console.log(i);
-                                }}>List Item</button></td>
-                                <td><button className="btn btn-danger me-2" onClick={() => {
-                                    //Set isAvailable to true, to post listing
-                                    //This hides items for other users to see
-                                    i.available = false;
-                                    setItem(i);
-                                    save(i);
-                                    console.log(i);
-                                }}>Unlist Item</button></td>
+                                        label="" onChange={handleChange(i)}
+                                    />}
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Title>{i.name}</Card.Title>
+                                <Card.Text>
+                                    <Card.Img variant="top" src={i.imageUrl} alt="Image Unavailable" rounded="true" />
+                                    <br></br>
+                                    <b>Description: </b>{i.description}<br />
+                                    <b>Condition: </b>{i.itemCondition}<br />
+                                    <b>Location: </b><br />{i.location}<br />
+                                    ${i.price}
+                                    <br></br>
+                                    <Link to={`/items/delete/${i.itemId}`} className="btn btn-danger me-2">Delete</Link>
+                                    <Link to={`/items/edit/${i.itemId}`} className="btn btn-secondary">Edit</Link>
+                                    <br></br>
 
-                            </tr>
-                        ))
-                    }
-                    {/* {items.map(i => <Item key={i.itemId} 
+
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    ))
+                }
+            </Row>
+
+
+
+
+
+            {/* // items.map(i => (
+                        // userItems.map(i => (
+                        //     <tr key={i.itemId}>
+                        //         <td>{i.itemId}</td>
+                        //         <td>{user.username}</td>
+                        //         <td>{i.name}</td>
+                        //         <td>{i.price}</td>
+                        //         <td>{i.description}</td>
+                        //         <td>{i.itemCondition}</td>
+                        //         <td>{String(i.itemSold)}</td>
+                        //         <td>{i.itemCategory}</td>
+                        //         <td>{i.location}</td>
+                        //         {/* <td>{i.imageUrl}</td> }
+                        //         {/* <td>{i.userId}</td> }
+                        //         <td>
+                        //             {/* {String(i.available)} }
+                        //             <Form>
+                        //             {i.available ? <Form.Check
+                        //                 name="toggle-switch"
+                        //                 type="switch"
+                        //                 id="switch"
+                        //                 label=""  onChange={handleChange(i)} defaultChecked
+                        //             /> :
+                        //                 <Form.Check
+                        //                     name="toggle-switch"
+                        //                     type="switch"
+                        //                     id="switch"
+                        //                     label="" onChange={handleChange(i)}
+                        //                 />}</Form>
+                        //             </td>
+                        //         <td><Link to={`/items/delete/${i.itemId}`} className="btn btn-danger me-2">Delete</Link></td>
+                        //         <td><Link to={`/items/edit/${i.itemId}`} className="btn btn-secondary">Edit</Link></td>
+                                
+
+                        //     </tr>
+                        // )) */}
+
+            {/* {items.map(i => <Item key={i.itemId} 
                     item={i} 
                     handleEdit={handleEdit} 
                     handleDelete={handleDelete} />)} */}
-                </tbody>
-            </Table>
+            {/* </tbody> */}
+            {/* </Table> */}
         </>
     );
 }

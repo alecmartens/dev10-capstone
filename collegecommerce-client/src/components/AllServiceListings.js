@@ -12,6 +12,9 @@ function AllServiceListings() {
   const [colorMsg, setColorMsg] = useState("success");
   const [services, setServices] = useState([]);
 
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+
   const history = useHistory();
   const myLocation = useContext(LocationContext);
 
@@ -41,10 +44,45 @@ function AllServiceListings() {
   }, []);
 
   function handleCategoryChange(evt) {
-    console.log("We HERE?");
+    setCategory(evt.target.value);
   }
 
+  function handlePriceChange(evt) {
+    setPrice(evt.target.value);
+  }
+
+  useEffect(() => {
+    findAll()
+      .then((services) => {
+        const nextServices = [];
+        services.map((s) => { 
+          let addService = true;
+          if (!s.available) { 
+            addService = false;
+          }
+          if (myLocation.location && s.location !== myLocation.location) {
+            addService = false;
+          }
+          if (category && category !== s.category) {
+            addService = false;
+          }
+          if (price && s.pricePerHour > price) {
+            addService = false;
+          }
+
+          if (addService) {
+            nextServices.push(s);
+          }
+
+          });
+        setServices(nextServices);
+      })
+      .catch(() => history.push("/error"));
+
+    }, [category, price]);
+
   return (
+
     <div>
       <h1>Items & Services</h1>
       <Nav variant="tabs" defaultActiveKey="/services">
@@ -59,16 +97,38 @@ function AllServiceListings() {
         <h1 className="col">Services</h1>
         <div className="col-6">
           <div className="container">
-            <div className="bg-light rounded-1 border border-primary w-100">
-            <div class="dropdown">
+            <div className="bg-light rounded-1  w-75 p-4">
+            <h4 className="text-center mb-3">Filter Results</h4>
+            <div className="d-flex justify-content-evenly">
+            <div className="dropdown me-4">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
+                Categories
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><button class="dropdown-item" type="button">Action</button></li>
-                <li><button class="dropdown-item" type="button">Another action</button></li>
-                <li><button class="dropdown-item" type="button">Something else here</button></li>
+                <li><button className="dropdown-item" type="button" value="DELIVERY" onClick={handleCategoryChange}>Delivery</button></li>
+                <li><button className="dropdown-item" type="button" value="DRIVING" onClick={handleCategoryChange}>Driving</button></li>
+                <li><button className="dropdown-item" type="button" value="HOME_CLEANING" onClick={handleCategoryChange}>Home Cleaning</button></li>
+                <li><button className="dropdown-item" type="button" value="PET_CARE" onClick={handleCategoryChange}>Pet Care</button></li>
+                <li><button className="dropdown-item" type="button" value="REPAIR" onClick={handleCategoryChange}>Repair</button></li>
+                <li><button className="dropdown-item" type="button" value="TRANSPORATION" onClick={handleCategoryChange}>Transporation</button></li>
+                <li><button className="dropdown-item" type="button" value="OTHER" onClick={handleCategoryChange}>Other</button></li>
+                <li><button className="dropdown-item" type="button" value="" onClick={handleCategoryChange}>All</button></li>
               </ul>
+              {category && <div className="text-center mt-2">{category}</div>}
+            </div>
+            <div className="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                Price Range
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li><button className="dropdown-item" type="button" value="10" onClick={handlePriceChange}>$10 and down</button></li>
+                <li><button className="dropdown-item" type="button" value="25" onClick={handlePriceChange}>$25 and down</button></li>
+                <li><button className="dropdown-item" type="button" value="50" onClick={handlePriceChange}>$50 and down</button></li>
+                <li><button className="dropdown-item" type="button" value="100" onClick={handlePriceChange}>$100 and down</button></li>
+                <li><button className="dropdown-item" type="button" value="" onClick={handlePriceChange}>All</button></li>
+              </ul>
+              {price && <div className="text-center mt-2">${price} and down</div>}
+            </div>
             </div>
             </div>
           </div>
@@ -91,6 +151,8 @@ function AllServiceListings() {
                   {s.description}
                   <br></br>
                   ${s.pricePerHour}/hr
+                  <br></br>
+                  {s.location}
                 </Card.Text>
                 <button className="btn btn-primary" onClick={() => {
                   if (!localStorage.getItem("cartProducts")) { localStorage.setItem("cartProducts", JSON.stringify({})); };
@@ -122,7 +184,11 @@ function AllServiceListings() {
               </Card.Body>
             </Card>
           </Col>))}
-
+          {services.length === 0 && 
+          <div className="alert alert-danger">
+            <h3>No search results found</h3>
+            <p>Please consider broadening search and/or changing location.</p>
+          </div>}
         </Row>
       </div>
     </div>

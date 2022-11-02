@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
@@ -14,12 +15,15 @@ public class ServiceJdbcTemplateRepositoryTest {
     @Autowired
     ServiceJdbcTemplateRepository repo;
     @Autowired
-    KnownGoodState knownGoodState;
+    private JdbcTemplate jdbcTemplate;
 
-//    @BeforeEach
-//    void setup() {
-//        knownGoodState.set();
-//    }
+//    @Autowired
+//    KnownGoodState knownGoodState;
+
+    @BeforeEach
+    void setup() {
+        jdbcTemplate.update("call set_known_good_state();");
+    }
 
     @Test
     void shouldFindAll(){
@@ -29,12 +33,9 @@ public class ServiceJdbcTemplateRepositoryTest {
 
     @Test
     void shouldUpdate(){
-        Service service = new Service();
-        service.setServiceId(25);
-        service.setName("repair & deliver");
-        service.setDescription("furniture delivery, repair");
-        service.setPricePerHour(111.00);
-        service.setCategory(ServiceCategory.DELIVERY);
+        Service service = makeService();
+        service.setName("New Name");
+        service.setServiceId(2);
         assertTrue(repo.update(service));
     }
 
@@ -46,11 +47,22 @@ public class ServiceJdbcTemplateRepositoryTest {
 
     @Test
     void shouldAdd(){
+        Service service = makeService();
+
+        Service result = repo.add(service);
+        assertNotNull(result);
+        assertEquals(result.getName(), service.getName());
+    }
+
+    private Service makeService() {
         Service service = new Service();
-        service.setName("repair & deliver new");
-        service.setDescription("new furniture delivery, repair");
+        service.setServiceId(0);
+        service.setName("Test");
+        service.setDescription("description");
         service.setPricePerHour(111.00);
         service.setCategory(ServiceCategory.DELIVERY);
-        assertNotNull(repo.add(service));
+        service.setUserId(1);
+        service.setLocation("Location");
+        return service;
     }
 }

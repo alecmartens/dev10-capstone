@@ -26,7 +26,7 @@ public class ServiceService {
         if(service.getPricePerHour() <= 0.0){
             res.addMessage("price per hour must be greater than 0", ResultType.INVALID);
         }
-        if(service.getLocation() == null || service.getLocation().isBlank()) {
+        if(service.getLocation() == null || service.getLocation().isBlank()) {//might be broken
             res.addMessage("Location cannot be empty.", ResultType.INVALID);
         }
         if(hasDuplicate(service)){
@@ -68,7 +68,7 @@ public class ServiceService {
         if(service.getPricePerHour() <= 0.0){
             res.addMessage("price per hour must be greater than 0", ResultType.INVALID);
         }
-        if(service.getLocation() == null || service.getLocation().isBlank()) {
+        if(service.getLocation() == null || service.getLocation().isBlank()) {//might be broken
             res.addMessage("Location cannot be empty.", ResultType.INVALID);
         }
         if(hasDuplicate(service)){

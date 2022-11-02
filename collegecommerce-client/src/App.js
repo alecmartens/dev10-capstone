@@ -39,6 +39,7 @@ import LocationContext from "./contexts/LocationContext";
 import AllServiceListings from "./components/AllServiceListings";
 import AllItemListings from "./components/AllItemListings";
 import PaymentForm from "./checkout/PaymentForm";
+import UserConfirmDelete from "./components/user/UserConfirmDelete";
 function App() {
 
   const LOCAL_STORAGE_TOKEN_KEY = "collegeCommerceToken";
@@ -209,6 +210,9 @@ function App() {
               <Route exact path="/user/edit/:username">
                 {user ? <UserForm /> : <Login />}
               </Route>
+              <Route exact path="/user/delete/:username">
+                {user ? <UserConfirmDelete /> : <Login />}
+              </Route>
 
 
               <Route path="/user/:username/items/add">
@@ -233,12 +237,6 @@ function App() {
                 </div>
                  <UserServiceGrid /> </div>: <Login />}
               </Route>
-              {/* <Route path={`/user/${user.username}/items`}>
-                <UserItemGrid />
-              </Route>
-              <Route path={`/user/${user.username}/services`}>
-                <UserServiceGrid />
-              </Route> */}
 
               <Route exact path="/login">
                 <Login />
