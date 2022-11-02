@@ -10,9 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
+
 @Repository
 public class ItemJDBCTemplateRepository implements ItemRepository {
     private final JdbcTemplate jdbcTemplate;
+
     public ItemJDBCTemplateRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -37,7 +39,8 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
 
     @Override
     public List<Item> findAll() {
-        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location " +
+        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location "
+                +
                 "from item ";
 
         return jdbcTemplate.query(sql, mapper);
@@ -45,7 +48,8 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
 
     @Override
     public Item findByItemId(int itemId) {
-        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location " +
+        final String sql = "select item_id, name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location "
+                +
                 "from item " +
                 "where item_id = ?";
 
@@ -55,7 +59,8 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
     @Override
     public Item create(Item item) {
         final String sql = "insert into item " +
-                "(name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location) " +
+                "(name, price, description, item_condition, item_sold, category, image_url, user_id, is_available, location) "
+                +
                 "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -63,14 +68,14 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, item.getName());
             statement.setBigDecimal(2, item.getPrice());
-                    statement.setString(3,item.getDescription());
-                    statement.setString(4,item.getItemCondition());
-                    statement.setBoolean(5,item.isItemSold());
-                    statement.setString(6,item.getCategory());
-                    statement.setString(7, item.getImageUrl());
-                    statement.setInt(8, item.getUserId());
-                    statement.setBoolean(9, item.isAvailable());
-                    statement.setString(10, item.getLocation());
+            statement.setString(3, item.getDescription());
+            statement.setString(4, item.getItemCondition());
+            statement.setBoolean(5, item.isItemSold());
+            statement.setString(6, item.getCategory());
+            statement.setString(7, item.getImageUrl());
+            statement.setInt(8, item.getUserId());
+            statement.setBoolean(9, item.isAvailable());
+            statement.setString(10, item.getLocation());
 
             return statement;
         }, keyHolder);
@@ -110,8 +115,7 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                 item.getUserId(),
                 item.isAvailable(),
                 item.getLocation(),
-                item.getItemId()
-                );
+                item.getItemId());
 
         System.out.println(rowsUpdated);
         return rowsUpdated > 0;
@@ -120,24 +124,23 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
     @Override
     public boolean deleteByItemId(int itemId) {
         final String sql = "delete from item where item_id = ?;";
-        return jdbcTemplate.update(sql,itemId) > 0;
+        return jdbcTemplate.update(sql, itemId) > 0;
     }
 
-    //This method takes an item and prints it's contents to sout
+    // This method takes an item and prints it's contents to sout
     @Override
     public void printItem(Item item) {
-        String result =
-                "itemId: " + item.getItemId() +
-                        " name: " + item.getName() +
-                        " price: " + item.getPrice() +
-                        " description: " + item.getDescription() +
-                        " itemCondition: " + item.getItemCondition() +
-                        " itemSold: " + item.isItemSold() +
-                        " category: " + item.getCategory() +
-                        " imageUrl: " + item.getImageUrl() +
-                        " userId: " + item.getUserId() +
-                        " isAvailable " + item.isAvailable() +
-                        " location: " + item.getLocation();
+        String result = "itemId: " + item.getItemId() +
+                " name: " + item.getName() +
+                " price: " + item.getPrice() +
+                " description: " + item.getDescription() +
+                " itemCondition: " + item.getItemCondition() +
+                " itemSold: " + item.isItemSold() +
+                " category: " + item.getCategory() +
+                " imageUrl: " + item.getImageUrl() +
+                " userId: " + item.getUserId() +
+                " isAvailable " + item.isAvailable() +
+                " location: " + item.getLocation();
         System.out.println(result);
     }
 }
