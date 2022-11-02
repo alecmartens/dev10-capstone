@@ -1,5 +1,6 @@
 package learn.capstone.controllers;
 
+import com.google.gson.Gson;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
@@ -19,6 +20,13 @@ public class PaymentController {
     @Value("${stripe.apikey}")
     String stripeKey;
 
+    @Value("${stripe.publicApiKey}")
+    String stripePublicKey;
+
+    @GetMapping("/stripe-public-key")
+    public String getStripePublicKey(){
+        return stripePublicKey; 
+    }
     @GetMapping("/create-payment-intent")
     public String createPaymentIntent() throws StripeException {
         Stripe.apiKey = stripeKey;
@@ -31,6 +39,7 @@ public class PaymentController {
                         .build();
 
         PaymentIntent paymentIntent = PaymentIntent.create(params);
-        return paymentIntent.getClientSecret();
+        String json = new Gson().toJson(paymentIntent);
+        return json;
     }
 }
