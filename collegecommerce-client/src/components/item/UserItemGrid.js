@@ -29,10 +29,11 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
         description: "",
         itemCondition: "",
         itemSold: false,
-        category: "",
+        itemCategory: "",
         imageUrl: "",
         userId: "",
-        available: false
+        available: false,
+        location: ""
     });
     function handleChange(item) {
         return (evt) => {
@@ -51,6 +52,9 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
 
         }
     }
+
+    // itemCondition: "",
+    // category: "",
 
     const history = useHistory();
 
@@ -74,6 +78,12 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
 
     return (
         <>
+            <div className="row">
+                <h1 className="col-9">Items</h1>
+            </div>
+            {/* <div className="col-3">
+                <Link to={`/user/${user.username}/items/add`} className="btn btn-primary">Add an Item</Link>
+            </div> */}
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -85,8 +95,9 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                         <th>Item Condition</th>
                         <th>Item Sold</th>
                         <th>Category</th>
-                        <th>Image URL</th>
+                        {/* <th>Image URL</th> */}
                         {/* <th>User ID</th> */}
+                        <th>Location</th>
                         <th>Is Available</th>
                     </tr>
                 </thead>
@@ -102,8 +113,9 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                                 <td>{i.description}</td>
                                 <td>{i.itemCondition}</td>
                                 <td>{String(i.itemSold)}</td>
-                                <td>{i.category}</td>
-                                <td>{i.imageUrl}</td>
+                                <td>{i.itemCategory}</td>
+                                <td>{i.location}</td>
+                                {/* <td>{i.imageUrl}</td> */}
                                 {/* <td>{i.userId}</td> */}
                                 <td>
                                     {/* {String(i.available)} */}
@@ -123,7 +135,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                                     </td>
                                 <td><Link to={`/items/delete/${i.itemId}`} className="btn btn-danger me-2">Delete</Link></td>
                                 <td><Link to={`/items/edit/${i.itemId}`} className="btn btn-secondary">Edit</Link></td>
-                                <td><button className="btn btn-success me-2" onClick={() => {
+                                {/* <td><button className="btn btn-success me-2" onClick={() => {
                                     //Set isAvailable to true, to post listing
                                     //This posts items for other users to see
                                     i.available = true;
@@ -138,7 +150,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                                     setItem(i);
                                     save(i);
                                     console.log(i);
-                                }}>Unlist Item</button></td>
+                                }}>Unlist Item</button></td> */}
 
                             </tr>
                         ))

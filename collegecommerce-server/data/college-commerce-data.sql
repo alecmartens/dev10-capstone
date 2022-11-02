@@ -2,11 +2,11 @@ use college_commerce;
 set sql_safe_updates = 0; 
 
 insert into item(name, price, description, item_condition, item_sold, category, user_id, is_available, location)
-values ("desk", 150.50, "wooden desk, two drawers", "like new", false, "furniture", 1, true, "North Dakota State University"),
-("Calculus Textbook", 150.50, "8th edition, 500 pages", "good", false, "textbook", 1, true, "University of Minnesota"),
-("Sofa", 150.50, "10' width, gray", "new", false, "furniture", 1, false, "University of Minnesota"),
-("Chair", 151.50, "small, gray", "new", false, "furniture", 2, true, "North Dakota State University"),
-("Bike", 152.50, "Black, light", "new", false, "outdoor", 2, false, "North Dakota State University");  
+values ("desk", 150.50, "wooden desk, two drawers", "NEW", false, "FURNITURE", 1, true, "North Dakota State University"),
+("Calculus Textbook", 150.50, "8th edition, 500 pages", "GOOD", false, "BOOKS", 1, true, "University of Minnesota"),
+("Sofa", 150.50, "10' width, gray", "NEW", false, "FURNITURE", 1, false, "University of Minnesota"),
+("Chair", 151.50, "small, gray", "USED", false, "FURNITURE", 2, true, "North Dakota State University"),
+("Bike", 152.50, "Black, light", "POOR", false, "SPORTS", 2, false, "North Dakota State University");  
 
 insert into service(name, description, price_per_hour, category, user_id, is_available, location)
     values ("delivering food", "pizza", 50.00,"DELIVERY",1,false, "North Dakota State University"),

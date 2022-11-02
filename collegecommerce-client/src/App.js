@@ -232,12 +232,6 @@ function App() {
                 </div>
                  <UserServiceGrid /> </div>: <Login />}
               </Route>
-              {/* <Route path={`/user/${user.username}/items`}>
-                <UserItemGrid />
-              </Route>
-              <Route path={`/user/${user.username}/services`}>
-                <UserServiceGrid />
-              </Route> */}
 
               <Route exact path="/login">
                 <Login />
