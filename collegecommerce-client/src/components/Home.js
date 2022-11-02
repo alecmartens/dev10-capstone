@@ -2,6 +2,15 @@ import { Link } from "react-router-dom";
 import LocationSearch from "./LocationSearch";
 
 function Home() {
+    // const auth = useContext(AuthContext);
+    // const [user, setUser] = useState("");
+    // {auth.user ? 
+    // useEffect(() => {
+    //     findByUserName(auth.user.username)
+    //         .then((user) => setUser(user))
+    //         .catch(() => history.pushState("/error"))
+    // }, [])
+    // : <Login />}
 
     return (
         <div className="bg-secondary">
@@ -27,7 +36,7 @@ function Home() {
                     <div className="card bg-primary m-2 p-4">
                         <div className="card-body">
                             {/* CHANGE THIS TO GO TO USER ITEMS */}
-                            <Link to="/items" className="stretched-link text-reset">Sell Items</Link>
+                            <Link to="/user/:username/items" className="stretched-link text-reset">Sell Items</Link>
                         </div>
                     </div>
                     <div className="card bg-primary m-2 p-4">
@@ -38,7 +47,7 @@ function Home() {
                     <div className="card bg-primary m-2 p-4">
                         <div className="card-body">
                             {/* CHANGE THIS TO GO TO USER SERVICES */}
-                            <Link to="/services" className="stretched-link text-reset">Sell Services</Link>
+                            <Link to="/user/:username/services" className="stretched-link text-reset">Sell Services</Link>
                         </div>
                     </div>
                 </div>
