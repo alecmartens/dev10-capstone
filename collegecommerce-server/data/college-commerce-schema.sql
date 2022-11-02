@@ -133,5 +133,5 @@ insert into app_role (app_role_id, name) values (1, "USER"), (2, "ADMIN");
 -- delimiter ;
 SET SQL_SAFE_UPDATES = 0;
 -- call set_known_good_state(); -- 
-select * from service; 
+-- select * from service; 
 -- delete from service; 
