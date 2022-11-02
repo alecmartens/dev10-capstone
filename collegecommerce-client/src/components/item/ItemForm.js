@@ -22,14 +22,15 @@ function ItemForm() {
         name: "",
         price: 0,
         description: "",
-        itemCondition: "",
+        itemCondition: "NEW",
         itemSold: false,
-        category: "",
+        itemCategory: "OTHER",
         imageUrl: "",
         userId: user.userId,
         available: false,
         location: ""
     });
+    //itemCategory: "",
     const [errs, setErrs] = useState([]);
     const history = useHistory();
     const { id } = useParams();
@@ -58,7 +59,7 @@ function ItemForm() {
             getUniversitiesByName(location)
                 .then((loc) => setLocations(loc))
                 .catch((error) => console.log(error));
-        } 
+        }
     }
 
     function handleChange(evt) {
@@ -74,7 +75,7 @@ function ItemForm() {
         }
         setItem(nextItem);
     }
-    
+
 
     function handleSubmit(evt) {
         evt.preventDefault();
@@ -93,35 +94,45 @@ function ItemForm() {
 
     return (
         <div className="container w-50 p-4">
-        <form onSubmit={handleSubmit}>
-            <h2>{id > 0 ? "Edit item" : "Add item"}</h2>
-            <div className="mb-3">
-                <label htmlFor="name" className="form-label">Name</label>
-                <input type="text" name="name" id="name" className="form-control"
-                    value={item.name} onChange={handleChange} />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="price" className="form-label">Price</label>
-                <input type="number" name="price" id="price" className="form-control"
-                    value={item.price} onChange={handleChange} />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="description" className="form-label">Description</label>
-                <input type="text" name="description" id="description" className="form-control"
-                    value={item.description} onChange={handleChange} />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="itemCondition" className="form-label">Item Condition</label>
-                <input type="text" name="itemCondition" id="itemCondition" className="form-control"
-                    value={item.itemCondition} onChange={handleChange} />
-            </div>
-            {/* Not sure if we want to allow user to say if an item is sold, should be done automatically */}
-            {/* <div className="mb-3">
+            <form onSubmit={handleSubmit}>
+                <h2>{id > 0 ? "Edit item" : "Add item"}</h2>
+                <div className="mb-3">
+                    <label htmlFor="name" className="form-label">Name</label>
+                    <input type="text" name="name" id="name" className="form-control"
+                        value={item.name} onChange={handleChange} />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="price" className="form-label">Price</label>
+                    <input type="number" name="price" id="price" className="form-control"
+                        value={item.price} onChange={handleChange} />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="description" className="form-label">Description</label>
+                    <input type="text" name="description" id="description" className="form-control"
+                        value={item.description} onChange={handleChange} />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="itemCondition">Condition</label>
+                    <select id="itemCondition" name="itemCondition"
+                        value={item.itemCondition} type="text" onChange={handleChange}>
+                        <option value="NEW">NEW</option>
+                        <option value="GOOD">GOOD</option>
+                        <option value="USED">USED</option>
+                        <option value="POOR">POOR</option>
+                    </select>
+                </div>
+                {/* <div className="mb-3">
+                    <label htmlFor="itemCondition" className="form-label">Item Condition</label>
+                    <input type="text" name="itemCondition" id="itemCondition" className="form-control"
+                        value={item.itemCondition} onChange={handleChange} />
+                </div> */}
+                {/* Not sure if we want to allow user to say if an item is sold, should be done automatically */}
+                {/* <div className="mb-3">
                 <label htmlFor="itemSold" className="form-label">Item Sold</label>
                 <input type="text" name="itemSold" id="itemSold" className="form-control"
                     value={item.itemSold} onChange={handleChange} />
             </div> */}
-            {/* <fieldset>
+                {/* <fieldset>
                 <legend>Item Sold</legend>
                 <div className="mb-3">
                     <label htmlFor="itemSold" className="form-label">True</label>
@@ -134,37 +145,54 @@ function ItemForm() {
                         value={item.itemSold} onChange={handleChange}></input>
                 </div>
             </fieldset> */}
-            <div className="mb-3">
-                <label htmlFor="category" className="form-label">Category</label>
-                <input type="text" name="category" id="category" className="form-control"
-                    value={item.category} onChange={handleChange} />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="imageUrl" className="form-label">Image URL</label>
-                <input type="imageUrl" name="imageUrl" id="imageUrl" className="form-control"
-                    onChange={handleChange} />
-            </div>
-            {/* <div className="form-check mb-3">
+                {/* <div className="mb-3">
+                    <label htmlFor="category" className="form-label">Category</label>
+                    <input type="text" name="category" id="category" className="form-control"
+                        value={item.category} onChange={handleChange} />
+                </div> */}
+                <div className="mb-3">
+                    <label htmlFor="itemCategory">Category</label>
+                    <select id="itemCategory" name="itemCategory"
+                        value={item.itemCategory} type="text" onChange={handleChange}>
+                        <option value="ART">ART</option>
+                        <option value="BOOKS">BOOKS</option>
+                        <option value="ELECTRONICS">ELECTRONICS</option>
+                        <option value="CLOTHING">CLOTHING</option>
+                        <option value="FURNITURE">FURNITURE</option>
+                        <option value="GROCERY">GROCERY</option>
+                        <option value="PET">PET</option>
+                        <option value="SCHOOL">SCHOOL</option>
+                        <option value="SPORTS">SPORTS</option>
+                        <option value="TOYS">TOYS</option>
+                        <option value="OTHER">OTHER</option>
+                    </select>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="imageUrl" className="form-label">Image URL</label>
+                    <input type="imageUrl" name="imageUrl" id="imageUrl" className="form-control"
+                        onChange={handleChange} />
+                </div>
+                {/* <div className="form-check mb-3">
                 <label htmlFor="isAvailable" className="form-check-label">Is Available</label>
                 <input type="checkbox" name="isAvailable" id="isAvailable" className="form-check-input"
                     onChange={handleChange} />
             </div> */}
-            <div>
-                <label htmlFor="available">Make Public</label>
-                {(item.available) ? <select id="available" name="available"
-                    value="YES" type="text" onChange={handleChange}>
-                    <option value="true">YES</option>
-                    <option value="false">NO</option>
-                    {/* <option value="YES">YES</option>
+                <div>
+                    <label htmlFor="available">Make Public</label>
+                    {(item.available) ? <select id="available" name="available"
+                        value="YES" type="text" onChange={handleChange}>
+                        <option value="true">YES</option>
+                        <option value="false">NO</option>
+                        {/* <option value="YES">YES</option>
                     <option value="NO">NO</option> */}
-                </select> : <select id="available" name="available"
-                    value="NO" type="text" onChange={handleChange}>
-                    <option value="true">YES</option>
-                    <option value="false">NO</option>
-                    {/* <option value="YES">YES</option>
+                    </select> : <select id="available" name="available"
+                        value="NO" type="text" onChange={handleChange}>
+                        <option value="true">YES</option>
+                        <option value="false">NO</option>
+                        {/* <option value="YES">YES</option>
                     <option value="NO">NO</option> */}
-                </select>}
-            </div>
+                    </select>}
+                </div>
                 <div className="form-group mb-3">
                     <label htmlFor="username" className="form-label">University</label>
                     <input
@@ -176,28 +204,28 @@ function ItemForm() {
                         className="form-control"
                         autoComplete="on"
                     />
-                    </div>
-                    {locations && <div className="alert alert-secondary mt-3">
+                </div>
+                {locations && <div className="alert alert-secondary mt-3">
                     <div className="list-group list-group-flush">
-                        {locations.filter((loc, index) => index < 10).map(loc => <button type="button" className="list-group-item list-group-item-action" 
-                                                                                key={loc.name} value={loc.name} name="location" onClick={handleChange}>{loc.name}</button>)}
+                        {locations.filter((loc, index) => index < 10).map(loc => <button type="button" className="list-group-item list-group-item-action"
+                            key={loc.name} value={loc.name} name="location" onClick={handleChange}>{loc.name}</button>)}
                     </div>
                 </div>}
                 {item.location && displayConfirmation && <div className="alert alert-primary mt-3">
                     {item.location} added as item location.
                 </div>}
-            {/* {
+                {/* {
                 errs.length !== 0 && <div className="alert alert-danger">
                     <ul>
                         {errs.map(err => <li key={err}>{err}</li>)}
                     </ul>
                 </div>
             } */}
-            <div className="mb-3">
-                <button className="btn btn-primary me-2" type="submit">Save</button>
-                <Link to="/items" className="btn btn-warning">Cancel</Link>
-            </div>
-        </form >
+                <div className="mb-3">
+                    <button className="btn btn-primary me-2" type="submit">Save</button>
+                    <Link to="/items" className="btn btn-warning">Cancel</Link>
+                </div>
+            </form >
         </div>
     );
 }

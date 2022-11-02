@@ -32,7 +32,8 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
         itemCategory: "",
         imageUrl: "",
         userId: "",
-        available: false
+        available: false,
+        location: ""
     });
 
     // itemCondition: "",
@@ -77,8 +78,9 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                         <th>Item Condition</th>
                         <th>Item Sold</th>
                         <th>Category</th>
-                        <th>Image URL</th>
+                        {/* <th>Image URL</th> */}
                         {/* <th>User ID</th> */}
+                        <th>Location</th>
                         <th>Is Available</th>
                     </tr>
                 </thead>
@@ -95,8 +97,9 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                                 <td>{i.itemCondition}</td>
                                 <td>{String(i.itemSold)}</td>
                                 <td>{i.itemCategory}</td>
-                                <td>{i.imageUrl}</td>
+                                {/* <td>{i.imageUrl}</td> */}
                                 {/* <td>{i.userId}</td> */}
+                                <td>{i.location}</td>
                                 <td>{String(i.available)}</td>
                                 <td><Link to={`/items/delete/${i.itemId}`} className="btn btn-danger me-2">Delete</Link></td>
                                 <td><Link to={`/items/edit/${i.itemId}`} className="btn btn-secondary">Edit</Link></td>
