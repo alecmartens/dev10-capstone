@@ -11,7 +11,7 @@ values ("desk", 150.50, "wooden desk, two drawers", "NEW", false, "FURNITURE", 1
 insert into service(name, description, price_per_hour, category, user_id, is_available, location)
     values ("delivering food", "pizza", 50.00,"DELIVERY",1,false, "North Dakota State University"),
     ("pet service", "any pet", 50.00,"REPAIR",1,true, "North Dakota State University"),
-    ("setup fridge", "lift anything under 100 lbs", 50.00,"OTHER",2,false, "University of Minnesota");
+    ("setup fridge", "lift anything under 100 lbs", 50.00,"OTHER",2,true, "University of Minnesota");
 
 insert into user_info(username, email, password_hash, image_url)
 values ("JohnDoe", "johndoe@gmail.com",
