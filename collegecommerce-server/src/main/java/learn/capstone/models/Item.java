@@ -16,9 +16,11 @@ public class Item {
     private String name;
     private BigDecimal price;
     private String description;
-    private String itemCondition;
+//    private String itemCondition; //Enum
+    private ItemCondition itemCondition;
     private boolean itemSold;
-    private String category; //Enum???
+//    private String category; //Enum
+    private ItemCategory itemCategory;
     private String imageUrl;
     private int userId;
     private boolean isAvailable;
@@ -29,20 +31,34 @@ public class Item {
     public Item() {
     }
 
-    public Item(int itemId, String name, BigDecimal price, String description, String itemCondition, boolean itemSold,
-                String category, String imageUrl, int userId, boolean isAvailable, String location) {
+    public Item(int itemId, String name, BigDecimal price, String description, ItemCondition itemCondition, boolean itemSold, ItemCategory itemCategory, String imageUrl, int userId, boolean isAvailable, String location) {
         this.itemId = itemId;
         this.name = name;
         this.price = price;
         this.description = description;
         this.itemCondition = itemCondition;
         this.itemSold = itemSold;
-        this.category = category;
+        this.itemCategory = itemCategory;
         this.imageUrl = imageUrl;
         this.userId = userId;
         this.isAvailable = isAvailable;
         this.location = location;
     }
+
+//    public Item(int itemId, String name, BigDecimal price, String description, String itemCondition, boolean itemSold,
+//                String category, String imageUrl, int userId, boolean isAvailable, String location) {
+//        this.itemId = itemId;
+//        this.name = name;
+//        this.price = price;
+//        this.description = description;
+//        this.itemCondition = itemCondition;
+//        this.itemSold = itemSold;
+//        this.category = category;
+//        this.imageUrl = imageUrl;
+//        this.userId = userId;
+//        this.isAvailable = isAvailable;
+//        this.location = location;
+//    }
 
     public int getItemId() {
         return itemId;
@@ -76,13 +92,13 @@ public class Item {
         this.description = description;
     }
 
-    public String getItemCondition() {
-        return itemCondition;
-    }
-
-    public void setItemCondition(String itemCondition) {
-        this.itemCondition = itemCondition;
-    }
+//    public String getItemCondition() {
+//        return itemCondition;
+//    }
+//
+//    public void setItemCondition(String itemCondition) {
+//        this.itemCondition = itemCondition;
+//    }
 
     public boolean isItemSold() {
         return itemSold;
@@ -92,13 +108,13 @@ public class Item {
         this.itemSold = itemSold;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
+//    public String getCategory() {
+//        return category;
+//    }
+//
+//    public void setCategory(String category) {
+//        this.category = category;
+//    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -130,5 +146,21 @@ public class Item {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public ItemCondition getItemCondition() {
+        return itemCondition;
+    }
+
+    public void setItemCondition(ItemCondition itemCondition) {
+        this.itemCondition = itemCondition;
+    }
+
+    public ItemCategory getItemCategory() {
+        return itemCategory;
+    }
+
+    public void setItemCategory(ItemCategory itemCategory) {
+        this.itemCategory = itemCategory;
     }
 }
