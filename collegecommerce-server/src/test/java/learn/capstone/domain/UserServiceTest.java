@@ -83,15 +83,6 @@ public class UserServiceTest {
         result = service.update(user);
         assertEquals(ResultType.INVALID, result.getType());
 
-        user.setUsername("TestUser");
-        user.setPassword(null);
-        result = service.update(user);
-        assertEquals(ResultType.INVALID, result.getType());
-
-        user.setPassword("Password123");
-        result = service.update(user);
-        assertEquals(ResultType.INVALID, result.getType());
-
         user = null;
         result = service.update(user);
         assertEquals(ResultType.INVALID, result.getType());

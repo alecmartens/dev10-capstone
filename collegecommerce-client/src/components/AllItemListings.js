@@ -134,6 +134,7 @@ function AllItemListings() {
                 <li><button className="dropdown-item" type="button" value="OTHER" onClick={handleCategoryChange}>Other</button></li>
                 <li><button className="dropdown-item" type="button" value="" onClick={handleCategoryChange}>All</button></li>
               </ul>
+              {category && <div className="text-center mt-2">{category}</div>}
             </div>
             <div className="dropdown me-4">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -146,6 +147,7 @@ function AllItemListings() {
                 <li><button className="dropdown-item" type="button" value="POOR" onClick={handleConditionChange}>Poor</button></li>
                 <li><button className="dropdown-item" type="button" value="" onClick={handleConditionChange}>All</button></li>
               </ul>
+              {condition && <div className="text-center mt-2">{condition}</div>}
             </div>
             <div className="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -158,8 +160,9 @@ function AllItemListings() {
                 <li><button className="dropdown-item" type="button" value="100" onClick={handlePriceChange}>$100 and down</button></li>
                 <li><button className="dropdown-item" type="button" value="250" onClick={handlePriceChange}>$250 and down</button></li>
                 <li><button className="dropdown-item" type="button" value="500" onClick={handlePriceChange}>$500 and down</button></li>
-                <li><button className="dropdown-item" type="button" value="10000" onClick={handlePriceChange}>All</button></li>
+                <li><button className="dropdown-item" type="button" value="" onClick={handlePriceChange}>All</button></li>
               </ul>
+              {price && <div className="text-center mt-2">${price} and down</div>}
             </div>
             </div>
             </div>

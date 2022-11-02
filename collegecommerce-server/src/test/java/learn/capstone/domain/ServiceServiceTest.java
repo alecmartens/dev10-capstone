@@ -30,16 +30,12 @@ public class ServiceServiceTest {
     }
     @Test
     void shouldAdd(){
-        Service service = new Service();
-        service.setName("repair & deliver new2");
-        service.setDescription("new furniture delivery, repair2");
-        service.setPricePerHour(111.00);
-        service.setCategory(ServiceCategory.DELIVERY);
-        Service mock = service;
-        mock.setServiceId(100);
-        when(serviceRepo.add(service)).thenReturn(mock);
-        assertTrue(serviceService.add(service).isSuccess());
+        Service mock = makeService();
+        when(serviceRepo.add(mock)).thenReturn(mock);
+        Result<Service> result = serviceService.add(mock);
 
+        assertNotNull(result);
+        assertTrue(result.isSuccess());
     }
     @Test
     void shouldNotAdd(){
@@ -52,35 +48,28 @@ public class ServiceServiceTest {
 
     @Test
     void shouldDelete(){
-        Service service = new Service();
-        service.setName("repair & deliver new2");
-        service.setDescription("new furniture delivery, repair2");
-        service.setPricePerHour(111.00);
-        service.setCategory(ServiceCategory.DELIVERY);
-        Service mock = service;
-        mock.setServiceId(1);
+        Service service = makeService();
+        service.setServiceId(1);
         when(serviceRepo.delete(1)).thenReturn(true);
-        when(serviceRepo.findById(1)).thenReturn(mock);
+        when(serviceRepo.findById(1)).thenReturn(service);
         assertTrue(serviceService.delete(1));
     }
     @Test
     void shouldNotDelete(){
-        when(serviceRepo.findById(1)).thenReturn(null);
-        assertFalse(serviceService.delete(1));
+        when(serviceRepo.findById(20)).thenReturn(null);
+        assertFalse(serviceService.delete(20));
     }
 
     @Test
     void shouldUpdate(){
-        Service service = new Service();
-        service.setName("repair & deliver new2");
-        service.setDescription("new furniture delivery, repair2");
-        service.setPricePerHour(111.00);
-        service.setCategory(ServiceCategory.DELIVERY);
-        Service mock = service;
-        mock.setServiceId(1);
-        when(serviceRepo.findById(1)).thenReturn(mock);
-        when(serviceRepo.update(mock)).thenReturn(true);
-        assertTrue(serviceService.update(mock).isSuccess());
+        Service service = makeService();
+        service.setServiceId(1);
+        when(serviceRepo.findById(1)).thenReturn(service);
+        when(serviceRepo.update(service)).thenReturn(true);
+        Result<Service> result = serviceService.update(service);
+
+        assertNotNull(result);
+        assertTrue(result.isSuccess());
     }
     @Test
     void shouldNotUpdate(){
@@ -88,5 +77,17 @@ public class ServiceServiceTest {
         assertFalse(serviceService.update(service).isSuccess());
         service.setServiceId(1);
         assertFalse(serviceService.update(service).isSuccess());
+    }
+
+    private Service makeService() {
+        Service service = new Service();
+        service.setServiceId(0);
+        service.setName("Test");
+        service.setDescription("description");
+        service.setPricePerHour(111.00);
+        service.setCategory(ServiceCategory.DELIVERY);
+        service.setUserId(1);
+        service.setLocation("Location");
+        return service;
     }
 }

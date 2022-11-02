@@ -16,10 +16,8 @@ public class Item {
     private String name;
     private BigDecimal price;
     private String description;
-//    private String itemCondition; //Enum
     private ItemCondition itemCondition;
     private boolean itemSold;
-//    private String category; //Enum
     private ItemCategory itemCategory;
     private String imageUrl;
     private int userId;
@@ -44,21 +42,6 @@ public class Item {
         this.isAvailable = isAvailable;
         this.location = location;
     }
-
-//    public Item(int itemId, String name, BigDecimal price, String description, String itemCondition, boolean itemSold,
-//                String category, String imageUrl, int userId, boolean isAvailable, String location) {
-//        this.itemId = itemId;
-//        this.name = name;
-//        this.price = price;
-//        this.description = description;
-//        this.itemCondition = itemCondition;
-//        this.itemSold = itemSold;
-//        this.category = category;
-//        this.imageUrl = imageUrl;
-//        this.userId = userId;
-//        this.isAvailable = isAvailable;
-//        this.location = location;
-//    }
 
     public int getItemId() {
         return itemId;
@@ -92,14 +75,6 @@ public class Item {
         this.description = description;
     }
 
-//    public String getItemCondition() {
-//        return itemCondition;
-//    }
-//
-//    public void setItemCondition(String itemCondition) {
-//        this.itemCondition = itemCondition;
-//    }
-
     public boolean isItemSold() {
         return itemSold;
     }
@@ -107,14 +82,6 @@ public class Item {
     public void setItemSold(boolean itemSold) {
         this.itemSold = itemSold;
     }
-
-//    public String getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(String category) {
-//        this.category = category;
-//    }
 
     public String getImageUrl() {
         return imageUrl;

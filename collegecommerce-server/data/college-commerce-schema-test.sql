@@ -41,6 +41,7 @@ create table item (
     -- added
     user_id int not null,
     is_available boolean,
+    location varchar(200) not null,
     constraint uq unique (name , description)
 );
 
@@ -52,84 +53,45 @@ create table service (
     category varchar(100), 
     user_id int not null,
     is_available boolean,
+    location varchar(200) not null,
     constraint uq unique (name, description, price_per_hour)
 );
 
--- create table listing (
--- 	listing_id int primary key auto_increment,
- --    is_available boolean,
- --    user_id int not null,
---     item_id int,
---     service_id int,
---     constraint fk_listing_user_id
--- 		foreign key (user_id)
---         references user_info(user_id),
-	-- constraint fk_listing_item_id
--- 		foreign key (item_id)
---         references item(item_id),
--- 	constraint fk_listing_service_id
--- 		foreign key (service_id)
---         references service(service_id), 
---     constraint uq unique (user_id, item_id, service_id)
--- );
-
-create table location (
-	location_id int primary key auto_increment,
-    user_id int,
-    `name` varchar(25) not null,
-    address varchar(125) not null,
-    city varchar(50) not null,
-	region varchar(25) null,
-    country_code varchar(5) not null,
-    postal_code varchar(15) not null,
-    constraint fk_location_user_id
-		foreign key (user_id)
-        references user_info(user_id)
-);
-create table college_info(
-	`name` varchar(150) not null, 
-    address varchar(150) not null, 
-    constraint uq unique (`name`, address)
-); 
--- insert into college_info(`name`, address)
--- select distinct LocationName, Address from imports; 
-
 insert into app_role (app_role_id, name) values (1, "USER"), (2, "ADMIN");
+
 
 delimiter //
 create procedure set_known_good_state()
 begin
 	SET FOREIGN_KEY_CHECKS = 0;
+    truncate table app_user_role;
 	truncate table user_info;
     truncate table service;
 	truncate table item;
-    truncate table listing;
 
-	insert into user_info (username, email, password_hash, image_url)
-		values
-		("JohnDoe", "johndoe@gmail.com", 
-        "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidWctc2FmYXJpIiwic3ViIjoiYm9iQGpvbmVzLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjM4NzQ5NTU1fQ.mc6LUfd-80L2f5Do80-QlfYnwzn_JX3_CH3V31-yaEw",
-        ""),
-        ("JaneSmith", "janesmith24@gmail.com", 
-        "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidWctc2FmYXJpIiwic3ViIjoiYm9iQGpvbmVzLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjM4NzQ5NTU1fQ.mc6LUfd-80L2f5Do80-QlfYnwzn_JX3_CH3V31-yaEw",
-        "");
+insert into user_info (username, email, password_hash, image_url)
+	values
+	("JohnDoe", "johndoe@gmail.com", 
+	"eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidWctc2FmYXJpIiwic3ViIjoiYm9iQGpvbmVzLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjM4NzQ5NTU1fQ.mc6LUfd-80L2f5Do80-QlfYnwzn_JX3_CH3V31-yaEw",
+	""),
+	("JaneSmith", "janesmith24@gmail.com", 
+	"eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidWctc2FmYXJpIiwic3ViIjoiYm9iQGpvbmVzLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjM4NzQ5NTU1fQ.mc6LUfd-80L2f5Do80-QlfYnwzn_JX3_CH3V31-yaEw",
+	"");
 
-    insert into service(name, description, price_per_hour, category)
-    values ("delivering food", "pizza", 50.00,"food"),
-    ("pet service", "any pet", 50.00,"pets"),
-    ("setup fridge", "lift anything under 100 lbs", 50.00,"furniture");
+insert into app_user_role (user_id, app_role_id) 
+	values (1, 1), (2, 2);
     
-   insert into item(name, price, description, item_condition, item_sold, category, user_id, is_available)
-values ("desk", 150.50, "wooden desk, two drawers", "like new", false, "furniture", 1, false),
-("Calculus Textbook", 150.50, "8th edition, 500 pages", "good", false, "textbook", 2, true),
-("Sofa", 150.50, "10' width, gray", "new", false, "furniture", 1, false),
-("Chair", 151.50, "small, gray", "new", false, "furniture", 2, true),
-("Bike", 152.50, "Black, light", "new", false, "outdoor", 3, true);  
-
--- insert into listing(is_available, user_id, item_id, service_id)
--- values(true, 1, 1, 0),
--- (false,2,0,1),
--- (true,3,2,0); 
+insert into service(name, description, price_per_hour, category, user_id, is_available, location)
+    values ("delivering food", "pizza", 50.00,"DELIVERY",1,false, "North Dakota State University"),
+    ("pet service", "any pet", 50.00,"REPAIR",1,true, "North Dakota State University"),
+    ("setup fridge", "lift anything under 100 lbs", 50.00,"OTHER",2,true, "University of Minnesota");
+    
+insert into item(name, price, description, item_condition, item_sold, category, user_id, is_available, location)
+	values ("desk", 150.50, "wooden desk, two drawers", "NEW", false, "FURNITURE", 1, true, "North Dakota State University"),
+	("Calculus Textbook", 150.50, "8th edition, 500 pages", "GOOD", false, "BOOKS", 1, true, "University of Minnesota"),
+	("Sofa", 150.50, "10' width, gray", "NEW", false, "FURNITURE", 1, false, "University of Minnesota"),
+	("Chair", 151.50, "small, gray", "USED", false, "FURNITURE", 2, true, "North Dakota State University"),
+	("Bike", 152.50, "Black, light", "POOR", false, "SPORTS", 2, false, "North Dakota State University");
 
 end //
 delimiter ;

@@ -114,6 +114,7 @@ function AllServiceListings() {
                 <li><button className="dropdown-item" type="button" value="OTHER" onClick={handleCategoryChange}>Other</button></li>
                 <li><button className="dropdown-item" type="button" value="" onClick={handleCategoryChange}>All</button></li>
               </ul>
+              {category && <div className="text-center mt-2">{category}</div>}
             </div>
             <div className="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -124,8 +125,9 @@ function AllServiceListings() {
                 <li><button className="dropdown-item" type="button" value="25" onClick={handlePriceChange}>$25 and down</button></li>
                 <li><button className="dropdown-item" type="button" value="50" onClick={handlePriceChange}>$50 and down</button></li>
                 <li><button className="dropdown-item" type="button" value="100" onClick={handlePriceChange}>$100 and down</button></li>
-                <li><button className="dropdown-item" type="button" value="10000" onClick={handlePriceChange}>All</button></li>
+                <li><button className="dropdown-item" type="button" value="" onClick={handlePriceChange}>All</button></li>
               </ul>
+              {price && <div className="text-center mt-2">${price} and down</div>}
             </div>
             </div>
             </div>

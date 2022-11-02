@@ -62,8 +62,13 @@ function UserProfile() {
                         </div>
 
                     </div>
-                    <div className="d-flex flex-column align-items-center mb-2">
-                        <Link to={`/user/edit/${user.username}`} className="btn btn-primary w-25">Edit Profile</Link>
+                    <div className="d-flex flex-column">
+                        <div className=" text-center mb-2">
+                            <Link to={`/user/edit/${user.username}`} className="btn btn-primary w-25">Edit Profile</Link>
+                        </div>
+                        <div className="text-center m-2">
+                        <Link to={`/user/delete/${user.username}`} className="btn btn-danger">Delete Profile</Link>
+                        </div>
                     </div>
                 </div>
             </div>
