@@ -29,7 +29,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
         description: "",
         itemCondition: "",
         itemSold: false,
-        category: "",
+        itemCategory: "",
         imageUrl: "",
         userId: "",
         available: false
@@ -94,7 +94,7 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                                 <td>{i.description}</td>
                                 <td>{i.itemCondition}</td>
                                 <td>{String(i.itemSold)}</td>
-                                <td>{i.category}</td>
+                                <td>{i.itemCategory}</td>
                                 <td>{i.imageUrl}</td>
                                 {/* <td>{i.userId}</td> */}
                                 <td>{String(i.available)}</td>

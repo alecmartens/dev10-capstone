@@ -1,6 +1,6 @@
 import Nav from 'react-bootstrap/Nav';
 import { Card, Row, Col } from 'react-bootstrap';
-import { useState, useEffect , useContext} from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
 import { findAllItems } from '../services/itemService';
 import { Link } from 'react-router-dom';
@@ -14,7 +14,7 @@ function AllItemListings() {
   const [items, setItems] = useState([]);
 
   const history = useHistory();
-    const myLocation = useContext(LocationContext);
+  const myLocation = useContext(LocationContext);
 
   {
     items.map(i => {
@@ -30,24 +30,24 @@ function AllItemListings() {
 
   useEffect(() => {
     const nextItems = [];
-        if (myLocation.location) {
-          findAllItems()
-            .then((items)=>{
-              const nextItems =[]; 
-              items.map((i)=>{if(i.available && i.location === myLocation.location){nextItems.push(i)}})
-              setItems(nextItems);  
-            })
-            .catch(() => history.push("/error"));
-          }
-        else {
-    findAllItems()
-      .then((items) => {
-        const nextItems = [];
-        items.map((i) => { if (i.available) { nextItems.push(i) } });
-        setItems(nextItems);
-      })
-      .catch(() => history.push("/error"));
-          };
+    if (myLocation.location) {
+      findAllItems()
+        .then((items) => {
+          const nextItems = [];
+          items.map((i) => { if (i.available && i.location === myLocation.location) { nextItems.push(i) } })
+          setItems(nextItems);
+        })
+        .catch(() => history.push("/error"));
+    }
+    else {
+      findAllItems()
+        .then((items) => {
+          const nextItems = [];
+          items.map((i) => { if (i.available) { nextItems.push(i) } });
+          setItems(nextItems);
+        })
+        .catch(() => history.push("/error"));
+    };
   }, []);
 
   return (
@@ -76,7 +76,7 @@ function AllItemListings() {
         <Row xs={1} md={2} className="g-4">
           {items.map((i) => (<Col xs={6} md={5} key={i.itemId}>
             <Card border="dark" style={{ width: '18rem' }} >
-              <Card.Header>{i.category}</Card.Header>
+              <Card.Header>{i.itemCategory}</Card.Header>
               <Card.Body>
                 <Card.Title>{i.name}</Card.Title>
                 <Card.Text>
