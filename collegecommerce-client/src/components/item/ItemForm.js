@@ -177,7 +177,7 @@ function ItemForm() {
                         autoComplete="on"
                     />
                     </div>
-                    {locations && <div className="alert alert-secondary mt-3">
+                    {locations && locations.length > 0 && <div className="alert alert-secondary mt-3">
                     <div className="list-group list-group-flush">
                         {locations.filter((loc, index) => index < 10).map(loc => <button type="button" className="list-group-item list-group-item-action" 
                                                                                 key={loc.name} value={loc.name} name="location" onClick={handleChange}>{loc.name}</button>)}
