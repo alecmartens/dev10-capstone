@@ -51,9 +51,6 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
         }
     }
 
-    // itemCondition: "",
-    // category: "",
-
     const history = useHistory();
 
     useEffect(() => {
@@ -124,11 +121,11 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                             <Card.Body>
                                 <Card.Title>{i.name}</Card.Title>
                                 <Card.Text>
-                                    <Card.Img variant="top" src={i.imageUrl} alt="" rounded="true" />
+                                    <Card.Img variant="top" src={i.imageUrl} alt="Image Unavailable" rounded="true" />
                                     <br></br>
-                                    <b>Description:</b>{i.description}<br />
-                                    <b>Condition:</b>{i.itemCondition}<br />
-
+                                    <b>Description: </b>{i.description}<br />
+                                    <b>Condition: </b>{i.itemCondition}<br />
+                                    <b>Location: </b><br />{i.location}<br />
                                     ${i.price}
                                     <br></br>
                                     <Link to={`/items/delete/${i.itemId}`} className="btn btn-danger me-2">Delete</Link>
