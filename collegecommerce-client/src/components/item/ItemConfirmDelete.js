@@ -33,7 +33,7 @@ function ItemConfirmDelete(){
             </div>
             <div>
                 <button className="btn btn-danger me-2" onClick={handleDelete}>Delete</button>
-                <Link to="/items" className="btn btn-warning">Cancel</Link>
+                <Link to="/user/:username/items" className="btn btn-warning">Cancel</Link>
             </div>
         </div>
     );

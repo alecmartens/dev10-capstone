@@ -195,7 +195,7 @@ function ItemForm() {
             } */}
             <div className="mb-3">
                 <button className="btn btn-primary me-2" type="submit">Save</button>
-                <Link to="/items" className="btn btn-warning">Cancel</Link>
+                <Link to="/user/:username/items" className="btn btn-warning">Cancel</Link>
             </div>
         </form >
         </div>
