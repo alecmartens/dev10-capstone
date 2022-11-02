@@ -111,7 +111,7 @@ function AllItemListings() {
           </Nav.Item>
         </Nav>
         <div className="row">
-          <h1 className="col">items</h1>
+          <h1 className="col">Items</h1>
           <div className="col-6">
             <div className="container">
               <div className="bg-light rounded-1  w-75 p-4">

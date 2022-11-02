@@ -18,11 +18,11 @@ import ServiceGrid from "./components/ServiceGrid";
 import UserServiceGrid from "./components/service/UserServiceGrid";
 
 // listing imports
-import ListingConfirmDelete from "./components/listing/ListingConfirmDelete";
-import ListingItemGrid from "./components/listing/ListingItemGrid";
-import ListingServiceGrid from "./components/listing/ListingServiceGrid";
-import ListingItemForm from "./components/listing/ListingItemForm";
-import ListingServiceForm from "./components/listing/ListingServiceForm";
+// import ListingConfirmDelete from "./components/listing/ListingConfirmDelete";
+// import ListingItemGrid from "./components/listing/ListingItemGrid";
+// import ListingServiceGrid from "./components/listing/ListingServiceGrid";
+// import ListingItemForm from "./components/listing/ListingItemForm";
+// import ListingServiceForm from "./components/listing/ListingServiceForm";
 
 
 import ShoppingCart from "./components/ShoppingCart";
@@ -146,17 +146,17 @@ function App() {
               {/* <Route path="/listings/delete/:id">
               <ListingConfirmDelete />
             </Route> */}
-              <Route path={["/listings/items/add", "/listings/items/edit/:id"]}>
+              {/* <Route path={["/listings/items/add", "/listings/items/edit/:id"]}>
                 <ListingItemForm />
               </Route>
 
               <Route path="/listings/items">
                 <div className="row">
-                  <h1 className="col-9">Item Listings</h1>
+                  <h1 className="col-9">Item Listings</h1> */}
                   {/* <div className="col-3">
                   <Link to="/listings/items/add" className="btn btn-primary">Add an Item Listing</Link>
                 </div> */}
-                </div>
+                {/* </div>
                 <ListingItemGrid />
               </Route>
 
@@ -165,15 +165,15 @@ function App() {
               </Route>
               <Route path="/listings/services">
                 <div className="row">
-                  <h1 className="col-9">Service Listings</h1>
+                  <h1 className="col-9">Service Listings</h1> */}
                   {/* <div className="col-3">
                   <Link to="/listings/services/add" className="btn btn-primary">Add a Service Listing</Link>
                 </div> */}
-                </div>
+                {/* </div>
                 <ListingServiceGrid />
-              </Route>
+              </Route> */}
 
-              <Route path="/listings">
+              {/* <Route path="/listings">
                 <div className="row">
                   <div className="col-3">
                     <Link to="/listings/items" className="btn btn-primary">View Item Listings</Link>
@@ -182,7 +182,8 @@ function App() {
                     <Link to="/listings/services" className="btn btn-primary">View Service Listings</Link>
                   </div>
                 </div>
-              </Route>
+              </Route> */}
+
               <Route path="/cart">
                 {/* { localStorage.removeItem("cartProducts") } */}
                 <ShoppingCart />

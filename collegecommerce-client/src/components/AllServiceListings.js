@@ -101,10 +101,10 @@ function AllServiceListings() {
             <h4 className="text-center mb-3">Filter Results</h4>
             <div className="d-flex justify-content-evenly">
             <div className="dropdown me-4">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                 Categories
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li><button className="dropdown-item" type="button" value="DELIVERY" onClick={handleCategoryChange}>Delivery</button></li>
                 <li><button className="dropdown-item" type="button" value="DRIVING" onClick={handleCategoryChange}>Driving</button></li>
                 <li><button className="dropdown-item" type="button" value="HOME_CLEANING" onClick={handleCategoryChange}>Home Cleaning</button></li>
@@ -116,10 +116,10 @@ function AllServiceListings() {
               </ul>
             </div>
             <div className="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                 Price Range
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li><button className="dropdown-item" type="button" value="10" onClick={handlePriceChange}>$10 and down</button></li>
                 <li><button className="dropdown-item" type="button" value="25" onClick={handlePriceChange}>$25 and down</button></li>
                 <li><button className="dropdown-item" type="button" value="50" onClick={handlePriceChange}>$50 and down</button></li>
