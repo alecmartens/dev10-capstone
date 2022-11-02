@@ -63,13 +63,13 @@ function ServiceForm() {
         // console.log(service); 
         save(service)
             .then(() => history.push("/user/:username/services"))
-            // .catch(errs => {
-            //     if (errs) {
-            //         setErrs(errs);
-            //     } else {
-            //         history.push("/error")
-            //     }
-            // });
+            .catch(errs => {
+                if (errs) {
+                    setErrs(errs);
+                } else {
+                    history.push("/error")
+                }
+            });
     }
     return (
         <div className="container w-50 p-4">

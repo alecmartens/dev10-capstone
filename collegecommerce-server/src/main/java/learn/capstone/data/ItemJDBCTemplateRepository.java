@@ -95,7 +95,7 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                 "category = ?, " +
                 "image_url = ?, " +
                 "user_id = ?, " +
-                "is_available = ? " +
+                "is_available = ?, " +
                 "location = ? " +
                 "where item_id = ?;";
 

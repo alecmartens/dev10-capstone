@@ -39,23 +39,16 @@ function ServiceGrid({ handleEdit, handleDelete }) {
     })
 
     function handleChange(service) {
-        return (evt) => {// const nextService = { ...service };
-            // nextService[evt.target.name] = evt.target.value;
-            // setService(nextService);
-            console.log(evt.target);
-            console.log(service);
+        return (evt) => {
             const nextService = { ...service };
             nextService["available"] = !nextService.available;
-            console.log("service"); 
-            console.log(nextService); 
             save(nextService)
                 .then(() => { console.log("updated"); history.push(`/user/${user.username}/services`) })
                 .catch(errs => {
                     if (errs) {
                         console.log(errs);
                     } else {
-                        console.log(errs); 
-                        // history.push("/error")
+                        history.push("/error")
                     }
                 });
 

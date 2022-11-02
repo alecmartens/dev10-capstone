@@ -186,13 +186,13 @@ function ItemForm() {
                 {item.location && displayConfirmation && <div className="alert alert-primary mt-3">
                     {item.location} added as item location.
                 </div>}
-            {/* {
+            {
                 errs.length !== 0 && <div className="alert alert-danger">
                     <ul>
                         {errs.map(err => <li key={err}>{err}</li>)}
                     </ul>
                 </div>
-            } */}
+            }
             <div className="mb-3">
                 <button className="btn btn-primary me-2" type="submit">Save</button>
                 <Link to="/user/:username/items" className="btn btn-warning">Cancel</Link>
