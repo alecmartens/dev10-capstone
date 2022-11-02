@@ -9,17 +9,37 @@ Content-Type: application/json
     "name":"basketball",
     "price":20,
     "description":"basketball",
-    "itemCondition":"good",
-    "item_sold":true,
-    "category":"sports",
-    "image_url":"test",
+    "itemCondition":"NEW",
+    "itemSold":false,
+    "itemCategory":"SPORTS",
+    "imageUrl":"test",
     "userId":1,
-    "available":true
+    "available":true,
+    "location":"Ohio University"
 }
 
 ###
 
-DELETE http://localhost:8080/api/item/7
+DELETE http://localhost:8080/api/item/6
+
+###
+
+PUT http://localhost:8080/api/item/8
+Content-Type: application/json
+
+{ 
+    "itemId": 1,
+    "name":"volley",
+    "price":20,
+    "description":"ball",
+    "itemCondition":"NEW",
+    "itemSold":true,
+    "itemCategory":"SPORTS",
+    "imageUrl":"test",
+    "userId":1,
+    "available":true,
+    "location":"Ohio University"
+}
 
 ###
 PUT http://localhost:8080/api/item/8

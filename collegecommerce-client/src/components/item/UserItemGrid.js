@@ -35,6 +35,9 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
         available: false
     });
 
+    // itemCondition: "",
+    // category: "",
+
     const history = useHistory();
 
     useEffect(() => {

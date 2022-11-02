@@ -1,6 +1,9 @@
 package learn.capstone.data;
 
 import learn.capstone.models.Item;
+import learn.capstone.models.ItemCategory;
+import learn.capstone.models.ItemCondition;
+import learn.capstone.models.ServiceCategory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -24,9 +27,13 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
         item.setName(resultSet.getString("name"));
         item.setPrice(resultSet.getBigDecimal("price"));
         item.setDescription(resultSet.getString("description"));
-        item.setItemCondition(resultSet.getString("item_condition"));
+//        item.setItemCondition(resultSet.getString("item_condition"));
+        ItemCondition condition = ItemCondition.valueOf(resultSet.getString("item_condition"));
+        item.setItemCondition(condition);
         item.setItemSold(resultSet.getBoolean("item_sold"));
-        item.setCategory(resultSet.getString("category"));
+//        item.setCategory(resultSet.getString("category"));
+        ItemCategory category = ItemCategory.valueOf(resultSet.getString("category"));
+        item.setItemCategory(category);
         item.setImageUrl(resultSet.getString("image_url"));
         item.setUserId(resultSet.getInt("user_id"));
         item.setAvailable(resultSet.getBoolean("is_available"));
@@ -64,9 +71,9 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
             statement.setString(1, item.getName());
             statement.setBigDecimal(2, item.getPrice());
                     statement.setString(3,item.getDescription());
-                    statement.setString(4,item.getItemCondition());
+                    statement.setString(4,item.getItemCondition().getName());
                     statement.setBoolean(5,item.isItemSold());
-                    statement.setString(6,item.getCategory());
+                    statement.setString(6,item.getItemCategory().getName());
                     statement.setString(7, item.getImageUrl());
                     statement.setInt(8, item.getUserId());
                     statement.setBoolean(9, item.isAvailable());
@@ -95,7 +102,7 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                 "category = ?, " +
                 "image_url = ?, " +
                 "user_id = ?, " +
-                "is_available = ? " +
+                "is_available = ?, " +
                 "location = ? " +
                 "where item_id = ?;";
 
@@ -103,12 +110,13 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                 item.getName(),
                 item.getPrice(),
                 item.getDescription(),
-                item.getItemCondition(),
+                item.getItemCondition().getName(),
                 item.isItemSold(),
-                item.getCategory(),
+                item.getItemCategory().getName(),
                 item.getImageUrl(),
                 item.getUserId(),
                 item.isAvailable(),
+                item.getLocation(),//added
                 item.getItemId());
 
         System.out.println(rowsUpdated);
@@ -129,9 +137,9 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
                         " name: " + item.getName() +
                         " price: " + item.getPrice() +
                         " description: " + item.getDescription() +
-                        " itemCondition: " + item.getItemCondition() +
+                        " itemCondition: " + item.getItemCondition().getName() +
                         " itemSold: " + item.isItemSold() +
-                        " category: " + item.getCategory() +
+                        " category: " + item.getItemCategory().getName() +
                         " imageUrl: " + item.getImageUrl() +
                         " userId: " + item.getUserId() +
                         " isAvailable " + item.isAvailable() +

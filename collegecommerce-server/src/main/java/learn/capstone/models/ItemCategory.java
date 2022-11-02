@@ -1,11 +1,11 @@
 package learn.capstone.models;
 
 public enum ItemCategory {
-    APPLICANCES("APPLICANCES"),
     ART("ART"),
     BOOKS("BOOKS"),
     ELECTRONICS("ELECTRONICS"),
     CLOTHING("CLOTHING"),
+    FURNITURE("FURNITURE"),
     GROCERY("GROCERY"),
     PET("PET"),
     SCHOOL("SCHOOL"),
