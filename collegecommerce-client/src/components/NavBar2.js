@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Link } from "react-router-dom";
 import AuthContext from '../contexts/AuthContext';
 import LocationContext from '../contexts/LocationContext';
+import logo from "../images/college-commerce-logo-small.png"
 
 function NavBar2() {
 
@@ -16,7 +17,7 @@ function NavBar2() {
       <Navbar bg="primary" variant="light">
         <Container>
           <Navbar.Brand href="/">
-          <img src={require("../images/college-commerce-logo-small.png")} className="img-fluid" alt="logo" /> 
+          <img src={logo} className="img-fluid" alt="logo" /> 
           </Navbar.Brand>
           <Nav className="">
             <Nav.Link href="/allservicelistings" className='text-white me-4'>Services</Nav.Link>
