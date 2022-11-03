@@ -47,8 +47,8 @@ function LocationSearch() {
                     </div>
                     {locations && <div className="alert alert-secondary mt-3">
                     <div className="list-group list-group-flush">
-                        {locations.filter((loc, index) => index < 10).map(loc => <button type="button" className="list-group-item list-group-item-action" 
-                                                                                key={loc.name} value={loc.name} onClick={handleLocationSelect}>{loc.name}</button>)}
+                        {locations.filter((loc, index) => index < 10).map((loc, index) => <button type="button" className="list-group-item list-group-item-action" 
+                                                                                key={index} value={loc.name} onClick={handleLocationSelect}>{loc.name}</button>)}
                     </div>
                 </div>}
                 {myLocation.location && location && <div className="alert alert-primary mt-3">

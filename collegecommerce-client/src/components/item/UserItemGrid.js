@@ -6,6 +6,7 @@ import { Card, Row, Col, Form, Table } from 'react-bootstrap';
 //user imports
 import { findByUserName } from "../../services/userService";
 import AuthContext from "../../contexts/AuthContext";
+import Nav from 'react-bootstrap/Nav';
 
 function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
     //get user
@@ -72,32 +73,23 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
     }, [user]);
 
     return (
-        <>
-            <div className="row">
-                <h1 className="col-9">Items</h1>
+        <div className='bg-light'>
+            <div className='mx-4 pt-2'>
+            <div className='d-flex justify-content-between'>
+            <h1>My Items & Services</h1>
+                <div className="me-4">
+                  <Link to={`/user/${user.username}/items/add`} className="btn btn-primary">Add an Item</Link>
+                </div>
             </div>
-
-            {/* <Table striped bordered hover> */}
-            {/* <thead>
-                    <tr>
-                        {/* <th>Item Id</th>
-                        <th>Username</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Description</th>
-                        <th>Item Condition</th>
-                        <th>Item Sold</th>
-                        <th>Category</th>
-                        <th>Image URL</th>
-                        <th>User ID</th>
-                        <th>Location</th>
-                        <th>Is Available</th>
-                    </tr>
-                </thead> */}
-
-            {/* <tbody> */}
-            {/* xs={1} md={2} className="g-4" */}
-            <Row className="justify-content-md-center">
+            <Nav variant="tabs" defaultActiveKey="/services">
+            <Nav.Item>
+                <Nav.Link href={`/user/${auth.user.username}/services`} className='border border-primary'>Services</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href={`/user/${auth.user.username}/items`} className='border border-primary'>Items</Nav.Link>
+            </Nav.Item>
+            </Nav>
+            <Row className="justify-content-md-center mt-4">
                 {
                     userItems.map(i => (
                         <Card border="dark" style={{ width: '18rem' }} key={i.itemId}>
@@ -139,55 +131,8 @@ function ItemGrid({ handleEdit, handleDelete, setAvailable }) {
                     ))
                 }
             </Row>
-
-
-
-
-
-            {/* // items.map(i => (
-                        // userItems.map(i => (
-                        //     <tr key={i.itemId}>
-                        //         <td>{i.itemId}</td>
-                        //         <td>{user.username}</td>
-                        //         <td>{i.name}</td>
-                        //         <td>{i.price}</td>
-                        //         <td>{i.description}</td>
-                        //         <td>{i.itemCondition}</td>
-                        //         <td>{String(i.itemSold)}</td>
-                        //         <td>{i.itemCategory}</td>
-                        //         <td>{i.location}</td>
-                        //         {/* <td>{i.imageUrl}</td> }
-                        //         {/* <td>{i.userId}</td> }
-                        //         <td>
-                        //             {/* {String(i.available)} }
-                        //             <Form>
-                        //             {i.available ? <Form.Check
-                        //                 name="toggle-switch"
-                        //                 type="switch"
-                        //                 id="switch"
-                        //                 label=""  onChange={handleChange(i)} defaultChecked
-                        //             /> :
-                        //                 <Form.Check
-                        //                     name="toggle-switch"
-                        //                     type="switch"
-                        //                     id="switch"
-                        //                     label="" onChange={handleChange(i)}
-                        //                 />}</Form>
-                        //             </td>
-                        //         <td><Link to={`/items/delete/${i.itemId}`} className="btn btn-danger me-2">Delete</Link></td>
-                        //         <td><Link to={`/items/edit/${i.itemId}`} className="btn btn-secondary">Edit</Link></td>
-                                
-
-                        //     </tr>
-                        // )) */}
-
-            {/* {items.map(i => <Item key={i.itemId} 
-                    item={i} 
-                    handleEdit={handleEdit} 
-                    handleDelete={handleDelete} />)} */}
-            {/* </tbody> */}
-            {/* </Table> */}
-        </>
+            </div>
+            </div>
     );
 }
 

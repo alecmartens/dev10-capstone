@@ -2,6 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { findAll, save } from "../../services/serviceServices";
 import { Card, Row, Form } from 'react-bootstrap';
+import Nav from 'react-bootstrap/Nav';
+import { Badge } from 'react-bootstrap';
 
 //user imports
 import { findByUserName } from "../../services/userService";
@@ -33,6 +35,7 @@ function ServiceGrid({ handleEdit, handleDelete }) {
         available: false,
         location: "North Dakota State University"
     })
+
 
     function handleChange(service) {
         return (evt) => {
@@ -75,8 +78,23 @@ function ServiceGrid({ handleEdit, handleDelete }) {
     }, [user]);
 
     return (
-        <>
-            <Row className="justify-content-md-center">
+        <div className='bg-light'>
+        <div className='mx-4 pt-2'>
+        <div className='d-flex justify-content-between'>
+          <h1>My Items & Services</h1>
+          <div className="me-4">
+                <Link to={`/user/${user.username}/services/add`} className="btn btn-primary">Add a Service</Link>
+          </div>
+        </div>
+        <Nav variant="tabs" defaultActiveKey="/services">
+          <Nav.Item>
+            <Nav.Link href={`/user/${auth.user.username}/services`} className='border border-primary'>Services</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href={`/user/${auth.user.username}/items`} className='border border-primary'>Items</Nav.Link>
+          </Nav.Item>
+        </Nav>
+            <Row className="justify-content-md-center mt-4">
                 {
                     userServices.map(s => (
                         <Card border="dark" style={{ width: '18rem' }} key={s.serviceId}>
@@ -113,7 +131,8 @@ function ServiceGrid({ handleEdit, handleDelete }) {
                     ))
                 }
             </Row>
-        </>
+        </div>
+        </div>
     );
 
 }
