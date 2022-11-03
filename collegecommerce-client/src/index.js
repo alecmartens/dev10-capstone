@@ -7,8 +7,10 @@ import App from './App';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 const root = ReactDOM.createRoot(document.getElementById('root')); 
-const promise = loadStripe("pk_test_51LxcD3DVp5wBB9hkbloBScOVo1H4TQ8teQ0GRmLybkssde9u2vuPZxmR8uYfdwNSpF6bqqo6d0KxYWO4c8R8y2Gm00gkGGoM02");
-// const promise = loadStripe("pk_test_51Lz4gaJfUrXUXwc8tjoJkQBYa7dWZCyQmcmoIOCOsAjCsvObWItCMRlViMxyhVW2vUw3WoCb9qLEAOraK4QgQKMa00WkqJtmJa");
+// const promise = loadStripe("pk_test_51LxcD3DVp5wBB9hkbloBScOVo1H4TQ8teQ0GRmLybkssde9u2vuPZxmR8uYfdwNSpF6bqqo6d0KxYWO4c8R8y2Gm00gkGGoM02");
+const promise = loadStripe("pk_test_51Lz4gaJfUrXUXwc8tjoJkQBYa7dWZCyQmcmoIOCOsAjCsvObWItCMRlViMxyhVW2vUw3WoCb9qLEAOraK4QgQKMa00WkqJtmJa");
+//https://dashboard.stripe.com/test/payments -- view test payments
+//https://dashboard.stripe.com/test/customers -- view customer payments
 root.render(
   <React.StrictMode>
     <Elements stripe={promise}> <App /></Elements>
