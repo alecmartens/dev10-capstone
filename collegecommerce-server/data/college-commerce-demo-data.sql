@@ -49,3 +49,5 @@ insert into service(name, description, price_per_hour, category, user_id, is_ava
     ("Buy school supplies", "I will buy you the school supplies you need", "100.00","SHOPPING",2,true,"University of Alabama at Tuscaloosa"),
     ("Go grocery shooping", "Give me a list of grocieries, I will buy them for you", "50.00","SHOPPING",1,true,"University of Minnesota");
 
+insert into app_user_role (user_id, app_role_id) 
+	values (1, 1), (2, 2);

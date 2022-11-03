@@ -18,6 +18,10 @@ export async function findById(serviceId) {
     }
 }
 
+export async function findAllByLocation() {
+    
+}
+
 async function add(service) { 
     console.log(service); 
     const init = {

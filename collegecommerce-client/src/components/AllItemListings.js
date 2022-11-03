@@ -56,7 +56,7 @@ function AllItemListings() {
         const nextItems = [];
         items.map((i) => {
           let addItem = true;
-          if (!i.available && !auth.user.hasRole("ADMIN")) {
+          if (!i.available && auth.user && !auth.user.hasRole("ADMIN")) {
             addItem = false;
           }
           if (myLocation.location && i.location !== myLocation.location) {
@@ -84,25 +84,33 @@ function AllItemListings() {
 
   return (
     <>
-      <div>
-        <h1>Items & Services</h1>
+      <div className='bg-light'>
+        <div className='mx-4 pt-2'>
+        <div className='d-flex justify-content-between'>
+          <h1>Listed Items & Services</h1>
+          <div className="me-4">
+            <Link to="/cart" className="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+              </svg><Badge bg="secondary">{count}</Badge></Link>
+          </div>
+        </div>
         <Nav variant="tabs" defaultActiveKey="/services">
           <Nav.Item>
-            <Nav.Link href="/allservicelistings">Services</Nav.Link>
+            <Nav.Link href="/allservicelistings" className='border border-primary'>Services</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/allitemlistings">Items</Nav.Link>
+            <Nav.Link href="/allitemlistings" className='border border-primary'>Items</Nav.Link>
           </Nav.Item>
         </Nav>
         <div className="row">
-          <h1 className="col">Items</h1>
+          <div className='col-3'></div>
           <div className="col-6">
-            <div className="container">
-              <div className="bg-light rounded-1  w-75 p-4">
-                <h4 className="text-center mb-3">Filter Results</h4>
+            <div className="d-flex justify-content-center">
+              <div className="bg-secondary rounded-1  w-75 p-4 mb-4">
+                <h4 className="text-center mb-2">Filter Results</h4>
                 <div className="d-flex justify-content-evenly">
                   <div className="dropdown me-4">
-                    <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                       Categories
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -121,7 +129,7 @@ function AllItemListings() {
                     {category && <div className="text-center mt-2">{category}</div>}
                   </div>
                   <div className="dropdown me-4">
-                    <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                       Condition
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -134,7 +142,7 @@ function AllItemListings() {
                     {condition && <div className="text-center mt-2">{condition}</div>}
                   </div>
                   <div className="dropdown">
-                    <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                       Price Range
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -151,17 +159,12 @@ function AllItemListings() {
                 </div>
               </div>
             </div>
-            <div className="col">
-              <Link to="/cart" className="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
-                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-              </svg><Badge bg="secondary">{count}</Badge></Link>
             </div>
-          </div>
           <br></br>
         </div>
-        <div className="container">
-          <Row xs={1} md={2} className="g-4">
-            {items.map((i) => (<Col xs={6} md={5} key={i.itemId}>
+        <div>
+          <Row  className="justify-content-md-center">
+            {items.map((i) => (
               <Card border="dark" style={{ width: '18rem' }} >
                 <Card.Header>{i.itemCategory}</Card.Header>
                 <Card.Body>
@@ -173,7 +176,7 @@ function AllItemListings() {
                     <b>Condition: </b>{i.itemCondition}<br />
                     ${i.price}<br />
                     {i.location}<br />
-                    {auth.user.hasRole("ADMIN") && <span>Public: {String(i.available)}</span>}
+                    {auth.user && auth.user.hasRole("ADMIN") && <span>Public: {String(i.available)}</span>}
                   </Card.Text>
                   <button className="btn btn-primary" onClick={() => {
                     if (!localStorage.getItem("cartProductsForItems")) { localStorage.setItem("cartProductsForItems", JSON.stringify({})); };
@@ -202,7 +205,7 @@ function AllItemListings() {
                       localStorage.setItem("cartProductsForItems", JSON.stringify(cart));
                     }
                   }}>-</button>
-                  {auth.user.hasRole("ADMIN") &&
+                  {auth.user && auth.user.hasRole("ADMIN") &&
                     <button className='btn btn-danger' onClick={() => {
                       deleteById(i.itemId)
                         .then(() => updateItems())
@@ -210,9 +213,9 @@ function AllItemListings() {
                     }}>Delete</button>}
                 </Card.Body>
               </Card>
-            </Col>))}
+            ))}
             {items.length === 0 &&
-              <div className="alert alert-danger">
+              <div className="col-5 float-left alert alert-danger my-4">
                 <h3>No search results found</h3>
                 <p>Please consider broadening search and/or changing location.</p>
               </div>
@@ -220,6 +223,7 @@ function AllItemListings() {
 
           </Row>
         </div>
+      </div>
       </div>
     </>
   );
