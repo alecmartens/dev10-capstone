@@ -110,7 +110,7 @@ const ShoppingCart = () => {
     <Button variant="warning" onClick={handleShow}>
         Clear Shopping Cart
       </Button>
-      <Button variant="primary" className='m-3' onClick={()=>{localStorage.setItem("totalPrice", totalPrice); history.push('/checkout')}}>
+      <Button variant="secondary" className='m-3' onClick={()=>{localStorage.setItem("totalPrice", totalPrice); history.push('/checkout')}}>
         Checkout
       </Button>
       <Modal show={clearCart} onHide={handleClose}>

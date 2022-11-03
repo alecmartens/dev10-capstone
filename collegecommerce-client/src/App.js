@@ -38,6 +38,8 @@ import Home from "./components/Home";
 import LocationContext from "./contexts/LocationContext";
 import AllServiceListings from "./components/AllServiceListings";
 import AllItemListings from "./components/AllItemListings";
+import PaymentForm from "./checkout/PaymentForm";
+import UserConfirmDelete from "./components/user/UserConfirmDelete";
 function App() {
 
   const LOCAL_STORAGE_TOKEN_KEY = "collegeCommerceToken";
@@ -209,7 +211,9 @@ function App() {
               <Route exact path="/user/edit/:username">
                 {user ? <UserForm /> : <Login />}
               </Route>
-
+              <Route exact path="/user/delete/:username">
+                {user ? <UserConfirmDelete /> : <Login />}
+              </Route>
 
               <Route path="/user/:username/items/add">
                 {user ? <ItemForm /> : <Login />}
@@ -253,10 +257,10 @@ function App() {
               <Payment /> 
             </Route> */}
               <Route path="/allservicelistings">
-                <AllServiceListings />
+                {user ? <AllServiceListings /> : <Login />}
               </Route>
               <Route path="/allitemlistings">
-                <AllItemListings />
+                {user ? <AllItemListings /> : <Login />}
               </Route>
               <Route path="*">
                 <NotFound />
