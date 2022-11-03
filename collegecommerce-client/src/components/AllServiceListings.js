@@ -42,7 +42,7 @@ function AllServiceListings() {
         const nextServices = [];
         services.map((s) => { 
           let addService = true;
-          if (!s.available  && !auth.user.hasRole("ADMIN")) { 
+          if (!s.available  && auth.user && !auth.user.hasRole("ADMIN")) { 
             addService = false;
           }
           if (myLocation.location && s.location !== myLocation.location) {
@@ -137,7 +137,7 @@ function AllServiceListings() {
                   ${s.pricePerHour}/hr
                   <br></br>
                   {s.location} <br/>
-                  {auth.user.hasRole("ADMIN") && <span>Public: {String(s.available)}</span>}
+                  {auth.user && auth.user.hasRole("ADMIN") && <span>Public: {String(s.available)}</span>}
                 </Card.Text>
                 <button className="btn btn-primary" onClick={() => {
                   if (!localStorage.getItem("cartProducts")) { localStorage.setItem("cartProducts", JSON.stringify({})); };
@@ -166,7 +166,7 @@ function AllServiceListings() {
                     localStorage.setItem("cartProducts", JSON.stringify(cart));
                   }
                 }}>-</button>
-                {auth.user.hasRole("ADMIN") && 
+                {auth.user && auth.user.hasRole("ADMIN") && 
                 <button className='btn btn-danger' onClick={() => {
                   deleteById(s.serviceId)
                   .then(() => updateServices())

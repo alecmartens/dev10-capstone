@@ -19,8 +19,7 @@ function Home() {
                         backgroundSize: "cover",
                         minHeight: "800px"}}>
                 <div className="text-white py-4 text-center mb-3">
-                    <h1 className="mb-3">College Commerce</h1>
-                    <h4>The marketplace for students</h4>
+                    <h1>The marketplace for students</h1>
                 </div>
                 <div className="container py-4 w-50">
                     <div className="p-4 mb-6 bg-light rounded-3 border border-primary">

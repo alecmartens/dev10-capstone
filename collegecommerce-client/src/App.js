@@ -263,10 +263,10 @@ function App() {
               <Payment /> 
             </Route> */}
               <Route path="/allservicelistings">
-                {user ? <AllServiceListings /> : <Login />}
+                <AllServiceListings /> 
               </Route>
               <Route path="/allitemlistings">
-                {user ? <AllItemListings /> : <Login />}
+                <AllItemListings />
               </Route>
               <Route path="*">
                 <NotFound />
