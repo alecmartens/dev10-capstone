@@ -49,7 +49,7 @@ const ShoppingCart = () => {
      
 }, []);
     const [clearCart, setClearCart] = useState(false);
-  const handleClear = () => {setClearCart(false); localStorage.removeItem("cartProducts"); localStorage.removeItem("cartCount"); }; 
+  const handleClear = () => {setClearCart(false); localStorage.removeItem("cartProducts"); localStorage.removeItem("cartProductsForItems"); localStorage.removeItem("cartCount"); }; 
   const handleClose = () => setClearCart(false);
   const handleShow = () => setClearCart(true);
   const history = useHistory(); 
@@ -57,13 +57,13 @@ const ShoppingCart = () => {
 
   const arr = Object.keys(cartProds); 
   let totalPrice = 0.0; 
-  const [quantity, setQuantity] = useState(cartProds); 
+  const [quantity, setQuantity] = useState(JSON.parse(localStorage.getItem("cartProducts"))); 
   if(!localStorage.getItem("cartProductsForItems")){localStorage.setItem("cartProductsForItems", JSON.stringify({})); }
   if(!localStorage.getItem("itemhm")){localStorage.setItem("itemhm", JSON.stringify({})); }
   const [cartProdsItems, setcartProdsItems] = useState([]); 
   const [itemmp, setitemmp] = useState([]); 
   const arr2= Object.keys(cartProdsItems); 
-  const [quantityForItems, setQuantityForItems] = useState(cartProdsItems); 
+  const [quantityForItems, setQuantityForItems] = useState(JSON.parse(localStorage.getItem("cartProductsForItems"))); 
  
   return (
     <div className='container'>
