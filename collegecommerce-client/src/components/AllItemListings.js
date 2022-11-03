@@ -56,7 +56,7 @@ function AllItemListings() {
         const nextItems = [];
         items.map((i) => {
           let addItem = true;
-          if (!i.available && !auth.user.hasRole("ADMIN")) {
+          if (!i.available && auth.user && !auth.user.hasRole("ADMIN")) {
             addItem = false;
           }
           if (myLocation.location && i.location !== myLocation.location) {
@@ -173,7 +173,7 @@ function AllItemListings() {
                     <b>Condition: </b>{i.itemCondition}<br />
                     ${i.price}<br />
                     {i.location}<br />
-                    {auth.user.hasRole("ADMIN") && <span>Public: {String(i.available)}</span>}
+                    {auth.user && auth.user.hasRole("ADMIN") && <span>Public: {String(i.available)}</span>}
                   </Card.Text>
                   <button className="btn btn-primary" onClick={() => {
                     if (!localStorage.getItem("cartProductsForItems")) { localStorage.setItem("cartProductsForItems", JSON.stringify({})); };
@@ -202,7 +202,7 @@ function AllItemListings() {
                       localStorage.setItem("cartProductsForItems", JSON.stringify(cart));
                     }
                   }}>-</button>
-                  {auth.user.hasRole("ADMIN") &&
+                  {auth.user && auth.user.hasRole("ADMIN") &&
                     <button className='btn btn-danger' onClick={() => {
                       deleteById(i.itemId)
                         .then(() => updateItems())
