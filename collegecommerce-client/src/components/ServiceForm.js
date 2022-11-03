@@ -96,9 +96,10 @@ function ServiceForm() {
             });
     }
     return (
-        <div className="container w-50 p-4">
+        <div className="bg-light p-4">
+        <div className="container w-50 p-4 bg-white rounded-2">
             <form onSubmit={handleSubmit}>
-                <h2>{id > 0 ? "Edit service" : "Add service"}</h2>
+                <h2 className="text-center">{id > 0 ? "Edit service" : "Add service"}</h2>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
                     <input type="text" name="name" id="name" className="form-control"
@@ -115,7 +116,7 @@ function ServiceForm() {
                         value={service.pricePerHour} onChange={handleChange} />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="category">Category</label>
+                    <label htmlFor="category" className="me-2">Category:</label>
                     <select id="category" name="category"
                         value={service.category} type="text" onChange={handleChange}>
                         <option value="DELIVERY">DELIVERY</option>
@@ -124,7 +125,7 @@ function ServiceForm() {
                     </select>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="available">Make Public</label>
+                    <label htmlFor="available" className="me-2">Make Public:</label>
                     {(service.available)?<select id="available" name="available"
                         value="YES" type="text" onChange={handleChange}>
                         <option value="YES">YES</option>
@@ -155,8 +156,8 @@ function ServiceForm() {
                     </div>
                     {locations && locations.length > 0 && <div className="alert alert-secondary mt-3">
                     <div className="list-group list-group-flush">
-                        {locations.filter((loc, index) => index < 10).map(loc => <button type="button" className="list-group-item list-group-item-action" 
-                                                                                key={loc.name} value={loc.name} name="location" onClick={handleChange}>{loc.name}</button>)}
+                        {locations.filter((loc, index) => index < 10).map((loc,index) => <button type="button" className="list-group-item list-group-item-action" 
+                                                                                key={index} value={loc.name} name="location" onClick={handleChange}>{loc.name}</button>)}
                     </div>
                 </div>}
                 {service.location && displayConfirmation && <div className="alert alert-primary mt-3">
@@ -172,6 +173,7 @@ function ServiceForm() {
                     <Link to="/user/:username/services" className="btn btn-warning">Cancel</Link>
                 </div>
             </form>
+        </div>
         </div>
     );
 

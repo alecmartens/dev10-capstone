@@ -93,9 +93,10 @@ function ItemForm() {
     }
 
     return (
-        <div className="container w-50 p-4">
+        <div className="bg-light p-4">
+        <div className="container w-50 p-4 bg-white rounded-2">
             <form onSubmit={handleSubmit}>
-                <h2>{id > 0 ? "Edit item" : "Add item"}</h2>
+                <h2 className="text-center">{id > 0 ? "Edit item" : "Add item"}</h2>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
                     <input type="text" name="name" id="name" className="form-control"
@@ -112,7 +113,7 @@ function ItemForm() {
                         value={item.description} onChange={handleChange} />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="itemCondition">Condition</label>
+                    <label htmlFor="itemCondition" className="me-2">Condition:</label>
                     <select id="itemCondition" name="itemCondition"
                         value={item.itemCondition} type="text" onChange={handleChange}>
                         <option value="NEW">NEW</option>
@@ -122,7 +123,7 @@ function ItemForm() {
                     </select>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="itemCategory">Category</label>
+                    <label htmlFor="itemCategory" className="me-2">Category:</label>
                     <select id="itemCategory" name="itemCategory"
                         value={item.itemCategory} type="text" onChange={handleChange}>
                         <option value="ART">ART</option>
@@ -144,7 +145,7 @@ function ItemForm() {
                         onChange={handleChange} />
                 </div>
                 <div>
-                    <label htmlFor="available">Make Public</label>
+                    <label htmlFor="available" className="me-2">Make Public:</label>
                     {(item.available) ? <select id="available" name="available"
                         value="YES" type="text" onChange={handleChange}>
                         <option value="true">YES</option>
@@ -159,7 +160,7 @@ function ItemForm() {
                     <option value="NO">NO</option> */}
                     </select>}
                 </div>
-                <div className="form-group mb-3">
+                <div className="form-group mb-3 mt-2">
                     <label htmlFor="username" className="form-label">University</label>
                     <input
                         type="text"
@@ -173,8 +174,8 @@ function ItemForm() {
                     </div>
                     {locations && locations.length > 0 && <div className="alert alert-secondary mt-3">
                     <div className="list-group list-group-flush">
-                        {locations.filter((loc, index) => index < 10).map(loc => <button type="button" className="list-group-item list-group-item-action"
-                            key={loc.name} value={loc.name} name="location" onClick={handleChange}>{loc.name}</button>)}
+                        {locations.filter((loc, index) => index < 10).map((loc, index) => <button type="button" className="list-group-item list-group-item-action"
+                            key={index} value={loc.name} name="location" onClick={handleChange}>{loc.name}</button>)}
                     </div>
                 </div>}
                 {item.location && displayConfirmation && <div className="alert alert-primary mt-3">
@@ -192,6 +193,7 @@ function ItemForm() {
                 <Link to="/user/:username/items" className="btn btn-warning">Cancel</Link>
             </div>
         </form >
+        </div>
         </div>
     );
 }
