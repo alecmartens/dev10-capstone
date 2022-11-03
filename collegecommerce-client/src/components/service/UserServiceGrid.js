@@ -1,8 +1,7 @@
-import { useEffect, useState, useContext, useSyncExternalStore } from "react";
-import { useHistory, useParams, Link } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { useHistory, Link } from "react-router-dom";
 import { findAll, save } from "../../services/serviceServices";
-import Service from "../Service";
-import { Card, Row, Col, Form, Table, Badge } from 'react-bootstrap';
+import { Card, Row, Form } from 'react-bootstrap';
 
 //user imports
 import { findByUserName } from "../../services/userService";
@@ -42,7 +41,7 @@ function ServiceGrid({ handleEdit, handleDelete }) {
             const nextService = { ...service };
             nextService["available"] = !nextService.available;
             save(nextService)
-                .then(() => { console.log("updated"); history.push(`/user/${user.username}/services`) })
+                .then(() => { history.push(`/user/${user.username}/services`) })
                 .catch(errs => {
                     if (errs) {
                         console.log(errs);
@@ -65,16 +64,16 @@ function ServiceGrid({ handleEdit, handleDelete }) {
     }, []);
 
     useEffect(() => {
-        console.log("Services Size: " + services.length);
+        // console.log("Services Size: " + services.length);
         let userServices = [];
         for (let i = 0; i < services.length; i++) {
-            if (services[i].userId == user.userId) {
+            if (services[i].userId === user.userId) {
                 userServices.push(services[i]);
             }
         }
         setUserServices(userServices);
         // setServices(userServices); 
-        console.log("UserServices Size: " + userServices.length);
+        // console.log("UserServices Size: " + userServices.length);
     }, [user]);
 
     return (

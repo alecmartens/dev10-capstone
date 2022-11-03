@@ -6,6 +6,8 @@ import { findAll } from '../services/serviceServices';
 import { Link } from 'react-router-dom';
 import { Badge } from 'react-bootstrap';
 import LocationContext from '../contexts/LocationContext';
+import AuthContext from '../contexts/AuthContext';
+import { deleteById } from '../services/serviceServices';
 
 function AllServiceListings() {
   const [show, setShow] = useState(false);
@@ -17,31 +19,10 @@ function AllServiceListings() {
 
   const history = useHistory();
   const myLocation = useContext(LocationContext);
+  const auth = useContext(AuthContext);
 
   if (!localStorage.getItem("cartCount")) { localStorage.setItem("cartCount", 0) }
   const [count, setCount] = useState(parseInt(localStorage.getItem("cartCount")));
-
-  useEffect(() => {
-      if (myLocation.location) {
-        findAll()
-          .then((services)=>{
-          const nextServices =[];
-            services.map((s) => {if(s.available && s.location === myLocation.location){nextServices.push(s)}});
-            setServices(nextServices);  
-          })
-          .catch(() => history.push("/error"));
-
-      } else {
-        findAll()
-      .then((services) => {
-        const nextServices = [];
-        services.map((s) => { if (s.available) { nextServices.push(s) } });
-        setServices(nextServices);
-      })
-      .catch(() => history.push("/error"));
-      }
-      
-  }, []);
 
   function handleCategoryChange(evt) {
     setCategory(evt.target.value);
@@ -52,12 +33,16 @@ function AllServiceListings() {
   }
 
   useEffect(() => {
+    updateServices();
+  }, [category, price]);
+
+  function updateServices() {
     findAll()
       .then((services) => {
         const nextServices = [];
         services.map((s) => { 
           let addService = true;
-          if (!s.available) { 
+          if (!s.available  && !auth.user.hasRole("ADMIN")) { 
             addService = false;
           }
           if (myLocation.location && s.location !== myLocation.location) {
@@ -78,8 +63,7 @@ function AllServiceListings() {
         setServices(nextServices);
       })
       .catch(() => history.push("/error"));
-
-    }, [category, price]);
+  }
 
   return (
 
@@ -101,10 +85,10 @@ function AllServiceListings() {
             <h4 className="text-center mb-3">Filter Results</h4>
             <div className="d-flex justify-content-evenly">
             <div className="dropdown me-4">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                 Categories
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li><button className="dropdown-item" type="button" value="DELIVERY" onClick={handleCategoryChange}>Delivery</button></li>
                 <li><button className="dropdown-item" type="button" value="DRIVING" onClick={handleCategoryChange}>Driving</button></li>
                 <li><button className="dropdown-item" type="button" value="HOME_CLEANING" onClick={handleCategoryChange}>Home Cleaning</button></li>
@@ -117,10 +101,10 @@ function AllServiceListings() {
               {category && <div className="text-center mt-2">{category}</div>}
             </div>
             <div className="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                 Price Range
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li><button className="dropdown-item" type="button" value="10" onClick={handlePriceChange}>$10 and down</button></li>
                 <li><button className="dropdown-item" type="button" value="25" onClick={handlePriceChange}>$25 and down</button></li>
                 <li><button className="dropdown-item" type="button" value="50" onClick={handlePriceChange}>$50 and down</button></li>
@@ -152,7 +136,8 @@ function AllServiceListings() {
                   <br></br>
                   ${s.pricePerHour}/hr
                   <br></br>
-                  {s.location}
+                  {s.location} <br/>
+                  {auth.user.hasRole("ADMIN") && <span>Public: {String(s.available)}</span>}
                 </Card.Text>
                 <button className="btn btn-primary" onClick={() => {
                   if (!localStorage.getItem("cartProducts")) { localStorage.setItem("cartProducts", JSON.stringify({})); };
@@ -181,6 +166,12 @@ function AllServiceListings() {
                     localStorage.setItem("cartProducts", JSON.stringify(cart));
                   }
                 }}>-</button>
+                {auth.user.hasRole("ADMIN") && 
+                <button className='btn btn-danger' onClick={() => {
+                  deleteById(s.serviceId)
+                  .then(() => updateServices())
+                  .catch(() => history.push("/error"));
+                }}>Delete</button>}
               </Card.Body>
             </Card>
           </Col>))}

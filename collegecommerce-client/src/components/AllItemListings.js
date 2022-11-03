@@ -2,11 +2,12 @@ import Nav from 'react-bootstrap/Nav';
 import { Card, Row, Col } from 'react-bootstrap';
 import { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
-import { findAllItems } from '../services/itemService';
+import { deleteById, findAllItems } from '../services/itemService';
 import { Link } from 'react-router-dom';
 import { Badge } from 'react-bootstrap';
 import { Image } from 'react-bootstrap';
 import LocationContext from '../contexts/LocationContext';
+import AuthContext from '../contexts/AuthContext';
 function AllItemListings() {
 
   const [show, setShow] = useState(false);
@@ -19,6 +20,7 @@ function AllItemListings() {
 
   const history = useHistory();
   const myLocation = useContext(LocationContext);
+  const auth = useContext(AuthContext);
 
   {
     items.map(i => {
@@ -31,27 +33,6 @@ function AllItemListings() {
 
   if (!localStorage.getItem("cartCount")) { localStorage.setItem("cartCount", 0) }
   const [count, setCount] = useState(parseInt(localStorage.getItem("cartCount")));
-
-  useEffect(() => {
-    if (myLocation.location) {
-      findAllItems()
-        .then((items) => {
-          const nextItems = [];
-          items.map((i) => { if (i.available && i.location === myLocation.location) { nextItems.push(i) } })
-          setItems(nextItems);
-        })
-        .catch(() => history.push("/error"));
-    }
-    else {
-      findAllItems()
-        .then((items) => {
-          const nextItems = [];
-          items.map((i) => { if (i.available) { nextItems.push(i) } });
-          setItems(nextItems);
-        })
-        .catch(() => history.push("/error"));
-    };
-  }, []);
 
   function handleCategoryChange(evt) {
     setCategory(evt.target.value);
@@ -66,12 +47,16 @@ function AllItemListings() {
   }
 
   useEffect(() => {
-    findAllItems()
+    updateItems();
+    }, [category, price, condition]);
+
+    function updateItems() {
+      findAllItems()
       .then((items) => {
         const nextItems = [];
         items.map((i) => { 
           let addItem = true;
-          if (!i.available) { 
+          if (!i.available && !auth.user.hasRole("ADMIN")) { 
             addItem = false;
           }
           if (myLocation.location && i.location !== myLocation.location) {
@@ -95,8 +80,7 @@ function AllItemListings() {
         setItems(nextItems);
       })
       .catch(() => history.push("/error"));
-
-    }, [category, price, condition]);
+    }
 
   return (
     <>
@@ -118,10 +102,10 @@ function AllItemListings() {
             <h4 className="text-center mb-3">Filter Results</h4>
             <div className="d-flex justify-content-evenly">
             <div className="dropdown me-4">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                 Categories
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li><button className="dropdown-item" type="button" value="ART" onClick={handleCategoryChange}>Art</button></li>
                 <li><button className="dropdown-item" type="button" value="BOOKS" onClick={handleCategoryChange}>Books</button></li>
                 <li><button className="dropdown-item" type="button" value="ELECTRONICS" onClick={handleCategoryChange}>Electronics</button></li>
@@ -137,10 +121,10 @@ function AllItemListings() {
               {category && <div className="text-center mt-2">{category}</div>}
             </div>
             <div className="dropdown me-4">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                 Condition
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li><button className="dropdown-item" type="button" value="NEW" onClick={handleConditionChange}>New</button></li>
                 <li><button className="dropdown-item" type="button" value="GOOD" onClick={handleConditionChange}>Good</button></li>
                 <li><button className="dropdown-item" type="button" value="USED" onClick={handleConditionChange}>Used</button></li>
@@ -150,10 +134,10 @@ function AllItemListings() {
               {condition && <div className="text-center mt-2">{condition}</div>}
             </div>
             <div className="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                 Price Range
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li><button className="dropdown-item" type="button" value="10" onClick={handlePriceChange}>$10 and down</button></li>
                 <li><button className="dropdown-item" type="button" value="25" onClick={handlePriceChange}>$25 and down</button></li>
                 <li><button className="dropdown-item" type="button" value="50" onClick={handlePriceChange}>$50 and down</button></li>
@@ -186,10 +170,11 @@ function AllItemListings() {
                 <Card.Text>
                   <Card.Img variant="top" src={i.imageUrl} alt="image" rounded="true" />
                   <br></br>
-                  <b>Description:</b>{i.description}<br />
-                  <b>Condition:</b>{i.itemCondition}<br />
+                  <b>Description: </b>{i.description}<br />
+                  <b>Condition: </b>{i.itemCondition}<br />
                   ${i.price}<br />
                   {i.location}<br />
+                  {auth.user.hasRole("ADMIN") && <span>Public: {String(i.available)}</span>}
                 </Card.Text>
                 <button className="btn btn-primary" onClick={() => {
                   if (!localStorage.getItem("cartProductsForItems")) { localStorage.setItem("cartProductsForItems", JSON.stringify({})); };
@@ -218,6 +203,12 @@ function AllItemListings() {
                     localStorage.setItem("cartProductsForItems", JSON.stringify(cart));
                   }
                 }}>-</button>
+                {auth.user.hasRole("ADMIN") && 
+                <button className='btn btn-danger' onClick={() => {
+                  deleteById(i.itemId)
+                  .then(() => updateItems())
+                  .catch(() => history.push("/error"));
+                }}>Delete</button>}
               </Card.Body>
             </Card>
           </Col>))}
