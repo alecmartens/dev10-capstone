@@ -18,7 +18,6 @@ import ServiceGrid from "./components/ServiceGrid";
 import UserServiceGrid from "./components/service/UserServiceGrid";
 
 // listing imports
-import ListingConfirmDelete from "./components/listing/ListingConfirmDelete";
 import ListingItemGrid from "./components/listing/ListingItemGrid";
 import ListingServiceGrid from "./components/listing/ListingServiceGrid";
 import ListingItemForm from "./components/listing/ListingItemForm";
@@ -214,7 +213,6 @@ function App() {
                 {user ? <UserConfirmDelete /> : <Login />}
               </Route>
 
-
               <Route path="/user/:username/items/add">
                 {user ? <ItemForm /> : <Login />}
               </Route>
@@ -257,13 +255,10 @@ function App() {
               <Payment /> 
             </Route> */}
               <Route path="/allservicelistings">
-                <AllServiceListings />
+                {user ? <AllServiceListings /> : <Login />}
               </Route>
               <Route path="/allitemlistings">
-                <AllItemListings />
-              </Route>
-              <Route path="/paymentform">
-                <PaymentForm />
+                {user ? <AllItemListings /> : <Login />}
               </Route>
               <Route path="*">
                 <NotFound />

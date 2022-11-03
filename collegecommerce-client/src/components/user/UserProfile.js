@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState, useContext } from "react";
 import { useHistory } from "react-router";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
 import { findByUserName } from "../../services/userService";
 import "../../styles/userProfile.css";
@@ -73,10 +73,10 @@ function UserProfile() {
                 </div>
             </div>
 
-            <div className="container list-group text-center my-4">
+            <div className="container list-group text-center my-4 py-4">
                 {/* <a href="#" className="list-group-item list-group-item-action">Manage Listings</a> */}
-                <a href={`/user/${user.username}/items`} className="list-group-item list-group-item-action">Manage Items</a>
-                <a href={`/user/${user.username}/services`} className="list-group-item list-group-item-action mb-4">Manage Services</a>
+                <a href={`/user/${user.username}/items`} className="list-group-item list-group-item-action bg-light">Manage My Items</a>
+                <a href={`/user/${user.username}/services`} className="list-group-item list-group-item-action mb-4 bg-light">Manage My Services</a>
             </div>
         </div>
     );
