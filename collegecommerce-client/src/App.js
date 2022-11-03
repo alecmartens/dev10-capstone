@@ -31,6 +31,7 @@ import CartMessage from "./components/CartMessage";
 import NavBar2 from "./components/NavBar2";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import PaymentSuccess from "./components/PaymentSucess"; 
 // import Payment from "./components/Payment";
 import UserProfile from "./components/user/UserProfile";
 import UserForm from "./components/user/UserForm";
@@ -249,6 +250,9 @@ function App() {
               </Route>
               <Route path="/invalid">
                 <Invalid />
+              </Route>
+              <Route path="/paymentmsg">
+                <PaymentSuccess />
               </Route>
               <Route path="/cartmsg">
                 <CartMessage color="success" productName="petcare" />

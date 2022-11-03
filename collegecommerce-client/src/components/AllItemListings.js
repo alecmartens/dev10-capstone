@@ -118,10 +118,10 @@ function AllItemListings() {
             <h4 className="text-center mb-3">Filter Results</h4>
             <div className="d-flex justify-content-evenly">
             <div className="dropdown me-4">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                 Categories
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li><button className="dropdown-item" type="button" value="ART" onClick={handleCategoryChange}>Art</button></li>
                 <li><button className="dropdown-item" type="button" value="BOOKS" onClick={handleCategoryChange}>Books</button></li>
                 <li><button className="dropdown-item" type="button" value="ELECTRONICS" onClick={handleCategoryChange}>Electronics</button></li>
@@ -137,10 +137,10 @@ function AllItemListings() {
               {category && <div className="text-center mt-2">{category}</div>}
             </div>
             <div className="dropdown me-4">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                 Condition
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li><button className="dropdown-item" type="button" value="NEW" onClick={handleConditionChange}>New</button></li>
                 <li><button className="dropdown-item" type="button" value="GOOD" onClick={handleConditionChange}>Good</button></li>
                 <li><button className="dropdown-item" type="button" value="USED" onClick={handleConditionChange}>Used</button></li>
@@ -150,10 +150,10 @@ function AllItemListings() {
               {condition && <div className="text-center mt-2">{condition}</div>}
             </div>
             <div className="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                 Price Range
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li><button className="dropdown-item" type="button" value="10" onClick={handlePriceChange}>$10 and down</button></li>
                 <li><button className="dropdown-item" type="button" value="25" onClick={handlePriceChange}>$25 and down</button></li>
                 <li><button className="dropdown-item" type="button" value="50" onClick={handlePriceChange}>$50 and down</button></li>

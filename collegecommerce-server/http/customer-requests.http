@@ -18,4 +18,14 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/api/payments/create-payment-intent
+GET http://localhost:8080/api/payments/stripe-public-key
+
+###
+POST http://localhost:8080/api/customers/create
+Content-Type: application/json
+
+{
+    "address":"123 main st",
+    "name":"temp3", 
+    "email":"email3@email.com"
+}

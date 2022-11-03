@@ -60,6 +60,7 @@ public class CustomerController {
         params.put(
                 "email", cust.getEmail()
         );
+        params.put("address[line1]", cust.getAddress());
         Customer customer = Customer.create(params);
         cust.setCustomerId(customer.getId());
         return cust;

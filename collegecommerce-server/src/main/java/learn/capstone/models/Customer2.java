@@ -1,6 +1,15 @@
 package learn.capstone.models;
 
 public class Customer2 {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String address;
     private String name;
     private String email;
     private String customerId;

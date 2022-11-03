@@ -4,7 +4,18 @@ import { Link, useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Table } from 'react-bootstrap';
+import { findAll } from '../services/serviceServices';
+import { findAllItems } from '../services/itemService';
+import { useEffect } from 'react';
 const ShoppingCart = () => { 
+  const [services, setServices] = useState([]); 
+  const [items, setItems] = useState([]); 
+  useEffect(() => {
+    Promise.all([findAll(),findAllItems()]).then(data=>{
+      setServices(data[0]); setItems(data[1]);
+      console.log(services);   
+      }).catch(() => history.push("/error"));
+}, []);
     const [clearCart, setClearCart] = useState(false);
   const handleClear = () => {setClearCart(false); localStorage.clear();}; 
   const handleClose = () => setClearCart(false);
@@ -12,19 +23,31 @@ const ShoppingCart = () => {
   const history = useHistory(); 
   if(!localStorage.getItem("cartProducts")){localStorage.setItem("cartProducts", JSON.stringify({})); }
   if(!localStorage.getItem("servicehm")){localStorage.setItem("servicehm", JSON.stringify({})); }
+  {services.map(s => {
+    if (!localStorage.getItem("servicehm")) { localStorage.setItem("servicehm", JSON.stringify({})); }
+    let hm = JSON.parse(localStorage.getItem("servicehm"));
+    hm[s.serviceId] = [s.name, s.description, s.pricePerHour];
+    localStorage.setItem("servicehm", JSON.stringify(hm));
+})}
+{items.map(s => {
+  if (!localStorage.getItem("itemhm")) { localStorage.setItem("itemhm", JSON.stringify({})); }
+  let hm = JSON.parse(localStorage.getItem("itemhm"));
+  hm[s.itemId] = [s.name, s.description, s.price];
+  localStorage.setItem("itemhm", JSON.stringify(hm));
+})}
   const cartProds = JSON.parse(localStorage.getItem("cartProducts")); 
   const servicemp = JSON.parse(localStorage.getItem("servicehm")); 
-  console.log(servicemp); 
   const arr = Object.keys(cartProds); 
   let totalPrice = 0.0; 
   const [quantity, setQuantity] = useState(cartProds); 
-
+console.log(servicemp); 
   if(!localStorage.getItem("cartProductsForItems")){localStorage.setItem("cartProductsForItems", JSON.stringify({})); }
   if(!localStorage.getItem("itemhm")){localStorage.setItem("itemhm", JSON.stringify({})); }
   const cartProdsItems = JSON.parse(localStorage.getItem("cartProductsForItems")); 
   const itemmp = JSON.parse(localStorage.getItem("itemhm")); 
   const arr2= Object.keys(cartProdsItems); 
   const [quantityForItems, setQuantityForItems] = useState(cartProdsItems); 
+ 
   return (
     <div className='container'>
     <h3>Shopping Cart</h3>
@@ -49,6 +72,7 @@ const ShoppingCart = () => {
         </tr>
       </thead>
       <tbody>
+        {console.log(services) }
           {arr.map(s =>
             
           <tr key={s}><td>{servicemp[s][0]}</td><td>{servicemp[s][1]}</td><td>{servicemp[s][2]}</td><td>{quantity[s]}<Button variant="secondary" size="sm" className='m-2'
@@ -64,7 +88,7 @@ const ShoppingCart = () => {
             cartProd2[s]--; 
             localStorage.setItem("cartProducts", JSON.stringify(cartProd2)); 
             setQuantity(cartProd2); 
-            if(localStorage.getItem("cartCount") && localStorage.getItem("cartCount") > 0){localStorage.setItem("cartCount", parseInt(localStorage.getItem("cartCount")) - 1)}
+            if(localStorage.getItem("cartCount") && parseInt(localStorage.getItem("cartCount"))> 0){localStorage.setItem("cartCount", parseInt(localStorage.getItem("cartCount")) - 1)}
            }
         }}>-</Button></td></tr>
            )}
@@ -93,7 +117,7 @@ const ShoppingCart = () => {
             cartProd2[i]--; 
             localStorage.setItem("cartProductsForItems", JSON.stringify(cartProd2)); 
             setQuantityForItems(cartProd2); 
-            if(localStorage.getItem("cartCount") && localStorage.getItem("cartCount") > 0){localStorage.setItem("cartCount", parseInt(localStorage.getItem("cartCount")) - 1)}
+            if(localStorage.getItem("cartCount") && parseInt(localStorage.getItem("cartCount")) > 0){localStorage.setItem("cartCount", parseInt(localStorage.getItem("cartCount")) - 1)}
            }
         }}>-</Button></td></tr>
            )}
