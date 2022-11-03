@@ -35,14 +35,14 @@ function LocationSearch() {
 
     return (
         <form onSubmit={handleSubmit}>
-                <div className="form-group mb-2">
-                    <label htmlFor="username" className="form-label">University name:</label>
+                <div className="form-group my-4">
                     <input
                         type="text"
                         onChange={handleChange}
                         id="location"
                         className="form-control"
                         autoComplete="on"
+                        placeholder="Enter your university name"
                     />
                     </div>
                     {locations && <div className="alert alert-secondary mt-3">

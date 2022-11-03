@@ -30,7 +30,7 @@ function ItemForm() {
         available: false,
         location: ""
     });
-    //itemCategory: "",
+    
     const [errs, setErrs] = useState([]);
     const history = useHistory();
     const { id } = useParams();
@@ -121,35 +121,6 @@ function ItemForm() {
                         <option value="POOR">POOR</option>
                     </select>
                 </div>
-                {/* <div className="mb-3">
-                    <label htmlFor="itemCondition" className="form-label">Item Condition</label>
-                    <input type="text" name="itemCondition" id="itemCondition" className="form-control"
-                        value={item.itemCondition} onChange={handleChange} />
-                </div> */}
-                {/* Not sure if we want to allow user to say if an item is sold, should be done automatically */}
-                {/* <div className="mb-3">
-                <label htmlFor="itemSold" className="form-label">Item Sold</label>
-                <input type="text" name="itemSold" id="itemSold" className="form-control"
-                    value={item.itemSold} onChange={handleChange} />
-            </div> */}
-                {/* <fieldset>
-                <legend>Item Sold</legend>
-                <div className="mb-3">
-                    <label htmlFor="itemSold" className="form-label">True</label>
-                    <input type="radio" id="itemSold" name="itemSold"
-                        value={item.itemSold} onChange={handleChange}></input>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="itemSold" className="form-label">False</label>
-                    <input type="radio" id="itemSold" name="itemSold"
-                        value={item.itemSold} onChange={handleChange}></input>
-                </div>
-            </fieldset> */}
-                {/* <div className="mb-3">
-                    <label htmlFor="category" className="form-label">Category</label>
-                    <input type="text" name="category" id="category" className="form-control"
-                        value={item.category} onChange={handleChange} />
-                </div> */}
                 <div className="mb-3">
                     <label htmlFor="itemCategory">Category</label>
                     <select id="itemCategory" name="itemCategory"
@@ -172,11 +143,6 @@ function ItemForm() {
                     <input type="imageUrl" name="imageUrl" id="imageUrl" className="form-control"
                         onChange={handleChange} />
                 </div>
-                {/* <div className="form-check mb-3">
-                <label htmlFor="isAvailable" className="form-check-label">Is Available</label>
-                <input type="checkbox" name="isAvailable" id="isAvailable" className="form-check-input"
-                    onChange={handleChange} />
-            </div> */}
                 <div>
                     <label htmlFor="available">Make Public</label>
                     {(item.available) ? <select id="available" name="available"

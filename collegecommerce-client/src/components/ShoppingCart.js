@@ -13,38 +13,42 @@ const ShoppingCart = () => {
   useEffect(() => {
     Promise.all([findAll(),findAllItems()]).then(data=>{
       setServices(data[0]); setItems(data[1]);
-      console.log(services);   
+      if(!localStorage.getItem("cartProducts")){localStorage.setItem("cartProducts", JSON.stringify({})); }
+      if(!localStorage.getItem("servicehm")){localStorage.setItem("servicehm", JSON.stringify({})); }
+      {services.map(s => {
+        if (!localStorage.getItem("servicehm")) { localStorage.setItem("servicehm", JSON.stringify({})); }
+        let hm = JSON.parse(localStorage.getItem("servicehm"));
+        hm[s.serviceId] = [s.name, s.description, s.pricePerHour];
+        localStorage.setItem("servicehm", JSON.stringify(hm));
+    })}
+    {items.map(s => {
+      if (!localStorage.getItem("itemhm")) { localStorage.setItem("itemhm", JSON.stringify({})); }
+      let hm = JSON.parse(localStorage.getItem("itemhm"));
+      hm[s.itemId] = [s.name, s.description, s.price];
+      localStorage.setItem("itemhm", JSON.stringify(hm));
+    })}
+    setcartProds(JSON.parse(localStorage.getItem("cartProducts"))); 
+    setservicemp(JSON.parse(localStorage.getItem("servicehm")));  
+  setcartProdsItems( JSON.parse(localStorage.getItem("cartProductsForItems"))); 
+  setitemmp(JSON.parse(localStorage.getItem("itemhm"))); 
       }).catch(() => history.push("/error"));
+
+     
 }, []);
     const [clearCart, setClearCart] = useState(false);
   const handleClear = () => {setClearCart(false); localStorage.clear();}; 
   const handleClose = () => setClearCart(false);
   const handleShow = () => setClearCart(true);
   const history = useHistory(); 
-  if(!localStorage.getItem("cartProducts")){localStorage.setItem("cartProducts", JSON.stringify({})); }
-  if(!localStorage.getItem("servicehm")){localStorage.setItem("servicehm", JSON.stringify({})); }
-  {services.map(s => {
-    if (!localStorage.getItem("servicehm")) { localStorage.setItem("servicehm", JSON.stringify({})); }
-    let hm = JSON.parse(localStorage.getItem("servicehm"));
-    hm[s.serviceId] = [s.name, s.description, s.pricePerHour];
-    localStorage.setItem("servicehm", JSON.stringify(hm));
-})}
-{items.map(s => {
-  if (!localStorage.getItem("itemhm")) { localStorage.setItem("itemhm", JSON.stringify({})); }
-  let hm = JSON.parse(localStorage.getItem("itemhm"));
-  hm[s.itemId] = [s.name, s.description, s.price];
-  localStorage.setItem("itemhm", JSON.stringify(hm));
-})}
-  const cartProds = JSON.parse(localStorage.getItem("cartProducts")); 
-  const servicemp = JSON.parse(localStorage.getItem("servicehm")); 
+ const [cartProds, setcartProds] = useState([]); 
+ const [servicemp, setservicemp] = useState([]); 
   const arr = Object.keys(cartProds); 
   let totalPrice = 0.0; 
   const [quantity, setQuantity] = useState(cartProds); 
-console.log(servicemp); 
   if(!localStorage.getItem("cartProductsForItems")){localStorage.setItem("cartProductsForItems", JSON.stringify({})); }
   if(!localStorage.getItem("itemhm")){localStorage.setItem("itemhm", JSON.stringify({})); }
-  const cartProdsItems = JSON.parse(localStorage.getItem("cartProductsForItems")); 
-  const itemmp = JSON.parse(localStorage.getItem("itemhm")); 
+  const [cartProdsItems, setcartProdsItems] = useState([]); 
+  const [itemmp, setitemmp] = useState([]); 
   const arr2= Object.keys(cartProdsItems); 
   const [quantityForItems, setQuantityForItems] = useState(cartProdsItems); 
  
@@ -72,7 +76,6 @@ console.log(servicemp);
         </tr>
       </thead>
       <tbody>
-        {console.log(services) }
           {arr.map(s =>
             
           <tr key={s}><td>{servicemp[s][0]}</td><td>{servicemp[s][1]}</td><td>{servicemp[s][2]}</td><td>{quantity[s]}<Button variant="secondary" size="sm" className='m-2'

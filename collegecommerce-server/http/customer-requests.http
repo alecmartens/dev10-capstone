@@ -26,6 +26,6 @@ Content-Type: application/json
 
 {
     "address":"123 main st",
-    "name":"temp3", 
-    "email":"email3@email.com"
+    "name":"temp4", 
+    "email":"temp4@email.com"
 }

@@ -12,20 +12,17 @@ function NavBar2() {
   const myLocation = useContext(LocationContext);
 
   return (
-    <div>
+    <div className="border-bottom border-secondary">
       <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand href="/">CollegeCommerce</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/allservicelistings">Services</Nav.Link>
-            {/* <Nav.Link href="/services/add">Add a Service</Nav.Link> */}
             <Nav.Link href="/allitemlistings">Items</Nav.Link>
-            {/* <Nav.Link href="/items/add">Add an Item</Nav.Link> */}
-            {/* <Nav.Link href="#">More</Nav.Link> */}
           </Nav>
           <div className="d-flex flex-column justfiy-content-around form-inline me-4">
-            {auth.user && <div>Current User: {auth.user.username} </div>}
-            {myLocation.location && <div>Location: {myLocation.location}</div>}
+            {auth.user && <div><b>Current User: </b>{auth.user.username} </div>}
+            {myLocation.location && <div><b>Location: </b>{myLocation.location}</div>}
           </div>
 
           {auth.user ? (
