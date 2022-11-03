@@ -174,8 +174,8 @@ function AllItemListings() {
                     <br></br>
                     <b>Description: </b>{i.description}<br />
                     <b>Condition: </b>{i.itemCondition}<br />
-                    ${i.price}<br />
-                    {i.location}<br />
+                    <b>Price: </b>${i.price}<br />
+                    <b>Location: </b>{i.location}<br />
                     {auth.user && auth.user.hasRole("ADMIN") && <span>Public: {String(i.available)}</span>}
                   </Card.Text>
                   <button className="btn btn-primary" onClick={() => {

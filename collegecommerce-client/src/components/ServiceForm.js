@@ -8,7 +8,7 @@ import { findByUserName } from "../services/userService";
 import AuthContext from "../contexts/AuthContext";
 
 function ServiceForm() {
-    //get user
+ 
     const auth = useContext(AuthContext);
     const [user, setUser] = useState("");
     useEffect(() => {
@@ -28,10 +28,7 @@ function ServiceForm() {
         location:"North Dakota State University"
 
     });
-    // userId: 0,
-    // available: false
 
-//TODO add location
     const [errs, setErrs] = useState([]);
     const history = useHistory();
     const { id } = useParams();
@@ -79,12 +76,9 @@ function ServiceForm() {
     function handleSubmit(evt) {
         evt.preventDefault();
         const nextService = { ...service };
-        // nextService.category = "DELIVERY";
         setService(nextService);
         console.log(service);
         service.userId = user.userId;
-        // setService(nextService); 
-        // console.log(service); 
         save(service)
             .then(() => history.push("/user/:username/services"))
             .catch(errs => {
@@ -121,6 +115,11 @@ function ServiceForm() {
                         value={service.category} type="text" onChange={handleChange}>
                         <option value="DELIVERY">DELIVERY</option>
                         <option value="REPAIR">REPAIR</option>
+                        <option value="PET_CARE">PET CARE</option>
+                        <option value="HOME_CLEANING">HOME CLEANING</option>
+                        <option value="TRANSPORATION">TRANSPORTAION</option>
+                        <option value="SHOPPING">SHOPPING</option>
+                        <option value="DRIVING">DRIVING</option>
                         <option value="OTHER">OTHER</option>
                     </select>
                 </div>
@@ -137,11 +136,6 @@ function ServiceForm() {
                     </select> }
                     
                 </div>
-                {/* <div className="mb-3">
-                    <label htmlFor="isAvailable">Is Available</label>
-                    <input type="text" name="isAvailable" id="isAvailable" className="form-control"
-                        onChange={handleChange} />
-                </div> */}
                 <div className="form-group mb-3">
                     <label htmlFor="username" className="form-label">University</label>
                     <input
