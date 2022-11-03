@@ -49,7 +49,7 @@ const ShoppingCart = () => {
      
 }, []);
     const [clearCart, setClearCart] = useState(false);
-  const handleClear = () => {setClearCart(false); localStorage.removeItem("cartProducts"); localStorage.removeItem("cartProductsForItems"); localStorage.removeItem("cartCount"); }; 
+  const handleClear = () => {setClearCart(false); localStorage.removeItem("cartProducts"); localStorage.removeItem("cartProductsForItems"); localStorage.removeItem("totalPrice"); localStorage.removeItem("cartCount"); }; 
   const handleClose = () => setClearCart(false);
   const handleShow = () => setClearCart(true);
   const history = useHistory(); 
