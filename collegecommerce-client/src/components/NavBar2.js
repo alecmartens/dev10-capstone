@@ -16,7 +16,7 @@ function NavBar2() {
       <Navbar bg="primary" variant="light">
         <Container>
           <Navbar.Brand href="/">
-          <img src={require('../college-commerce-logo-small.png')} alt="logo" /> 
+          <img src={require("../images/college-commerce-logo-small.png")} alt="logo" /> 
           </Navbar.Brand>
           <Nav className="">
             <Nav.Link href="/allservicelistings" className='text-white'>Services</Nav.Link>
