@@ -8,8 +8,21 @@ import { findAll } from '../services/serviceServices';
 import { findAllItems } from '../services/itemService';
 import { useEffect } from 'react';
 const ShoppingCart = () => { 
+  const [servicemp, setservicemp] = useState([]); 
   const [services, setServices] = useState([]); 
   const [items, setItems] = useState([]); 
+  {services.map(s => {
+    if (!localStorage.getItem("servicehm")) { localStorage.setItem("servicehm", JSON.stringify({})); }
+    let hm = JSON.parse(localStorage.getItem("servicehm"));
+    hm[s.serviceId] = [s.name, s.description, s.pricePerHour];
+    localStorage.setItem("servicehm", JSON.stringify(hm));
+})}
+{items.map(s => {
+  if (!localStorage.getItem("itemhm")) { localStorage.setItem("itemhm", JSON.stringify({})); }
+  let hm = JSON.parse(localStorage.getItem("itemhm"));
+  hm[s.itemId] = [s.name, s.description, s.price];
+  localStorage.setItem("itemhm", JSON.stringify(hm));
+})}
   useEffect(() => {
     Promise.all([findAll(),findAllItems()]).then(data=>{
       setServices(data[0]); setItems(data[1]);
@@ -36,12 +49,12 @@ const ShoppingCart = () => {
      
 }, []);
     const [clearCart, setClearCart] = useState(false);
-  const handleClear = () => {setClearCart(false); localStorage.clear();}; 
+  const handleClear = () => {setClearCart(false); localStorage.removeItem("cartProducts"); localStorage.removeItem("cartCount"); }; 
   const handleClose = () => setClearCart(false);
   const handleShow = () => setClearCart(true);
   const history = useHistory(); 
  const [cartProds, setcartProds] = useState([]); 
- const [servicemp, setservicemp] = useState([]); 
+
   const arr = Object.keys(cartProds); 
   let totalPrice = 0.0; 
   const [quantity, setQuantity] = useState(cartProds); 
@@ -77,7 +90,6 @@ const ShoppingCart = () => {
       </thead>
       <tbody>
           {arr.map(s =>
-            
           <tr key={s}><td>{servicemp[s][0]}</td><td>{servicemp[s][1]}</td><td>{servicemp[s][2]}</td><td>{quantity[s]}<Button variant="secondary" size="sm" className='m-2'
         onClick={()=>{
           let cartProd2 = JSON.parse(localStorage.getItem("cartProducts")); 

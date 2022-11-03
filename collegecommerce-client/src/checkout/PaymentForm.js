@@ -2,10 +2,12 @@ import React,{ useState, useEffect }  from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Card,Button } from "react-bootstrap";
 import { Elements, CardElement, useStripe, useElements, PaymentElement, IdealBankElement, CardNumberElement  } from "@stripe/react-stripe-js";
+import { useHistory } from "react-router";
 export default function PaymentForm(){
     //test cards -- 3122 , 4242
     const elements = useElements();
     const stripe = useStripe(); 
+    const history = useHistory(); 
     function handleChange(e){
     }
     async function handleSubmit(e){
@@ -52,10 +54,12 @@ export default function PaymentForm(){
                 payment_method:{
                     card:elements.getElement(CardElement)
                 }
-            })
+            }); 
+            history.push("/paymentmsg"); 
             if(paymentError){
             }
             else{
+               
             }
 
         } else {
@@ -76,7 +80,7 @@ export default function PaymentForm(){
         <label htmlFor="card-elem">Card</label>
         <CardElement id="card-elem" />
         <br></br>
-        <center><Button className="btn btn-warning btn-small m-2" href="/checkout">Edit</Button> <Button className="btn btn-secondary btn-small" type="submit" href="/paymentmsg">Pay</Button></center>
+        <center><Button className="btn btn-warning btn-small m-2" href="/checkout">Edit</Button> <Button className="btn btn-secondary btn-small" type="submit" >Pay</Button></center>
         </form></Card.Body>
     </Card></div>); 
 }

@@ -194,10 +194,10 @@ function AllItemListings() {
                     if (localStorage.getItem("cartProductsForItems")) {
                       let cart = JSON.parse(localStorage.getItem("cartProductsForItems"));
                       if (cart[i.itemId]) {
-                        cart[i.itemId] += 1;
-                      }
-                      else {
-                        cart[i.itemId] = 1;
+                        cart[i.itemId] -= 1;
+                        setCount(count - 1);
+                        localStorage.setItem("cartCount", count - 1);
+                        console.log(cart[i.itemId]);
                       }
                       localStorage.setItem("cartProductsForItems", JSON.stringify(cart));
                     }
