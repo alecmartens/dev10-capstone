@@ -26,14 +26,11 @@ function UserConfirmDelete(){
     }
 
     return (
-        <div>
+        <div className="float-left bg-light col-5 m-4 p-4 rounded">
             <h2>Delete {user.username}?</h2>
             <div className="alert alert-danger">
                 <p>
-                    This will permanently delete User {user.username}.
-                </p>
-                <p>
-                    Are you sure?
+                    This will permanently delete User {user.username}. <br /> Are you sure?
                 </p>
             </div>
             <div>

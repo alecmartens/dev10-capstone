@@ -17,14 +17,6 @@ import ServiceConfirmDelete from "./components/ServiceConfirmDelete";
 import ServiceGrid from "./components/ServiceGrid";
 import UserServiceGrid from "./components/service/UserServiceGrid";
 
-// listing imports
-// import ListingConfirmDelete from "./components/listing/ListingConfirmDelete";
-// import ListingItemGrid from "./components/listing/ListingItemGrid";
-// import ListingServiceGrid from "./components/listing/ListingServiceGrid";
-// import ListingItemForm from "./components/listing/ListingItemForm";
-// import ListingServiceForm from "./components/listing/ListingServiceForm";
-
-
 import ShoppingCart from "./components/ShoppingCart";
 import CheckoutForm from "./components/CheckoutForm";
 import CartMessage from "./components/CartMessage";
@@ -144,49 +136,6 @@ function App() {
                 </div>
                 <ItemGrid />
               </Route>
-
-              {/* Listing Paths */}
-              {/* <Route path="/listings/delete/:id">
-              <ListingConfirmDelete />
-            </Route> */}
-              {/* <Route path={["/listings/items/add", "/listings/items/edit/:id"]}>
-                <ListingItemForm />
-              </Route>
-
-              <Route path="/listings/items">
-                <div className="row">
-                  <h1 className="col-9">Item Listings</h1> */}
-                  {/* <div className="col-3">
-                  <Link to="/listings/items/add" className="btn btn-primary">Add an Item Listing</Link>
-                </div> */}
-                {/* </div>
-                <ListingItemGrid />
-              </Route>
-
-              <Route path={["/listings/services/add", "/listings/services/edit/:id"]}>
-                <ListingServiceForm />
-              </Route>
-              <Route path="/listings/services">
-                <div className="row">
-                  <h1 className="col-9">Service Listings</h1> */}
-                  {/* <div className="col-3">
-                  <Link to="/listings/services/add" className="btn btn-primary">Add a Service Listing</Link>
-                </div> */}
-                {/* </div>
-                <ListingServiceGrid />
-              </Route> */}
-
-              {/* <Route path="/listings">
-                <div className="row">
-                  <div className="col-3">
-                    <Link to="/listings/items" className="btn btn-primary">View Item Listings</Link>
-                  </div>
-                  <div className="col-3">
-                    <Link to="/listings/services" className="btn btn-primary">View Service Listings</Link>
-                  </div>
-                </div>
-              </Route> */}
-
               <Route path="/cart">
                 {/* { localStorage.removeItem("cartProducts") } */}
                 <ShoppingCart />
@@ -196,13 +145,6 @@ function App() {
               </Route>
               <Route path="/services">
                 <div className="row">
-                  {/* <h1 className="col-9">services</h1> */}
-                  {/* <div className="col-3">
-            <Link to="/cart" className="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
-  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-</svg><Badge bg="secondary">{localStorage.getItem("cartCount")}</Badge></Link>
-              <Link to="/services/add" className="btn btn-primary">Add a service</Link>
-            </div> */}
                 </div>
                 <ServiceGrid />
               </Route>

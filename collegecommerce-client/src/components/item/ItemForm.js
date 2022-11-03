@@ -81,7 +81,6 @@ function ItemForm() {
         evt.preventDefault();
         item.userId = user.userId;
         save(item)
-            // .then(() => history.push("/user/:username/items"))
             .then(() => history.push(`/user/${user.username}/items`))
             .catch(errs => {
                 if (errs) {
