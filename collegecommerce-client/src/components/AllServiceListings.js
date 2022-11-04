@@ -179,7 +179,7 @@ function AllServiceListings() {
             </Card>
           ))}
           {services.length === 0 && 
-          <div className="alert alert-danger">
+          <div className="col-5 float-left alert alert-danger my-4">
             <h3>No search results found</h3>
             <p>Please consider broadening search and/or changing location.</p>
           </div>}
