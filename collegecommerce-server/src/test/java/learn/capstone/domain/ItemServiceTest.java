@@ -4,7 +4,6 @@ import learn.capstone.data.ItemRepository;
 import learn.capstone.models.Item;
 import learn.capstone.models.ItemCategory;
 import learn.capstone.models.ItemCondition;
-import learn.capstone.models.Listing;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
