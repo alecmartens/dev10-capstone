@@ -1,4 +1,8 @@
 # dev10-capstone
+### Set-Up Instructions - CollegeCommerce
+- https://dashboard.stripe.com/test/apikeys : Paste secret key into application.properties. Paste public key into index.js line 11 (into loadStripe) 
+ - View customers on https://dashboard.stripe.com/test/customers
+ - View payments on https://dashboard.stripe.com/test/payments
 ### Capstone Proposal - CollegeCommerce
 ### 1. Problem Statement
 
