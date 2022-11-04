@@ -49,7 +49,7 @@ const ShoppingCart = () => {
      
 }, []);
     const [clearCart, setClearCart] = useState(false);
-  const handleClear = () => {setClearCart(false); localStorage.removeItem("cartProducts"); localStorage.removeItem("cartProductsForItems"); localStorage.removeItem("totalPrice"); localStorage.removeItem("cartCount"); }; 
+  const handleClear = () => {setClearCart(false); localStorage.removeItem("cartProducts"); localStorage.removeItem("cartProductsForItems"); localStorage.removeItem("totalPrice"); localStorage.removeItem("cartCount"); history.push("/allservicelistings"); }; 
   const handleClose = () => setClearCart(false);
   const handleShow = () => setClearCart(true);
   const history = useHistory(); 
@@ -108,7 +108,7 @@ const ShoppingCart = () => {
         }}>-</Button></td></tr>
            )}
            {arr.map(s =>  
-          {totalPrice += servicemp[s][2]*cartProds[s]; 
+          {totalPrice += servicemp[s][2]*JSON.parse(localStorage.getItem("cartProducts"))[s]; 
           })}
           
           
@@ -137,7 +137,7 @@ const ShoppingCart = () => {
         }}>-</Button></td></tr>
            )}
            {arr2.map(i =>  
-          {totalPrice += itemmp[i][2]*cartProdsItems[i]; 
+          {totalPrice += itemmp[i][2]*JSON.parse(localStorage.getItem("cartProductsForItems"))[i]; 
           })}
           
           
