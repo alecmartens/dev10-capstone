@@ -17,8 +17,6 @@ public class ServiceJdbcTemplateRepositoryTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-//    @Autowired
-//    KnownGoodState knownGoodState;
 
     @BeforeEach
     void setup() {

@@ -62,7 +62,6 @@ public class ItemService {
     //name and price cannot be null
     //there cannot be the same combination of name, price and description
     //price must be greater than 0
-    //Add an upper bound for price?? (ex.$100,000)
     private ItemResult validate(Item item) {
         ItemResult result = new ItemResult();
         if (item == null) {
@@ -88,14 +87,8 @@ public class ItemService {
             List<Item> items = findAll();//get all items
             System.out.println("Size:" + items.size());
             for (Item i: items) {//check for duplicate combos
-                //System.out.println(i.getName());
-                //System.out.println(item.getName());
-                //if(i.getItemId() != item.getItemId() &&
                 if (i.getName().equalsIgnoreCase(item.getName())  &&
                 i.getDescription().equalsIgnoreCase(item.getDescription())) {
-                    //i.getPrice().equals(item.getPrice()) &&
-
-//                    System.out.println("found");
                     result.addErrorMessage("Cannot have a duplicate item. (name and description must be unique)", ResultType.INVALID);
                 }
             }
@@ -122,22 +115,6 @@ public class ItemService {
         else if (item.getPrice().doubleValue() <= 0) {
             result.addErrorMessage("Price must be greater than 0.", ResultType.INVALID);
         }
-//        if(result.isSuccess()) {
-//            List<Item> items = findAll();//get all items
-//            System.out.println("Size:" + items.size());
-//            for (Item i: items) {//check for duplicate combos
-//                //System.out.println(i.getName());
-//                //System.out.println(item.getName());
-//                //if(i.getItemId() != item.getItemId() &&
-//                if (i.getName().equalsIgnoreCase(item.getName())  &&
-//                        i.getDescription().equalsIgnoreCase(item.getDescription())) {
-//                    //i.getPrice().equals(item.getPrice()) &&
-//
-////                    System.out.println("found");
-//                    result.addErrorMessage("Cannot have a duplicate item. (name and description must be unique)", ResultType.INVALID);
-//                }
-//            }
-//        }
 
         return result;
     }

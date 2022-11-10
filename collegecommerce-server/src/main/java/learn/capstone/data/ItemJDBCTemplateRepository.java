@@ -29,11 +29,9 @@ public class ItemJDBCTemplateRepository implements ItemRepository {
         item.setName(resultSet.getString("name"));
         item.setPrice(resultSet.getBigDecimal("price"));
         item.setDescription(resultSet.getString("description"));
-//        item.setItemCondition(resultSet.getString("item_condition"));
         ItemCondition condition = ItemCondition.valueOf(resultSet.getString("item_condition"));
         item.setItemCondition(condition);
         item.setItemSold(resultSet.getBoolean("item_sold"));
-//        item.setCategory(resultSet.getString("category"));
         ItemCategory category = ItemCategory.valueOf(resultSet.getString("category"));
         item.setItemCategory(category);
         item.setImageUrl(resultSet.getString("image_url"));

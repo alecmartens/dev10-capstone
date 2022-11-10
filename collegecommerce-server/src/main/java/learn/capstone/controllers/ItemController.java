@@ -48,11 +48,6 @@ public class ItemController {
         System.out.println("Passed Item ID: " + item.getItemId());
         System.out.println("Passed Item Name: " + item.getName());
 
-//        if (itemId != item.getItemId()) {
-//            System.out.println("409 error when attempting to update");
-//            return new ResponseEntity<>(HttpStatus.CONFLICT); // 409
-//        }
-
         ItemResult result = service.update(item);
         if (!result.isSuccess()) {
             if (result.getResultType() == ResultType.NOT_FOUND) {

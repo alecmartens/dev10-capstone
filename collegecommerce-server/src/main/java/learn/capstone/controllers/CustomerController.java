@@ -22,7 +22,7 @@ import java.util.Map;
 public class CustomerController {
     @Value("${stripe.apikey}")
     String stripeKey;
-    //TODO update customer
+
     @GetMapping("/")
     public List<Customer2> findAll() throws StripeException{
         Stripe.apiKey = stripeKey;

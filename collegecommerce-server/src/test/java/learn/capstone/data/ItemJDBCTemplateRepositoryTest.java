@@ -22,9 +22,6 @@ class ItemJDBCTemplateRepositoryTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-//    @Autowired
-//    KnownGoodState knownGoodState;
-
     @BeforeEach
     void setUp() {
         jdbcTemplate.update("call set_known_good_state();");
